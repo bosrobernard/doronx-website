@@ -1,0 +1,3969 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DoronX — The Future of Finance</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@400;500;600;700&family=Space+Mono:wght@400;700&family=Instrument+Serif:ital@0;1&display=swap"
+        rel="stylesheet">
+    <!-- Remix Icons 4.9.0 -->
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.9.0/fonts/remixicon.css" rel="stylesheet" />
+    <!-- GSAP + ScrollTrigger -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+
+    <style>
+        /* ════════════════════════════════════════
+   RESET & TOKENS
+   ════════════════════════════════════════ */
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        :root {
+            --orange: #F7931A;
+            --orange-warm: #FF7A1A;
+            --orange-deep: #E8541A;
+            --orange-soft: rgba(247, 147, 26, 0.12);
+            --orange-border: rgba(247, 147, 26, 0.25);
+            --white: #FFFFFF;
+            --black: #070707;
+            --dark: #0D0D0D;
+            --dark2: #131313;
+            --card: #141414;
+            --card2: #1A1A1A;
+            --border: rgba(255, 255, 255, 0.06);
+            --border-h: rgba(255, 255, 255, 0.12);
+            --gray: rgba(255, 255, 255, 0.55);
+            --gray2: rgba(255, 255, 255, 0.30);
+            --green: #22C55E;
+            --red: #EF4444;
+            --blue: #3884FF;
+            --purple: #A855F7;
+            --cyan: #38BDF8;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background: var(--black);
+            color: var(--white);
+            font-family: 'DM Sans', -apple-system, sans-serif;
+            overflow-x: hidden;
+            min-width: 320px;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* grain */
+        body::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: 9999;
+            opacity: 0.03;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+        }
+
+        /* ════════════════════════════════════════
+   NAV
+   ════════════════════════════════════════ */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 200;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 clamp(16px, 3vw, 36px);
+            height: 64px;
+            background: rgba(7, 7, 7, 0.82);
+            backdrop-filter: blur(24px) saturate(160%);
+            -webkit-backdrop-filter: blur(24px) saturate(160%);
+            border-bottom: 1px solid var(--border);
+            transition: background .3s;
+        }
+
+        nav.scrolled {
+            background: rgba(7, 7, 7, 0.97);
+        }
+
+        /* LOGO — replace "DoronX" text with your logo image.
+   Add: <img src="YOUR_LOGO.png" alt="DoronX" class="logo-img"> inside .nav-logo
+   and remove the span.logo-text element.
+   The logo-mark placeholder below will also go away once you add your real logo. */
+        .nav-logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+        }
+
+        .logo-mark {
+            /* width: 32px;
+            height: 32px;
+            border-radius: 9px; */
+            /* background: linear-gradient(135deg, var(--orange), var(--orange-deep)); */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 15px;
+            /* color: #fff; */
+            /* font-weight: 700; */
+            position: relative;
+            /* box-shadow: 0 0 24px rgba(247, 147, 26, 0.4); */
+            flex-shrink: 0;
+        }
+
+        .logo-mark::after {
+            content: '';
+            position: absolute;
+            inset: 1.5px;
+            border-radius: 8px;
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.22), transparent);
+            pointer-events: none;
+        }
+
+        .logo-mark span {
+            position: relative;
+            z-index: 1;
+        }
+
+        /* If you have a logo image: */
+        .logo-img {
+            height: 32px;
+            width: auto;
+            display: block;
+        }
+
+        .logo-text {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 22px;
+            letter-spacing: 0.05em;
+            line-height: 1;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 2px;
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid var(--border);
+            border-radius: 999px;
+            padding: 4px;
+        }
+
+        .nav-links a {
+            padding: 7px 18px;
+            border-radius: 999px;
+            font-size: 13px;
+            color: var(--gray);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color .25s, background .25s;
+        }
+
+        .nav-links a:hover {
+            color: var(--white);
+        }
+
+        .nav-links a.active {
+            background: rgba(255, 255, 255, 0.08);
+            color: var(--white);
+        }
+
+        .nav-cta {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .btn-ghost {
+            padding: 9px 18px;
+            background: transparent;
+            border: 1px solid var(--border);
+            border-radius: 999px;
+            color: var(--white);
+            font-size: 13px;
+            font-family: inherit;
+            font-weight: 500;
+            cursor: pointer;
+            transition: border-color .25s, background .25s;
+        }
+
+        .btn-ghost:hover {
+            border-color: var(--orange-border);
+            background: var(--orange-soft);
+        }
+
+        .btn-solid {
+            padding: 9px 20px;
+            background: var(--orange);
+            border: none;
+            border-radius: 999px;
+            color: #0a0a0a;
+            font-family: inherit;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background .2s, transform .15s, box-shadow .25s;
+        }
+
+        .btn-solid:hover {
+            background: var(--orange-warm);
+            transform: translateY(-1px);
+            box-shadow: 0 8px 28px rgba(247, 147, 26, 0.45);
+        }
+
+        /* Hamburger */
+        .nav-burger {
+            display: none;
+            width: 38px;
+            height: 38px;
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            background: rgba(255, 255, 255, 0.03);
+            color: var(--white);
+            cursor: pointer;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            gap: 5px;
+            transition: border-color .2s, background .2s;
+            flex-shrink: 0;
+        }
+
+        .nav-burger:hover {
+            border-color: var(--orange-border);
+            background: var(--orange-soft);
+        }
+
+        .burger-bar {
+            display: block;
+            width: 18px;
+            height: 2px;
+            background: var(--white);
+            border-radius: 2px;
+            transition: transform .35s cubic-bezier(.77, 0, .175, 1), opacity .2s, width .3s;
+            transform-origin: center;
+        }
+
+        /* Mobile menu overlay */
+        .mobile-menu {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            z-index: 190;
+            background: rgba(7, 7, 7, 0.0);
+            backdrop-filter: blur(0px);
+            -webkit-backdrop-filter: blur(0px);
+            pointer-events: none;
+            transition: background .4s, backdrop-filter .4s;
+        }
+
+        .mobile-menu.open {
+            background: rgba(7, 7, 7, 0.96);
+            backdrop-filter: blur(32px) saturate(160%);
+            -webkit-backdrop-filter: blur(32px) saturate(160%);
+            pointer-events: all;
+        }
+
+        .mobile-menu-inner {
+            position: absolute;
+            top: 64px;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 40px 24px;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity .4s .1s, transform .4s .1s cubic-bezier(.2, .8, .2, 1);
+        }
+
+        .mobile-menu.open .mobile-menu-inner {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .mobile-nav-links {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 6px;
+            width: 100%;
+            margin-bottom: 32px;
+        }
+
+        .mobile-nav-links a {
+            display: block;
+            width: 100%;
+            max-width: 340px;
+            padding: 16px 24px;
+            border-radius: 14px;
+            font-size: 20px;
+            font-family: 'Bebas Neue', sans-serif;
+            letter-spacing: 0.05em;
+            color: var(--white);
+            text-decoration: none;
+            text-align: center;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--border);
+            transition: background .2s, border-color .2s, color .2s, transform .2s;
+            /* stagger via JS */
+            opacity: 0;
+            transform: translateX(-20px);
+        }
+
+        .mobile-menu.open .mobile-nav-links a {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .mobile-menu.open .mobile-nav-links a:nth-child(1) {
+            transition: all .35s .18s cubic-bezier(.2, .8, .2, 1);
+        }
+
+        .mobile-menu.open .mobile-nav-links a:nth-child(2) {
+            transition: all .35s .24s cubic-bezier(.2, .8, .2, 1);
+        }
+
+        .mobile-menu.open .mobile-nav-links a:nth-child(3) {
+            transition: all .35s .30s cubic-bezier(.2, .8, .2, 1);
+        }
+
+        .mobile-menu.open .mobile-nav-links a:nth-child(4) {
+            transition: all .35s .36s cubic-bezier(.2, .8, .2, 1);
+        }
+
+        .mobile-menu.open .mobile-nav-links a:nth-child(5) {
+            transition: all .35s .42s cubic-bezier(.2, .8, .2, 1);
+        }
+
+        .mobile-nav-links a:hover {
+            background: var(--orange-soft);
+            border-color: var(--orange-border);
+            color: var(--orange);
+            transform: scale(1.02);
+        }
+
+        .mobile-nav-links a.active {
+            color: var(--orange);
+            border-color: var(--orange-border);
+        }
+
+        .mobile-menu-ctas {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            width: 100%;
+            max-width: 340px;
+            opacity: 0;
+            transform: translateY(12px);
+            transition: opacity .35s .52s, transform .35s .52s cubic-bezier(.2, .8, .2, 1);
+        }
+
+        .mobile-menu.open .mobile-menu-ctas {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .mobile-menu-ctas .btn-ghost,
+        .mobile-menu-ctas .btn-solid {
+            width: 100%;
+            padding: 14px;
+            font-size: 15px;
+            text-align: center;
+            border-radius: 14px;
+        }
+
+        /* Hamburger → X animation */
+        .nav-burger.active .burger-bar:nth-child(1) {
+            transform: translateY(7px) rotate(45deg);
+        }
+
+        .nav-burger.active .burger-bar:nth-child(2) {
+            opacity: 0;
+            width: 0;
+        }
+
+        .nav-burger.active .burger-bar:nth-child(3) {
+            transform: translateY(-7px) rotate(-45deg);
+        }
+
+        /* ════════════════════════════════════════
+   HERO
+   ════════════════════════════════════════ */
+        .hero {
+            position: relative;
+            min-height: 100vh;
+            padding-top: 64px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .hero-orb {
+            position: absolute;
+            top: 55%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: min(920px, 95vw);
+            height: min(920px, 95vw);
+            border-radius: 50%;
+            background: radial-gradient(ellipse at center,
+                    rgba(247, 147, 26, 0.55) 0%,
+                    rgba(232, 84, 26, 0.35) 20%,
+                    rgba(120, 30, 0, 0.32) 45%,
+                    transparent 72%);
+            filter: blur(64px);
+            pointer-events: none;
+            z-index: 0;
+            animation: orbPulse 8s ease-in-out infinite;
+            will-change: transform, opacity;
+        }
+
+        @keyframes orbPulse {
+
+            0%,
+            100% {
+                opacity: 0.9;
+                transform: translate(-50%, -50%) scale(1);
+            }
+
+            50% {
+                opacity: 1;
+                transform: translate(-50%, -50%) scale(1.07);
+            }
+        }
+
+        .hero-grid-bg {
+            position: absolute;
+            inset: 0;
+            z-index: 0;
+            background-image:
+                linear-gradient(rgba(255, 255, 255, 0.022) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 255, 255, 0.022) 1px, transparent 1px);
+            background-size: 80px 80px;
+            mask-image: radial-gradient(ellipse at center, black 20%, transparent 76%);
+            -webkit-mask-image: radial-gradient(ellipse at center, black 20%, transparent 76%);
+            pointer-events: none;
+        }
+
+        .hero-bg-fade {
+            position: absolute;
+            inset: 0;
+            z-index: 1;
+            background: linear-gradient(180deg, transparent 58%, rgba(7, 7, 7, 0.8) 85%, var(--black) 100%);
+            pointer-events: none;
+        }
+
+        /* Floating pills */
+        .hero-floats {
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+            z-index: 2;
+        }
+
+        .float-pill {
+            position: absolute;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(20, 20, 20, 0.72);
+            border: 1px solid var(--border);
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
+            border-radius: 999px;
+            padding: 7px 14px 7px 7px;
+            font-size: 12px;
+            color: var(--white);
+            font-weight: 500;
+            box-shadow: 0 8px 28px rgba(0, 0, 0, 0.4);
+            white-space: nowrap;
+        }
+
+        .fp-dot {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            overflow: hidden;
+        }
+
+        /* IMAGE PLACEHOLDERS for BTC, USDT, MoMo, GHS
+   Replace the background-color fallback with your actual img tags inside .fp-dot:
+   <div class="fp-dot"><img src="btc.png" alt="BTC" style="width:100%;height:100%;object-fit:cover;border-radius:50%"></div>
+*/
+        .fp-dot.btc {
+            background: #000000;
+            color: #fff;
+            font-weight: 700;
+            font-size: 12px;
+        }
+
+        .fp-dot.usdt {
+            background: #000000;
+            color: #fff;
+            font-weight: 700;
+            font-size: 11px;
+        }
+
+        .fp-dot.momo {
+            background: #FFC107;
+            color: #000;
+            font-weight: 700;
+            font-size: 10px;
+        }
+
+        .fp-dot.ghs {
+            background: var(--red);
+            color: #fff;
+            font-weight: 700;
+            font-size: 12px;
+        }
+
+        .fp-check {
+            color: var(--green);
+            font-size: 15px;
+        }
+
+        .fp-1 {
+            top: 20%;
+            left: 6%;
+        }
+
+        .fp-2 {
+            top: 36%;
+            left: 3%;
+        }
+
+        .fp-3 {
+            top: 22%;
+            right: 6%;
+        }
+
+        .fp-4 {
+            top: 38%;
+            right: 3%;
+        }
+
+        .hero-inner {
+            position: relative;
+            z-index: 3;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 90px clamp(16px, 4vw, 40px) 40px;
+            text-align: center;
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 6px 14px 6px 6px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--border);
+            border-radius: 999px;
+            font-size: 12px;
+            color: var(--gray);
+            margin-bottom: 26px;
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+        }
+
+        .hero-badge-tag {
+            padding: 2px 8px;
+            border-radius: 999px;
+            background: var(--orange-soft);
+            border: 1px solid var(--orange-border);
+            color: var(--orange);
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+        }
+
+        .hero-headline {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: clamp(46px, 8.5vw, 118px);
+            line-height: 0.92;
+            letter-spacing: -0.01em;
+            margin-bottom: 22px;
+            max-width: 1020px;
+            will-change: transform, opacity;
+        }
+
+        .hero-headline em {
+            font-family: 'Instrument Serif', serif;
+            font-style: italic;
+            font-weight: 400;
+            background: linear-gradient(120deg, var(--orange) 0%, var(--orange-warm) 50%, var(--orange-deep) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            display: inline-block;
+        }
+
+        .hero-sub {
+            font-size: clamp(14px, 1.4vw, 16px);
+            color: var(--gray);
+            line-height: 1.65;
+            max-width: 545px;
+            margin: 0 auto 34px;
+        }
+
+        .hero-ctas {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-bottom: 44px;
+        }
+
+        .btn-primary {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 13px 18px 13px 24px;
+            background: var(--orange);
+            border: none;
+            border-radius: 999px;
+            color: #0a0a0a;
+            font-family: inherit;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background .2s, transform .15s, box-shadow .25s;
+            box-shadow: 0 8px 28px rgba(247, 147, 26, 0.28);
+        }
+
+        .btn-primary:hover {
+            background: var(--orange-warm);
+            transform: translateY(-2px);
+            box-shadow: 0 14px 40px rgba(247, 147, 26, 0.48);
+        }
+
+        .btn-arrow {
+            width: 26px;
+            height: 26px;
+            border-radius: 50%;
+            background: rgba(0, 0, 0, 0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: transform .2s;
+        }
+
+        .btn-primary:hover .btn-arrow {
+            transform: translateX(3px);
+        }
+
+        .btn-outline {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 13px 24px;
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid var(--border);
+            border-radius: 999px;
+            color: var(--white);
+            font-family: inherit;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: background .2s, border-color .2s;
+        }
+
+        .btn-outline:hover {
+            background: rgba(255, 255, 255, 0.07);
+            border-color: var(--orange-border);
+        }
+
+        .hero-trust {
+            display: flex;
+            align-items: center;
+            gap: 24px;
+            font-size: 12px;
+            color: var(--gray);
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-bottom: 44px;
+        }
+
+        .hero-trust strong {
+            color: var(--white);
+            font-family: 'Space Mono', monospace;
+        }
+
+        .hero-trust-sep {
+            width: 4px;
+            height: 4px;
+            border-radius: 50%;
+            background: var(--gray2);
+            flex-shrink: 0;
+        }
+
+        /* Dashboard Preview */
+        .preview-wrap {
+            position: relative;
+            z-index: 4;
+            width: 100%;
+            max-width: 1090px;
+            margin: 0 auto;
+            padding: 0 clamp(12px, 3vw, 24px);
+            display: grid;
+            grid-template-columns: 1fr 1.5fr 1fr;
+            gap: 14px;
+            will-change: transform, opacity;
+        }
+
+        .preview-card {
+            background: linear-gradient(180deg, rgba(24, 24, 24, 0.92), rgba(14, 14, 14, 0.92));
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            overflow: hidden;
+            box-shadow: 0 28px 72px rgba(0, 0, 0, 0.6);
+            position: relative;
+        }
+
+        .preview-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.09), transparent);
+        }
+
+        .pc-head {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 14px 16px 10px;
+        }
+
+        .pc-head h5 {
+            font-size: 12px;
+            font-weight: 600;
+            letter-spacing: 0.02em;
+        }
+
+        .pc-see {
+            font-size: 10px;
+            color: var(--orange);
+            cursor: pointer;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+        }
+
+        /* Markets */
+        .mkt-row {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 16px;
+            transition: background .2s;
+        }
+
+        .mkt-row:hover {
+            background: rgba(255, 255, 255, 0.025);
+        }
+
+        .mkt-icon {
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            flex-shrink: 0;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 11px;
+            font-weight: 700;
+            color: #fff;
+        }
+
+        /* BTC / USDT / DORX image placeholders in markets card:
+   Replace .mkt-icon background with <img> inside them.
+   E.g.: <div class="mkt-icon"><img src="btc.png" style="width:100%;height:100%;object-fit:cover;border-radius:50%"></div>
+*/
+        .mkt-info {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .mkt-info .name {
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .mkt-info .chg {
+            font-size: 10px;
+            color: var(--green);
+        }
+
+        .mkt-info .chg.down {
+            color: var(--red);
+        }
+
+        .mkt-right {
+            text-align: right;
+        }
+
+        .mkt-right .price {
+            font-size: 12px;
+            font-weight: 600;
+            font-family: 'Space Mono', monospace;
+        }
+
+        .mkt-right .val {
+            font-size: 10px;
+            color: var(--gray2);
+        }
+
+        /* Balance card */
+        .pc-tabs {
+            display: flex;
+            gap: 2px;
+            padding: 10px 12px 0;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .pc-tab {
+            padding: 6px 11px;
+            border-radius: 6px 6px 0 0;
+            font-size: 11px;
+            color: var(--gray);
+            cursor: pointer;
+            font-weight: 500;
+            transition: color .2s;
+        }
+
+        .pc-tab:hover {
+            color: var(--white);
+        }
+
+        .pc-tab.active {
+            background: rgba(247, 147, 26, 0.1);
+            color: var(--orange);
+            border-bottom: 1px solid var(--orange);
+            margin-bottom: -1px;
+        }
+
+        .pc-balance-body {
+            padding: 18px 16px 6px;
+        }
+
+        .bal-label {
+            font-size: 10px;
+            color: var(--gray2);
+            margin-bottom: 6px;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+        }
+
+        .bal-amount {
+            font-family: 'Space Mono', monospace;
+            font-size: 28px;
+            font-weight: 700;
+            letter-spacing: -0.01em;
+        }
+
+        .bal-row {
+            display: flex;
+            align-items: baseline;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .bal-usd {
+            font-size: 11px;
+            color: var(--gray2);
+        }
+
+        .bal-change {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            font-size: 11px;
+            color: var(--green);
+            background: rgba(34, 197, 94, 0.12);
+            padding: 2px 8px;
+            border-radius: 999px;
+            font-weight: 600;
+        }
+
+        .chart-area {
+            height: 100px;
+            position: relative;
+            padding: 0 16px 10px;
+        }
+
+        .chart-area svg {
+            width: 100%;
+            height: 100%;
+            overflow: visible;
+        }
+
+        .chart-timeline {
+            display: flex;
+            gap: 5px;
+            padding: 8px 16px 14px;
+            font-size: 10px;
+            color: var(--gray2);
+            flex-wrap: wrap;
+        }
+
+        .chart-timeline span {
+            padding: 3px 10px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background .2s, color .2s;
+        }
+
+        .chart-timeline span:hover {
+            background: rgba(255, 255, 255, 0.04);
+            color: var(--white);
+        }
+
+        .chart-timeline span.active {
+            background: var(--orange-soft);
+            color: var(--orange);
+            font-weight: 600;
+        }
+
+        /* Quick actions */
+        .pc-qa-body {
+            padding: 6px 14px 14px;
+        }
+
+        .qa-row {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 9px 0;
+            border-bottom: 1px solid var(--border);
+            font-size: 12px;
+        }
+
+        .qa-row:last-child {
+            border-bottom: none;
+        }
+
+        .qa-icon {
+            width: 30px;
+            height: 30px;
+            border-radius: 9px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+            flex-shrink: 0;
+        }
+
+        .qa-icon.buy {
+            background: rgba(247, 147, 26, 0.14);
+            color: var(--orange);
+        }
+
+        .qa-icon.vault {
+            background: rgba(34, 197, 94, 0.12);
+            color: var(--green);
+        }
+
+        .qa-icon.swap {
+            background: rgba(56, 132, 255, 0.12);
+            color: var(--blue);
+        }
+
+        .qa-icon.card {
+            background: rgba(168, 85, 247, 0.14);
+            color: var(--purple);
+        }
+
+        .qa-icon.game {
+            background: rgba(239, 68, 68, 0.14);
+            color: var(--red);
+        }
+
+        .qa-info {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .qa-name {
+            font-size: 11px;
+            font-weight: 600;
+        }
+
+        .qa-sub {
+            font-size: 9px;
+            color: var(--gray2);
+            margin-top: 1px;
+        }
+
+        .qa-arrow {
+            color: var(--gray2);
+            font-size: 14px;
+        }
+
+        /* ════════════════════════════════════════
+   MARQUEE
+   ════════════════════════════════════════ */
+        .marquee-section {
+            padding: 36px 0 28px;
+            border-top: 1px solid var(--border);
+            border-bottom: 1px solid var(--border);
+            background: var(--dark);
+            overflow: hidden;
+        }
+
+        .marquee-label {
+            text-align: center;
+            font-size: 11px;
+            color: var(--gray2);
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            margin-bottom: 22px;
+        }
+
+        .marquee-label strong {
+            color: var(--orange);
+        }
+
+        .marquee {
+            display: flex;
+            overflow: hidden;
+            mask-image: linear-gradient(90deg, transparent, black 12%, black 88%, transparent);
+            -webkit-mask-image: linear-gradient(90deg, transparent, black 12%, black 88%, transparent);
+        }
+
+        .marquee-track {
+            display: flex;
+            gap: 48px;
+            animation: marqueeAnim 38s linear infinite;
+            flex-shrink: 0;
+            padding-right: 48px;
+            will-change: transform;
+        }
+
+        @keyframes marqueeAnim {
+            from {
+                transform: translateX(0);
+            }
+
+            to {
+                transform: translateX(-50%);
+            }
+        }
+
+        .m-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 14px;
+            color: rgba(255, 255, 255, 0.4);
+            font-weight: 600;
+            white-space: nowrap;
+            font-family: 'Bebas Neue', sans-serif;
+            letter-spacing: 0.05em;
+        }
+
+        /* ════════════════════════════════════════
+   SECTION SHARED
+   ════════════════════════════════════════ */
+        .section {
+            padding: clamp(60px, 10vw, 120px) clamp(16px, 4vw, 40px);
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .eyebrow {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 6px 12px;
+            background: var(--orange-soft);
+            border: 1px solid var(--orange-border);
+            border-radius: 999px;
+            font-size: 11px;
+            color: var(--orange);
+            font-weight: 600;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            margin-bottom: 20px;
+        }
+
+        .eyebrow-dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: var(--orange);
+            box-shadow: 0 0 8px var(--orange);
+            animation: pulseDot 2s ease-in-out infinite;
+        }
+
+        @keyframes pulseDot {
+
+            0%,
+            100% {
+                opacity: 1
+            }
+
+            50% {
+                opacity: 0.35
+            }
+        }
+
+        .section-title {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: clamp(34px, 5.5vw, 72px);
+            line-height: 0.95;
+            letter-spacing: -0.01em;
+            max-width: 900px;
+        }
+
+        .section-title em {
+            font-family: 'Instrument Serif', serif;
+            font-style: italic;
+            font-weight: 400;
+            color: var(--orange);
+        }
+
+        .section-head {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            gap: 24px;
+            margin-bottom: 48px;
+            flex-wrap: wrap;
+        }
+
+        .section-sub {
+            font-size: 14px;
+            color: var(--gray);
+            line-height: 1.6;
+            max-width: 380px;
+        }
+
+        /* ════════════════════════════════════════
+   FEATURES GRID
+   ════════════════════════════════════════ */
+        .feat-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+        }
+
+        .feat-card {
+            background: linear-gradient(180deg, var(--card2), var(--card));
+            border: 1px solid var(--border);
+            border-radius: 24px;
+            overflow: hidden;
+            position: relative;
+            transition: border-color .3s;
+            will-change: transform, opacity;
+        }
+
+        .feat-card:hover {
+            border-color: var(--border-h);
+        }
+
+        .fc-top {
+            grid-column: 1/-1;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            min-height: 280px;
+        }
+
+        .fc-text {
+            padding: clamp(24px, 3vw, 40px);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .fc-kicker {
+            font-size: 11px;
+            color: var(--orange);
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            margin-bottom: 14px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .fc-kicker i {
+            font-size: 14px;
+        }
+
+        .fc-text h3 {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: clamp(26px, 3vw, 40px);
+            line-height: 1;
+            margin-bottom: 14px;
+            letter-spacing: -0.01em;
+        }
+
+        .fc-text h3 em {
+            font-family: 'Instrument Serif', serif;
+            font-style: italic;
+            font-weight: 400;
+            color: var(--orange);
+        }
+
+        .fc-text p {
+            font-size: 13px;
+            color: var(--gray);
+            line-height: 1.6;
+            margin-bottom: 24px;
+        }
+
+        .fc-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            color: var(--orange);
+            font-size: 13px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: gap .2s;
+            width: fit-content;
+        }
+
+        .fc-link:hover {
+            gap: 14px;
+        }
+
+        .fc-link-arrow {
+            width: 26px;
+            height: 26px;
+            border-radius: 50%;
+            background: var(--orange);
+            color: #0a0a0a;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 13px;
+        }
+
+        .fc-visual {
+            position: relative;
+            background: radial-gradient(ellipse at 30% 20%, rgba(247, 147, 26, 0.22), transparent 60%),
+                linear-gradient(135deg, #1a0c02 0%, #2a1600 100%);
+            overflow: hidden;
+            display: flex;
+            align-items: flex-end;
+        }
+
+        .fc-chart {
+            width: 100%;
+            position: relative;
+        }
+
+        .fc-chart svg {
+            width: 100%;
+            height: 180px;
+            display: block;
+        }
+
+        .fc-chart-pill {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            background: rgba(0, 0, 0, 0.64);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 8px 14px;
+            font-size: 11px;
+            backdrop-filter: blur(8px);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .fc-chart-pill .val {
+            color: var(--green);
+            font-weight: 600;
+            font-family: 'Space Mono', monospace;
+        }
+
+        .fc-chart-float {
+            position: absolute;
+            top: 24px;
+            left: 24px;
+            background: rgba(20, 20, 20, 0.78);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 10px 14px;
+            backdrop-filter: blur(12px);
+        }
+
+        .fc-chart-float .lbl {
+            font-size: 9px;
+            color: var(--gray2);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+
+        .fc-chart-float .amt {
+            font-family: 'Space Mono', monospace;
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--orange);
+            margin-top: 3px;
+        }
+
+        .fc-small {
+            padding: clamp(22px, 2.5vw, 32px);
+            min-height: 320px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .fc-small h4 {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 26px;
+            font-weight: 400;
+            letter-spacing: -0.01em;
+            margin-bottom: 10px;
+            line-height: 1;
+        }
+
+        .fc-small>p {
+            font-size: 13px;
+            color: var(--gray);
+            line-height: 1.55;
+            margin-bottom: 22px;
+        }
+
+        .txn-list {
+            margin-top: auto;
+            background: rgba(0, 0, 0, 0.25);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 8px 14px;
+        }
+
+        .txn-row {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 0;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .txn-row:last-child {
+            border-bottom: none;
+        }
+
+        .txn-avatar {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            font-weight: 700;
+            color: #fff;
+        }
+
+        .txn-info {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .txn-name {
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .txn-date {
+            font-size: 10px;
+            color: var(--gray2);
+            margin-top: 1px;
+        }
+
+        .txn-amount {
+            font-size: 12px;
+            font-weight: 700;
+            font-family: 'Space Mono', monospace;
+        }
+
+        .txn-amount.green {
+            color: var(--green);
+        }
+
+        .txn-amount.red {
+            color: var(--red);
+        }
+
+        .txn-amount.orange {
+            color: var(--orange);
+        }
+
+        .sec-visual {
+            margin-top: auto;
+            height: 140px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        .sec-shield {
+            width: 84px;
+            height: 84px;
+            border-radius: 50%;
+            background: radial-gradient(circle at 40% 40%, #2a1a04, #1a0a00);
+            border: 1px solid var(--orange-border);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            z-index: 2;
+            box-shadow: 0 0 40px rgba(247, 147, 26, 0.28);
+        }
+
+        .sec-shield i {
+            font-size: 32px;
+            color: var(--orange);
+        }
+
+        .sec-ring {
+            position: absolute;
+            border-radius: 50%;
+            border: 1px dashed rgba(247, 147, 26, 0.22);
+            pointer-events: none;
+        }
+
+        .sec-ring.r1 {
+            width: 118px;
+            height: 118px;
+            animation: rotate 18s linear infinite;
+        }
+
+        .sec-ring.r2 {
+            width: 152px;
+            height: 152px;
+            animation: rotate 28s linear reverse infinite;
+            border-color: rgba(247, 147, 26, 0.14);
+        }
+
+        .sec-ring.r3 {
+            width: 186px;
+            height: 186px;
+            animation: rotate 38s linear infinite;
+            border-color: rgba(247, 147, 26, 0.07);
+        }
+
+        .sec-ring .dot {
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--orange);
+            box-shadow: 0 0 12px var(--orange);
+            top: 50%;
+            left: -4px;
+            transform: translateY(-50%);
+        }
+
+        .sec-ring.r2 .dot {
+            background: var(--orange-warm);
+            box-shadow: 0 0 10px var(--orange-warm);
+        }
+
+        .sec-ring.r3 .dot {
+            background: rgba(247, 147, 26, 0.45);
+            box-shadow: 0 0 7px rgba(247, 147, 26, 0.3);
+        }
+
+        @keyframes rotate {
+            from {
+                transform: rotate(0deg)
+            }
+
+            to {
+                transform: rotate(360deg)
+            }
+        }
+
+        /* ════════════════════════════════════════
+   GIANT STATS
+   ════════════════════════════════════════ */
+        .giant-section {
+            position: relative;
+            padding: clamp(80px, 12vw, 140px) clamp(16px, 4vw, 40px);
+            overflow: hidden;
+            background: var(--black);
+            border-top: 1px solid var(--border);
+        }
+
+        .giant-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 1100px;
+            height: 500px;
+            background: radial-gradient(ellipse at center top, rgba(247, 147, 26, 0.22), transparent 60%);
+            pointer-events: none;
+            filter: blur(40px);
+        }
+
+        .giant-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 2;
+            text-align: center;
+        }
+
+        .giant-text {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: clamp(80px, 16vw, 220px);
+            line-height: 0.85;
+            letter-spacing: -0.02em;
+            margin-bottom: 40px;
+            position: relative;
+        }
+
+        .giant-text .line1 {
+            display: block;
+            color: var(--white);
+        }
+
+        .giant-text .line2 {
+            display: block;
+            font-family: 'Instrument Serif', serif;
+            font-style: italic;
+            font-weight: 400;
+            background: linear-gradient(120deg, var(--orange), var(--orange-warm), var(--orange-deep));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            letter-spacing: -0.04em;
+        }
+
+        .giant-year-tag {
+            font-size: 11px;
+            color: var(--gray2);
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            margin-bottom: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+        }
+
+        .giant-year-tag::before,
+        .giant-year-tag::after {
+            content: '';
+            width: 40px;
+            height: 1px;
+            background: var(--gray2);
+        }
+
+        .stats-card {
+            border: 1px solid var(--border);
+            background: linear-gradient(180deg, rgba(20, 20, 20, 0.82), rgba(10, 10, 10, 0.82));
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
+            border-radius: 28px;
+            padding: clamp(28px, 4vw, 48px);
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        .stats-top {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            gap: 32px;
+            margin-bottom: 48px;
+            flex-wrap: wrap;
+        }
+
+        .stats-meta {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            min-width: 200px;
+        }
+
+        .stats-meta-top {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 12px;
+            color: var(--gray);
+        }
+
+        .stats-hub-icon {
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            border: 1px solid var(--border);
+            background: var(--orange-soft);
+            color: var(--orange);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 15px;
+        }
+
+        .stats-socials {
+            display: flex;
+            gap: 6px;
+        }
+
+        .stats-social {
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 13px;
+            color: var(--white);
+            cursor: pointer;
+            transition: background .2s, border-color .2s;
+        }
+
+        .stats-social:hover {
+            background: var(--orange-soft);
+            border-color: var(--orange-border);
+        }
+
+        .stats-social.primary {
+            background: var(--orange);
+            color: #0a0a0a;
+            border: none;
+        }
+
+        .stats-tagline {
+            flex: 1;
+            font-size: clamp(18px, 2.4vw, 26px);
+            font-weight: 500;
+            line-height: 1.35;
+            max-width: 620px;
+            letter-spacing: -0.01em;
+        }
+
+        .stats-tagline em {
+            font-family: 'Instrument Serif', serif;
+            font-style: italic;
+            font-weight: 400;
+            color: var(--orange);
+        }
+
+        .stats-numbers {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 0;
+        }
+
+        .stat-item {
+            padding: 28px 24px 20px;
+            border-top: 1px solid var(--border);
+            position: relative;
+        }
+
+        .stat-item+.stat-item {
+            border-left: 1px solid var(--border);
+        }
+
+        .stat-num {
+            font-family: 'Space Mono', monospace;
+            font-size: clamp(32px, 4.5vw, 56px);
+            color: var(--white);
+            line-height: 1;
+            margin-bottom: 10px;
+            letter-spacing: -0.02em;
+            font-weight: 700;
+        }
+
+        .stat-num .plus {
+            color: var(--orange);
+        }
+
+        .stat-label {
+            font-size: 11px;
+            color: var(--gray);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            font-weight: 500;
+        }
+
+        .stat-dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: var(--orange);
+            flex-shrink: 0;
+            box-shadow: 0 0 8px var(--orange);
+        }
+
+        .stat-bar {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: rgba(255, 255, 255, 0.04);
+        }
+
+        .stat-bar-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--orange), var(--orange-warm));
+            width: 0;
+            transition: width 1.9s cubic-bezier(0.2, 0.8, 0.2, 1);
+        }
+
+        .stats-numbers.in-view .stat-item:nth-child(1) .stat-bar-fill {
+            width: 72%;
+        }
+
+        .stats-numbers.in-view .stat-item:nth-child(2) .stat-bar-fill {
+            width: 88%;
+        }
+
+        .stats-numbers.in-view .stat-item:nth-child(3) .stat-bar-fill {
+            width: 65%;
+        }
+
+        .stats-numbers.in-view .stat-item:nth-child(4) .stat-bar-fill {
+            width: 95%;
+        }
+
+        /* ════════════════════════════════════════
+   BENTO GRID
+   ════════════════════════════════════════ */
+        .bento-section {
+            padding: clamp(60px, 10vw, 120px) clamp(16px, 4vw, 40px);
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .bento-grid {
+            display: grid;
+            grid-template-columns: repeat(6, 1fr);
+            grid-auto-rows: 200px;
+            gap: 14px;
+        }
+
+        .bento {
+            background: linear-gradient(180deg, var(--card2), var(--card));
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 22px;
+            position: relative;
+            overflow: hidden;
+            transition: border-color .3s, transform .3s, box-shadow .3s;
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            will-change: transform;
+        }
+
+        .bento:hover {
+            border-color: var(--border-h);
+            transform: translateY(-3px);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4);
+        }
+
+        .bento::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(ellipse at var(--x, 50%) var(--y, 50%), rgba(247, 147, 26, 0.09), transparent 52%);
+            opacity: 0;
+            transition: opacity .3s;
+            pointer-events: none;
+        }
+
+        .bento:hover::after {
+            opacity: 1;
+        }
+
+        .bento-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 12px;
+            background: var(--orange-soft);
+            border: 1px solid var(--orange-border);
+            color: var(--orange);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            margin-bottom: 16px;
+        }
+
+        .bento-title {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 20px;
+            letter-spacing: 0;
+            margin-bottom: 8px;
+            line-height: 1.1;
+        }
+
+        .bento-desc {
+            font-size: 12px;
+            color: var(--gray);
+            line-height: 1.5;
+        }
+
+        .bento-tag {
+            position: absolute;
+            top: 16px;
+            right: 16px;
+            font-size: 9px;
+            padding: 3px 8px;
+            background: var(--orange-soft);
+            color: var(--orange);
+            border-radius: 999px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+        }
+
+        .bento.big {
+            grid-column: span 3;
+            grid-row: span 2;
+        }
+
+        .bento.med {
+            grid-column: span 3;
+        }
+
+        .bento.tall {
+            grid-column: span 2;
+            grid-row: span 2;
+        }
+
+        .bento.wide {
+            grid-column: span 4;
+        }
+
+        .bento.sm {
+            grid-column: span 2;
+        }
+
+        .bento.hero-bento {
+            background: radial-gradient(ellipse at 20% 20%, rgba(247, 147, 26, 0.18), transparent 60%),
+                linear-gradient(180deg, var(--card2), #1a0a00);
+            border-color: var(--orange-border);
+        }
+
+        .bento.hero-bento .bento-title {
+            font-size: 32px;
+        }
+
+        .bento-hero-visual {
+            margin-top: auto;
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .bento-chip {
+            padding: 6px 12px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--border);
+            border-radius: 999px;
+            font-size: 11px;
+            font-weight: 500;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .bento-chip .d {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+        }
+
+        /* network image chips — add your PNG icons here:
+   <div class="bento-chip"><img src="trc20.png" alt="TRC20" width="14" height="14" style="border-radius:50%"> TRC20</div>
+   <div class="bento-chip"><img src="bep20.png" alt="BEP20" width="14" height="14" style="border-radius:50%"> BEP20</div>
+   <div class="bento-chip"><img src="btc.png" alt="BTC" width="14" height="14" style="border-radius:50%"> BTC</div>
+   <div class="bento-chip"><img src="usdt.png" alt="USDT" width="14" height="14" style="border-radius:50%"> USDT</div>
+*/
+
+        .bento-card-stack {
+            margin-top: auto;
+            position: relative;
+            height: 110px;
+        }
+
+        .vc {
+            position: absolute;
+            width: 180px;
+            height: 110px;
+            border-radius: 12px;
+            padding: 12px;
+            font-size: 10px;
+            color: #fff;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
+        }
+
+        .vc-1 {
+            top: 0;
+            right: 0;
+            background: linear-gradient(135deg, var(--orange-deep), var(--orange));
+            transform: rotate(4deg);
+            z-index: 2;
+        }
+
+        .vc-2 {
+            top: 8px;
+            right: 16px;
+            background: linear-gradient(135deg, #2a2a2a, #444);
+            transform: rotate(-4deg);
+            z-index: 1;
+        }
+
+        .vc-num {
+            font-family: 'Space Mono', monospace;
+            font-size: 11px;
+            margin-top: 18px;
+            letter-spacing: 0.1em;
+        }
+
+        .vc-brand {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            font-weight: 700;
+            font-size: 11px;
+        }
+
+        .vault-bar {
+            margin-top: auto;
+            width: 100%;
+            display: flex;
+            align-items: flex-end;
+            gap: 4px;
+            height: 80px;
+        }
+
+        .vault-bar span {
+            flex: 1;
+            background: linear-gradient(180deg, var(--orange) 0%, rgba(247, 147, 26, 0.18) 100%);
+            border-radius: 3px 3px 0 0;
+            animation: vbar 3s ease-in-out infinite;
+        }
+
+        @keyframes vbar {
+
+            0%,
+            100% {
+                opacity: 0.55
+            }
+
+            50% {
+                opacity: 1
+            }
+        }
+
+        .game-visual {
+            margin-top: auto;
+            display: grid;
+            grid-template-columns: repeat(8, 1fr);
+            gap: 4px;
+        }
+
+        .game-tile {
+            aspect-ratio: 1;
+            background: rgba(247, 147, 26, 0.09);
+            border: 1px solid var(--orange-border);
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 14px;
+            color: var(--orange);
+        }
+
+        .game-tile.solved {
+            background: var(--orange);
+            color: #0a0a0a;
+        }
+
+        /* ════════════════════════════════════════
+   ECOSYSTEM
+   ════════════════════════════════════════ */
+        .eco-section {
+            padding: clamp(60px, 10vw, 120px) clamp(16px, 4vw, 40px);
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1.2fr;
+            gap: 60px;
+            align-items: start;
+        }
+
+        .eco-left h2 {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: clamp(48px, 7vw, 100px);
+            line-height: 0.9;
+            margin-bottom: 14px;
+            letter-spacing: -0.01em;
+        }
+
+        .eco-left h2 em {
+            font-family: 'Instrument Serif', serif;
+            font-style: italic;
+            font-weight: 400;
+            color: var(--orange);
+        }
+
+        .eco-left p {
+            font-size: 14px;
+            color: var(--gray);
+            line-height: 1.6;
+            max-width: 340px;
+        }
+
+        .eco-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            grid-auto-rows: 60px;
+            gap: 12px;
+            align-content: start;
+        }
+
+        .eco-bubble {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 999px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--white);
+            transition: border-color .25s, background .25s;
+            padding: 0 16px;
+            cursor: pointer;
+            height: 100%;
+        }
+
+        .eco-bubble:hover {
+            border-color: var(--orange-border);
+            background: var(--orange-soft);
+        }
+
+        .eco-bubble.icon-only {
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            padding: 0;
+            font-size: 18px;
+        }
+
+        .eco-bubble.wide-2 {
+            grid-column: span 2;
+        }
+
+        .eco-bubble.wide-3 {
+            grid-column: span 3;
+        }
+
+        .eco-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            flex-shrink: 0;
+        }
+
+        .eco-logo-text {
+            font-family: 'Bebas Neue', sans-serif;
+            letter-spacing: 0.04em;
+            font-size: 14px;
+        }
+
+        /* ════════════════════════════════════════
+   HOW IT WORKS
+   ════════════════════════════════════════ */
+        .how-section {
+            padding: clamp(60px, 10vw, 120px) clamp(16px, 4vw, 40px);
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .how-head {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .how-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            position: relative;
+        }
+
+        .how-line {
+            position: absolute;
+            top: 46px;
+            left: 10%;
+            right: 10%;
+            height: 1px;
+            background: linear-gradient(90deg, transparent 0%, var(--orange-border) 20%, var(--orange-border) 80%, transparent 100%);
+            z-index: 0;
+        }
+
+        .how-step {
+            position: relative;
+            z-index: 1;
+            padding: 28px 24px;
+            text-align: center;
+        }
+
+        .how-num {
+            width: 92px;
+            height: 92px;
+            border-radius: 50%;
+            background: var(--dark2);
+            border: 1px solid var(--orange-border);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 24px;
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 44px;
+            color: var(--orange);
+            position: relative;
+            box-shadow: 0 0 0 8px var(--black), 0 0 32px rgba(247, 147, 26, 0.18);
+        }
+
+        .how-step h4 {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 22px;
+            margin-bottom: 8px;
+            letter-spacing: 0;
+        }
+
+        .how-step p {
+            font-size: 13px;
+            color: var(--gray);
+            line-height: 1.6;
+            max-width: 280px;
+            margin: 0 auto;
+        }
+
+        /* ════════════════════════════════════════
+   TESTIMONIALS
+   ════════════════════════════════════════ */
+        .testimonial-section {
+            padding: clamp(60px, 10vw, 120px) clamp(16px, 4vw, 40px);
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .test-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 16px;
+        }
+
+        .test-card {
+            padding: 28px;
+            background: linear-gradient(180deg, var(--card2), var(--card));
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .test-quote-mark {
+            font-family: 'Instrument Serif', serif;
+            font-size: 56px;
+            line-height: 0.5;
+            color: var(--orange);
+            font-style: italic;
+            margin-bottom: -20px;
+        }
+
+        .test-text {
+            font-size: 14px;
+            line-height: 1.55;
+            color: rgba(255, 255, 255, 0.85);
+            flex: 1;
+        }
+
+        .test-user {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding-top: 16px;
+            border-top: 1px solid var(--border);
+        }
+
+        .test-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--orange), var(--orange-deep));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 14px;
+        }
+
+        .test-name {
+            font-size: 13px;
+            font-weight: 600;
+        }
+
+        .test-role {
+            font-size: 11px;
+            color: var(--gray2);
+        }
+
+        /* ════════════════════════════════════════
+   CTA
+   ════════════════════════════════════════ */
+        .cta-section {
+            padding: clamp(80px, 12vw, 140px) clamp(16px, 4vw, 40px);
+            position: relative;
+            overflow: hidden;
+            text-align: center;
+        }
+
+        .cta-inner {
+            max-width: 880px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 2;
+        }
+
+        .cta-orb {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 800px;
+            height: 500px;
+            background: radial-gradient(ellipse at center, rgba(247, 147, 26, 0.32), transparent 65%);
+            filter: blur(50px);
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .cta-title {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: clamp(44px, 8vw, 100px);
+            line-height: 0.95;
+            margin-bottom: 20px;
+            letter-spacing: -0.01em;
+        }
+
+        .cta-title em {
+            font-family: 'Instrument Serif', serif;
+            font-style: italic;
+            font-weight: 400;
+            color: var(--orange);
+        }
+
+        .cta-sub {
+            font-size: 14px;
+            color: var(--gray);
+            margin-bottom: 32px;
+            max-width: 500px;
+            margin-left: auto;
+            margin-right: auto;
+            line-height: 1.6;
+        }
+
+        .cta-ctas {
+            display: flex;
+            gap: 12px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        /* ════════════════════════════════════════
+   FOOTER
+   ════════════════════════════════════════ */
+        footer {
+            border-top: 1px solid var(--border);
+            padding: 56px clamp(16px, 4vw, 40px) 24px;
+            background: var(--dark);
+        }
+
+        .footer-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1.4fr repeat(4, 1fr);
+            gap: 40px;
+            margin-bottom: 48px;
+        }
+
+        .footer-brand h4 {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 28px;
+            margin: 14px 0 12px;
+        }
+
+        .footer-brand p {
+            font-size: 13px;
+            color: var(--gray);
+            line-height: 1.6;
+            margin-bottom: 16px;
+            max-width: 280px;
+        }
+
+        .footer-badges {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .footer-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 5px 10px;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--border);
+            border-radius: 999px;
+            font-size: 10px;
+            color: var(--gray);
+        }
+
+        .footer-badge .c {
+            color: var(--green);
+        }
+
+        .footer-col h5 {
+            font-size: 11px;
+            color: var(--gray2);
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            margin-bottom: 16px;
+            font-weight: 600;
+        }
+
+        .footer-col ul {
+            list-style: none;
+        }
+
+        .footer-col li {
+            margin-bottom: 10px;
+        }
+
+        .footer-col a {
+            color: var(--white);
+            font-size: 13px;
+            text-decoration: none;
+            opacity: 0.72;
+            transition: opacity .2s, color .2s;
+        }
+
+        .footer-col a:hover {
+            color: var(--orange);
+            opacity: 1;
+        }
+
+        .footer-bottom {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding-top: 24px;
+            border-top: 1px solid var(--border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 12px;
+            flex-wrap: wrap;
+            font-size: 12px;
+            color: var(--gray);
+        }
+
+        .footer-bottom a {
+            color: var(--gray);
+            text-decoration: none;
+            margin-right: 18px;
+        }
+
+        .footer-bottom a:hover {
+            color: var(--orange);
+        }
+
+        /* ════════════════════════════════════════
+   GSAP INITIAL HIDDEN STATES (pre-animation)
+   ════════════════════════════════════════ */
+        .gsap-fade {
+            opacity: 0;
+        }
+
+        .gsap-fade-up {
+            opacity: 0;
+            transform: translateY(50px);
+        }
+
+        .gsap-fade-left {
+            opacity: 0;
+            transform: translateX(-40px);
+        }
+
+        .gsap-fade-right {
+            opacity: 0;
+            transform: translateX(40px);
+        }
+
+        .gsap-scale {
+            opacity: 0;
+            transform: scale(0.92);
+        }
+
+        .gsap-split-word {
+            overflow: hidden;
+        }
+
+        .gsap-split-word span {
+            display: inline-block;
+        }
+
+        /* ════════════════════════════════════════
+   RESPONSIVE
+   ════════════════════════════════════════ */
+        @media (max-width: 960px) {
+
+            .nav-links,
+            .btn-ghost {
+                display: none;
+            }
+
+            .nav-burger {
+                display: flex;
+            }
+
+            .hero-inner {
+                padding-top: 110px;
+            }
+
+            .preview-wrap {
+                grid-template-columns: 1fr;
+                max-width: 520px;
+            }
+
+            .fc-top {
+                grid-template-columns: 1fr;
+                min-height: auto;
+            }
+
+            .fc-visual {
+                min-height: 220px;
+            }
+
+            .bento-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .bento.big {
+                grid-column: span 2;
+                grid-row: span 1;
+            }
+
+            .bento.med {
+                grid-column: span 2;
+            }
+
+            .bento.tall {
+                grid-column: span 2;
+                grid-row: span 1;
+            }
+
+            .bento.wide {
+                grid-column: span 2;
+            }
+
+            .bento.sm {
+                grid-column: span 1;
+            }
+
+            .eco-section {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+
+            .stats-numbers {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .stat-item:nth-child(3) {
+                border-left: none;
+            }
+
+            .how-line {
+                display: none;
+            }
+
+            .how-grid {
+                grid-template-columns: 1fr;
+                gap: 32px;
+            }
+
+            .test-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-inner {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .footer-brand {
+                grid-column: 1/-1;
+            }
+
+            .float-pill {
+                font-size: 10px;
+                padding: 5px 10px 5px 5px;
+            }
+
+            .fp-dot {
+                width: 18px;
+                height: 18px;
+                font-size: 9px;
+            }
+
+            .fp-1 {
+                top: 18%;
+                left: 3%;
+            }
+
+            .fp-2 {
+                top: 32%;
+                left: 2%;
+            }
+
+            .fp-3 {
+                top: 20%;
+                right: 3%;
+            }
+
+            .fp-4 {
+                top: 34%;
+                right: 2%;
+            }
+        }
+
+        @media (max-width: 640px) {
+            nav {
+                padding: 0 14px;
+            }
+
+            .feat-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .fc-top {
+                grid-template-columns: 1fr;
+            }
+
+            .preview-wrap {
+                padding: 0 12px;
+            }
+
+            .hero-trust {
+                gap: 14px;
+                font-size: 11px;
+            }
+
+            .footer-inner {
+                grid-template-columns: 1fr 1fr;
+                gap: 28px;
+            }
+
+            .bento-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .bento.big,
+            .bento.med,
+            .bento.tall,
+            .bento.wide,
+            .bento.sm {
+                grid-column: span 1;
+            }
+
+            .stats-numbers {
+                grid-template-columns: 1fr;
+            }
+
+            .stat-item+.stat-item {
+                border-left: none;
+            }
+
+            .float-pill {
+                display: none;
+            }
+
+            .eco-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+
+            .eco-bubble.wide-3 {
+                grid-column: span 3;
+            }
+
+            .eco-bubble.wide-2 {
+                grid-column: span 2;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- ═══════════════ MOBILE MENU OVERLAY ═══════════════ -->
+    <div class="mobile-menu" id="mobileMenu">
+        <div class="mobile-menu-inner">
+            <nav class="mobile-nav-links">
+                <a href="#home" class="active">Home</a>
+                <a href="#features">Features</a>
+                <a href="#ecosystem">Ecosystem</a>
+                <a href="#how">How it works</a>
+                <a href="#testimonials">Reviews</a>
+            </nav>
+            <div class="mobile-menu-ctas">
+                <button class="btn-ghost" onclick="closeMobileMenu()">Sign in</button>
+                <button class="btn-solid" onclick="closeMobileMenu()">Open app <i
+                        class="ri-arrow-right-line"></i></button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ═══════════════ NAV ═══════════════ -->
+    <nav id="mainNav">
+        <a href="#home" class="nav-logo">
+            <!--
+      LOGO PLACEMENT:
+      Option A (image logo): Replace everything below up to </a> with:
+        <img src="YOUR_LOGO.png" alt="DoronX" class="logo-img">
+      Option B (keep text + mark):
+    -->
+            <!-- <div class="logo-mark"><span>D</span></div>
+            <span class="logo-text">DoronX</span> -->
+
+            <div class="logo-mark"><img src="logo.png" alt="DoronX" class="logo-img"></div>
+        </a>
+        <div class="nav-links">
+            <a href="#home" class="active">Home</a>
+            <a href="#features">Features</a>
+            <a href="#ecosystem">Ecosystem</a>
+            <a href="#how">How it works</a>
+            <a href="#testimonials">Reviews</a>
+        </div>
+        <div class="nav-cta">
+            <button class="btn-ghost">Sign in</button>
+            <button class="btn-solid">Open app <i class="ri-arrow-right-up-line"></i></button>
+            <button class="nav-burger" id="navBurger" aria-label="Open menu" onclick="toggleMobileMenu()">
+                <span class="burger-bar"></span>
+                <span class="burger-bar"></span>
+                <span class="burger-bar"></span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- ═══════════════ HERO ═══════════════ -->
+    <section class="hero" id="home">
+        <div class="hero-grid-bg"></div>
+        <div class="hero-orb"></div>
+        <div class="hero-bg-fade"></div>
+
+        <!-- Floating pills -->
+        <div class="hero-floats">
+            <!--
+      BTC / USDT / MoMo / GHS COIN IMAGES:
+      Replace the .fp-dot text content with your PNG:
+      <div class="fp-dot btc"><img src="btc.png" style="width:100%;border-radius:50%"></div>
+    -->
+            <div class="float-pill fp-1 gsap-fade">
+                <!-- <div class="fp-dot btc"><i class="ri-bit-coin-line"></i></div> -->
+                <div class="fp-dot btc"><img src="btc.png" style="width:100%;border-radius:50%"></div>
+
+                Buy Bitcoin
+                <i class="ri-checkbox-circle-fill" style="color:var(--green);font-size:14px"></i>
+            </div>
+            <div class="float-pill fp-2 gsap-fade">
+                <div class="fp-dot usdt" style="font-size:11px;font-weight:700"> <img src="trc20.png"
+                        style="width:24px;height:24px;border-radius:50%"></div>
+                <!--
+        USDT ICON: <img src="usdt.png" style="width:24px;height:24px;border-radius:50%">
+        TRC20 / BEP20 ICONS: same approach — place img inside .fp-dot
+      -->
+                USDT · TRC20
+                <i class="ri-checkbox-circle-fill" style="color:var(--green);font-size:14px"></i>
+            </div>
+
+            <div class="float-pill fp-3 gsap-fade">
+                <div class="fp-dot bep20" style="font-size:11px;font-weight:700"> <img src="bep20.png"
+                        style="width:24px;height:24px;border-radius:50%"></div>
+                USDT · BEP20
+                <i class="ri-checkbox-circle-fill" style="color:var(--green);font-size:14px"></i>
+            </div>
+
+            <div class="float-pill fp-4 gsap-fade">
+                <div class="fp-dot sol" style="font-size:11px;font-weight:700"> <img src="SOL.png"
+                        style="width:24px;height:24px;border-radius:50%"></div>
+                USDT · SOLANA
+                <i class="ri-checkbox-circle-fill" style="color:var(--green);font-size:14px"></i>
+            </div>
+
+
+            <div class="float-pill fp-5 gsap-fade">
+                <div class="fp-dot momo" style="font-size:9px;font-weight:700">MM</div>
+                Mobile Money
+                <i class="ri-checkbox-circle-fill" style="color:var(--green);font-size:14px"></i>
+            </div>
+            <div class="float-pill fp-6 gsap-fade">
+                <div class="fp-dot ghs" style="font-size:12px;font-weight:700">₵</div>
+                Pay in GHS
+                <i class="ri-checkbox-circle-fill" style="color:var(--green);font-size:14px"></i>
+            </div>
+        </div>
+
+        <div class="hero-inner">
+            <div class="hero-badge gsap-fade-up">
+                <span class="hero-badge-tag">NEW</span>
+                <span>Vault · AAVE v3 · Earn up to 8% APY</span>
+            </div>
+
+            <h1 class="hero-headline gsap-fade-up">
+                Step into the<br>future of <em>global</em><br>finance
+            </h1>
+
+            <p class="hero-sub gsap-fade-up">
+                Buy &amp; sell crypto, earn yield in the Vault, send money across borders, spend anywhere with virtual
+                cards, and play games — all in one beautifully designed app.
+            </p>
+
+            <div class="hero-ctas gsap-fade-up">
+                <button class="btn-primary">
+                    Get started
+                    <span class="btn-arrow"><i class="ri-arrow-right-line"></i></span>
+                </button>
+                <button class="btn-outline">
+                    <i class="ri-play-circle-line" style="font-size:16px"></i>
+                    Watch demo
+                </button>
+            </div>
+
+            <div class="hero-trust gsap-fade-up">
+                <span><i class="ri-star-fill" style="color:var(--orange)"></i> <strong>4.9</strong> · 2,400+
+                    reviews</span>
+                <span class="hero-trust-sep"></span>
+                <span><strong>50K+</strong> active users</span>
+                <span class="hero-trust-sep"></span>
+                <span><strong>$12M+</strong> transacted</span>
+                <span class="hero-trust-sep"></span>
+                <span><i class="ri-verified-badge-fill" style="color:var(--orange)"></i> licensed &amp;
+                    registered</span>
+            </div>
+
+            <!-- Dashboard preview -->
+            <div class="preview-wrap gsap-fade-up">
+                <!-- Markets -->
+                <div class="preview-card">
+                    <div class="pc-head">
+                        <h5>Markets</h5>
+                        <span class="pc-see">See all <i class="ri-arrow-right-s-line"></i></span>
+                    </div>
+                    <!--
+          COIN IMAGE NOTES:
+          In each .mkt-icon replace the background + emoji with:
+          <div class="mkt-icon"><img src="btc.png" style="width:100%;height:100%;object-fit:cover;border-radius:50%"></div>
+        -->
+                    <div class="mkt-row">
+                        <div class="mkt-icon"><img src="btc.png"
+                                style="width:100%;height:100%;object-fit:cover;border-radius:50%"></div>
+                        <div class="mkt-info">
+                            <div class="name">BTC</div>
+                            <div class="chg"><i class="ri-arrow-up-s-fill" style="font-size:11px"></i>+4.2%</div>
+                        </div>
+                        <svg width="42" height="20" viewBox="0 0 42 20">
+                            <polyline points="0,16 8,12 16,14 24,7 32,9 42,3" fill="none" stroke="#22C55E"
+                                stroke-width="1.5" stroke-linecap="round" />
+                        </svg>
+                        <div class="mkt-right">
+                            <div class="price">$68,230</div>
+                            <div class="val">0.145 BTC</div>
+                        </div>
+                    </div>
+                    <div class="mkt-row">
+                        <div class="mkt-icon"><img src="usdt.png"
+                                style="width:100%;height:100%;object-fit:cover;border-radius:50%"></div>
+                        <!-- USDT: replace above with <img src="usdt.png"> inside .mkt-icon -->
+                        <div class="mkt-info">
+                            <div class="name">USDT</div>
+                            <div class="chg"><i class="ri-arrow-up-s-fill" style="font-size:11px"></i>+0.01%</div>
+                        </div>
+                        <svg width="42" height="20" viewBox="0 0 42 20">
+                            <polyline points="0,10 8,10 16,11 24,9 32,10 42,10" fill="none" stroke="#22C55E"
+                                stroke-width="1.5" stroke-linecap="round" />
+                        </svg>
+                        <div class="mkt-right">
+                            <div class="price">$1.00</div>
+                            <div class="val">523.50 USDT</div>
+                        </div>
+                    </div>
+                    <div class="mkt-row">
+                        <div class="mkt-icon"><img src="dorx-coin.png"
+                                style="width:100%;height:100%;object-fit:cover;border-radius:50%"></div>
+                        <div class="mkt-info">
+                            <div class="name">DORX</div>
+                            <div class="chg"><i class="ri-arrow-up-s-fill" style="font-size:11px"></i>+12%</div>
+                        </div>
+                        <svg width="42" height="20" viewBox="0 0 42 20">
+                            <polyline points="0,14 8,13 16,14 24,10 32,7 42,4" fill="none" stroke="#22C55E"
+                                stroke-width="1.5" stroke-linecap="round" />
+                        </svg>
+                        <div class="mkt-right">
+                            <div class="price">$0.04</div>
+                            <div class="val">1,250 DORX</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Balance center -->
+                <div class="preview-card">
+                    <div class="pc-tabs">
+                        <div class="pc-tab active">Wallet</div>
+                        <div class="pc-tab">Vault</div>
+                        <div class="pc-tab">Salary</div>
+                        <div class="pc-tab">Games</div>
+                    </div>
+                    <div class="pc-balance-body">
+                        <div class="bal-label">Total Balance</div>
+                        <div class="bal-row">
+                            <div class="bal-amount">$4,821.50</div>
+                            <div class="bal-usd">USD</div>
+                            <div class="bal-change"><i class="ri-arrow-up-line"></i> +$432 (+9.8%)</div>
+                        </div>
+                    </div>
+                    <div class="chart-area">
+                        <svg viewBox="0 0 300 100" preserveAspectRatio="none">
+                            <defs>
+                                <linearGradient id="chartFill" x1="0" y1="0" x2="0" y2="1">
+                                    <stop offset="0%" stop-color="#F7931A" stop-opacity="0.4" />
+                                    <stop offset="100%" stop-color="#F7931A" stop-opacity="0" />
+                                </linearGradient>
+                            </defs>
+                            <path
+                                d="M0,80 C20,78 30,68 50,62 S80,72 100,58 S140,35 160,40 S190,60 210,45 S250,12 300,22 L300,100 L0,100 Z"
+                                fill="url(#chartFill)" />
+                            <path
+                                d="M0,80 C20,78 30,68 50,62 S80,72 100,58 S140,35 160,40 S190,60 210,45 S250,12 300,22"
+                                fill="none" stroke="#F7931A" stroke-width="2" stroke-linecap="round" />
+                            <circle cx="300" cy="22" r="4" fill="#F7931A" />
+                            <circle cx="300" cy="22" r="8" fill="#F7931A" fill-opacity="0.25" />
+                        </svg>
+                    </div>
+                    <div class="chart-timeline">
+                        <span>1H</span><span>1D</span><span
+                            class="active">1W</span><span>1M</span><span>1Y</span><span>ALL</span>
+                        <span style="margin-left:auto;color:var(--green)">+$432 USD</span>
+                    </div>
+                </div>
+
+                <!-- Quick actions -->
+                <div class="preview-card">
+                    <div class="pc-head">
+                        <h5>Quick Actions</h5>
+                        <span class="pc-see"><i class="ri-settings-3-line"></i></span>
+                    </div>
+                    <div class="pc-qa-body">
+                        <div class="qa-row">
+                            <div class="qa-icon buy"><i class="ri-bit-coin-line"></i></div>
+                            <div class="qa-info">
+                                <div class="qa-name">Buy Bitcoin</div>
+                                <div class="qa-sub">Instant via MoMo</div>
+                            </div>
+                            <i class="ri-arrow-right-s-line qa-arrow"></i>
+                        </div>
+                        <div class="qa-row">
+                            <div class="qa-icon vault"><i class="ri-safe-2-line"></i></div>
+                            <div class="qa-info">
+                                <div class="qa-name">Vault</div>
+                                <div class="qa-sub">Earn 8% APY</div>
+                            </div>
+                            <i class="ri-arrow-right-s-line qa-arrow"></i>
+                        </div>
+                        <div class="qa-row">
+                            <div class="qa-icon swap"><i class="ri-exchange-2-line"></i></div>
+                            <div class="qa-info">
+                                <div class="qa-name">DoronSwap</div>
+                                <div class="qa-sub">GHS ↔ USD</div>
+                            </div>
+                            <i class="ri-arrow-right-s-line qa-arrow"></i>
+                        </div>
+                        <div class="qa-row">
+                            <div class="qa-icon card"><i class="ri-bank-card-line"></i></div>
+                            <div class="qa-info">
+                                <div class="qa-name">Virtual Cards</div>
+                                <div class="qa-sub">Shop worldwide</div>
+                            </div>
+                            <i class="ri-arrow-right-s-line qa-arrow"></i>
+                        </div>
+                        <div class="qa-row">
+                            <div class="qa-icon game"><i class="ri-gamepad-line"></i></div>
+                            <div class="qa-info">
+                                <div class="qa-name">Games Arena</div>
+                                <div class="qa-sub">Earn DORX</div>
+                            </div>
+                            <i class="ri-arrow-right-s-line qa-arrow"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══════════════ MARQUEE ═══════════════ -->
+    <section class="marquee-section">
+        <div class="marquee-label">Powering finance for <strong>50,000+ users</strong> · Trusted worldwide</div>
+        <div class="marquee">
+            <div class="marquee-track">
+                <div class="m-item"><i class="ri-cell-phone-line"></i> MTN MoMo</div>
+                <div class="m-item" style="opacity:.25">·</div>
+                <div class="m-item"><i class="ri-cell-phone-line"></i> Vodafone Cash</div>
+                <div class="m-item" style="opacity:.25">·</div>
+                <div class="m-item"><i class="ri-cell-phone-line"></i> AirtelTigo</div>
+                <div class="m-item" style="opacity:.25">·</div>
+                <div class="m-item"><i class="ri-store-2-line"></i> Hubtel</div>
+                <div class="m-item" style="opacity:.25">·</div>
+                <div class="m-item"><i class="ri-bank-card-line"></i> Paystack</div>
+                <div class="m-item" style="opacity:.25">·</div>
+                <div class="m-item"><i class="ri-bank-card-2-line"></i> Maplerad</div>
+                <div class="m-item" style="opacity:.25">·</div>
+                <div class="m-item"><i class="ri-exchange-dollar-line"></i> AAVE v3</div>
+                <div class="m-item" style="opacity:.25">·</div>
+                <div class="m-item"><i class="ri-polygon-line"></i> Polygon</div>
+                <div class="m-item" style="opacity:.25">·</div>
+                <div class="m-item"><i class="ri-wallet-3-line"></i> WalletConnect</div>
+                <div class="m-item" style="opacity:.25">·</div>
+                <!-- duplicate for seamless loop -->
+                <div class="m-item"><i class="ri-cell-phone-line"></i> MTN MoMo</div>
+                <div class="m-item" style="opacity:.25">·</div>
+                <div class="m-item"><i class="ri-cell-phone-line"></i> Vodafone Cash</div>
+                <div class="m-item" style="opacity:.25">·</div>
+                <div class="m-item"><i class="ri-cell-phone-line"></i> AirtelTigo</div>
+                <div class="m-item" style="opacity:.25">·</div>
+                <div class="m-item"><i class="ri-store-2-line"></i> Hubtel</div>
+                <div class="m-item" style="opacity:.25">·</div>
+                <div class="m-item"><i class="ri-bank-card-line"></i> Paystack</div>
+                <div class="m-item" style="opacity:.25">·</div>
+                <div class="m-item"><i class="ri-bank-card-2-line"></i> Maplerad</div>
+                <div class="m-item" style="opacity:.25">·</div>
+                <div class="m-item"><i class="ri-exchange-dollar-line"></i> AAVE v3</div>
+                <div class="m-item" style="opacity:.25">·</div>
+                <div class="m-item"><i class="ri-polygon-line"></i> Polygon</div>
+                <div class="m-item" style="opacity:.25">·</div>
+                <div class="m-item"><i class="ri-wallet-3-line"></i> WalletConnect</div>
+                <div class="m-item" style="opacity:.25">·</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══════════════ FEATURES ═══════════════ -->
+    <section class="section" id="features">
+        <div class="section-head">
+            <div class="gsap-fade-up">
+                <div class="eyebrow"><span class="eyebrow-dot"></span> What's inside</div>
+                <h2 class="section-title">Everything you need<br>to <em>own your money</em></h2>
+            </div>
+            <p class="section-sub gsap-fade-up">
+                From buying your first bitcoin to earning daily yield on dollars — DoronX brings every financial tool
+                into one beautifully designed app.
+            </p>
+        </div>
+
+        <div class="feat-grid">
+            <div class="feat-card fc-top gsap-scale">
+                <div class="fc-text">
+                    <div class="fc-kicker"><i class="ri-line-chart-line"></i> CRYPTO TRADING</div>
+                    <h3>Trade BTC &amp; USDT<br>with <em>world-class</em> rails</h3>
+                    <p>Buy and sell Bitcoin and USDT instantly with Mobile Money or bank transfer. Live rates, low fees,
+                        TRC20 · BEP20 · Solana support, and settlement directly to your local wallet.</p>
+                    <!--
+          NETWORK ICONS NOTE:
+          TRC20, BEP20, BTC, USDT images — add them in the bento chips and here.
+          E.g.: <img src="trc20.png" alt="TRC20" width="14" height="14" style="border-radius:50%"> TRC20
+        -->
+                    <a href="#" class="fc-link">Start trading <span class="fc-link-arrow"><i
+                                class="ri-arrow-right-line"></i></span></a>
+                </div>
+                <div class="fc-visual">
+                    <div class="fc-chart-float">
+                        <div class="lbl">BTC/USD live</div>
+                        <div class="amt">$68,230</div>
+                    </div>
+                    <div class="fc-chart">
+                        <svg viewBox="0 0 400 180" preserveAspectRatio="none">
+                            <defs>
+                                <linearGradient id="areaFill" x1="0" y1="0" x2="0" y2="1">
+                                    <stop offset="0%" stop-color="#F7931A" stop-opacity="0.68" />
+                                    <stop offset="100%" stop-color="#F7931A" stop-opacity="0" />
+                                </linearGradient>
+                            </defs>
+                            <path
+                                d="M0,140 C40,135 60,110 90,85 S140,70 170,60 S230,85 260,45 S320,20 400,28 L400,180 L0,180 Z"
+                                fill="url(#areaFill)" />
+                            <path d="M0,140 C40,135 60,110 90,85 S140,70 170,60 S230,85 260,45 S320,20 400,28"
+                                fill="none" stroke="#F7931A" stroke-width="2.5" stroke-linecap="round" />
+                            <circle cx="400" cy="28" r="5" fill="#F7931A" />
+                            <circle cx="400" cy="28" r="10" fill="#F7931A" fill-opacity="0.28" />
+                        </svg>
+                    </div>
+                    <div class="fc-chart-pill">
+                        <i class="ri-wallet-3-line" style="color:var(--orange)"></i> Your balance <span
+                            class="val">0.145 BTC</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="feat-card fc-small gsap-fade-up">
+                <div class="fc-kicker"><i class="ri-send-plane-line"></i> BULK PAYOUTS · SALARYFLOW</div>
+                <h4>Pay anyone,<br>anywhere — in seconds</h4>
+                <p>Send to thousands of recipients in one batch, or receive crypto salary that auto-converts and lands
+                    in your Mobile Money.</p>
+                <div class="txn-list">
+                    <div class="txn-row">
+                        <div class="txn-avatar" style="background:linear-gradient(135deg,#F7931A,#E8541A)">KA</div>
+                        <div class="txn-info">
+                            <div class="txn-name">Salary · Kofi Addo</div>
+                            <div class="txn-date">Today · 09:41 · USDT → GHS</div>
+                        </div>
+                        <div class="txn-amount green">+₵8,450</div>
+                    </div>
+                    <div class="txn-row">
+                        <div class="txn-avatar" style="background:linear-gradient(135deg,#3884FF,#1E5ED6)">VE</div>
+                        <div class="txn-info">
+                            <div class="txn-name">Vendor payout · 48 recipients</div>
+                            <div class="txn-date">Batch · DRXBULK001</div>
+                        </div>
+                        <div class="txn-amount orange">$2,340</div>
+                    </div>
+                    <div class="txn-row">
+                        <div class="txn-avatar" style="background:linear-gradient(135deg,#22C55E,#15803D)">AM</div>
+                        <div class="txn-info">
+                            <div class="txn-name">Ama · MoMo transfer</div>
+                            <div class="txn-date">2min ago · MTN</div>
+                        </div>
+                        <div class="txn-amount green">+₵500</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="feat-card fc-small gsap-fade-up">
+                <div class="fc-kicker"><i class="ri-shield-check-line"></i> SECURITY</div>
+                <h4>Bank-grade<br>by default</h4>
+                <p>2FA, biometric login, encrypted wallets, on-chain verification, and real-time fraud monitoring. Your
+                    funds stay yours.</p>
+                <div class="sec-visual">
+                    <div class="sec-ring r3">
+                        <div class="dot"></div>
+                    </div>
+                    <div class="sec-ring r2">
+                        <div class="dot"></div>
+                    </div>
+                    <div class="sec-ring r1">
+                        <div class="dot"></div>
+                    </div>
+                    <div class="sec-shield">
+                        <i class="ri-shield-check-fill" style="font-size:34px;color:var(--orange)"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══════════════ GIANT STATS ═══════════════ -->
+    <section class="giant-section">
+        <div class="giant-inner">
+            <div class="giant-year-tag gsap-fade">FOUNDED 2024 · BUILT FOR THE WORLD</div>
+            <div class="giant-text gsap-scale">
+                <span class="line1">DORONX</span>
+                <span class="line2">by the numbers</span>
+            </div>
+
+            <div class="stats-card gsap-fade-up">
+                <div class="stats-top">
+                    <div class="stats-meta">
+                        <div class="stats-meta-top">
+                            <div class="stats-hub-icon"><i class="ri-global-line"></i></div>
+                            <span>Built for Africa · Used globally</span>
+                        </div>
+                        <div class="stats-socials">
+                            <div class="stats-social primary"><i class="ri-twitter-x-line"></i></div>
+                            <div class="stats-social"><i class="ri-instagram-line"></i></div>
+                            <div class="stats-social"><i class="ri-linkedin-box-line"></i></div>
+                            <div class="stats-social"><i class="ri-discord-line"></i></div>
+                        </div>
+                    </div>
+                    <div class="stats-tagline">
+                        We're on a <em>mission</em> to make world-class financial services accessible to everyone — with
+                        a single tap.
+                    </div>
+                </div>
+                <div class="stats-numbers" id="statsNumbers">
+                    <div class="stat-item">
+                        <div class="stat-num" data-target="50" data-suffix="K+">0</div>
+                        <div class="stat-label"><span class="stat-dot"></span> Active users</div>
+                        <div class="stat-bar">
+                            <div class="stat-bar-fill"></div>
+                        </div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-num"><span data-target="12" data-prefix="$" data-suffix="M+">0</span></div>
+                        <div class="stat-label"><span class="stat-dot"></span> Transacted</div>
+                        <div class="stat-bar">
+                            <div class="stat-bar-fill"></div>
+                        </div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-num"><span data-target="8" data-suffix="% APY">0</span></div>
+                        <div class="stat-label"><span class="stat-dot"></span> Vault yield</div>
+                        <div class="stat-bar">
+                            <div class="stat-bar-fill"></div>
+                        </div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-num"><span data-target="99" data-suffix=".9%">0</span></div>
+                        <div class="stat-label"><span class="stat-dot"></span> Uptime</div>
+                        <div class="stat-bar">
+                            <div class="stat-bar-fill"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══════════════ BENTO GRID ═══════════════ -->
+    <section class="bento-section">
+        <div class="section-head">
+            <div class="gsap-fade-up">
+                <div class="eyebrow"><span class="eyebrow-dot"></span> One app · Every feature</div>
+                <h2 class="section-title">Built to do <em>everything</em></h2>
+            </div>
+            <p class="section-sub gsap-fade-up">
+                Thirteen features. One app. Zero confusion. See why DoronX users leave behind four apps the day they
+                sign up.
+            </p>
+        </div>
+
+        <div class="bento-grid">
+            <!-- Vault hero bento -->
+            <div class="bento big hero-bento gsap-fade-up">
+                <span class="bento-tag">Earn</span>
+                <div class="bento-icon"><i class="ri-safe-2-line"></i></div>
+                <h3 class="bento-title">The Vault</h3>
+                <p class="bento-desc">Deposit USDC, earn up to 8% APY automatically via AAVE v3 on Polygon. Watch your
+                    balance grow daily. Withdraw anytime — no lock-ups, no penalties.</p>
+                <div class="vault-bar">
+                    <span style="height:40%"></span><span style="height:55%"></span><span style="height:45%"></span>
+                    <span style="height:70%"></span><span style="height:60%"></span><span style="height:80%"></span>
+                    <span style="height:72%"></span><span style="height:90%"></span><span style="height:82%"></span>
+                    <span style="height:95%"></span><span style="height:88%"></span><span style="height:100%"></span>
+                </div>
+            </div>
+
+            <!-- Virtual Cards -->
+            <div class="bento med gsap-fade-up">
+                <span class="bento-tag">Global</span>
+                <div class="bento-icon"><i class="ri-bank-card-2-line"></i></div>
+                <h3 class="bento-title">Virtual USD Cards</h3>
+                <p class="bento-desc">Shop on any platform that accepts Visa. Issued instantly via Maplerad. Fund from
+                    your DoronX wallet.</p>
+                <div class="bento-card-stack">
+                    <div class="vc vc-2">
+                        <div class="vc-brand">DORONX</div>
+                        <div class="vc-num">•••• •••• •••• 2847</div>
+                        <div style="margin-top:6px;font-size:9px;opacity:0.7">USD · VIRTUAL</div>
+                    </div>
+                    <div class="vc vc-1">
+                        <div class="vc-brand">DORONX</div>
+                        <div class="vc-num">•••• •••• •••• 4891</div>
+                        <div style="margin-top:6px;font-size:9px;opacity:0.9">USD · PRIMARY</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- OTC Trading -->
+            <div class="bento med gsap-fade-up">
+                <span class="bento-tag">Bulk</span>
+                <div class="bento-icon"><i class="ri-swap-2-line"></i></div>
+                <h3 class="bento-title">OTC Trading</h3>
+                <p class="bento-desc">Move large amounts at negotiated rates. Upload proof, get settled fast. Perfect
+                    for businesses and high-volume traders.</p>
+                <div class="bento-hero-visual">
+                    <!--
+          BTC / USDT NETWORK CHIP ICONS:
+          Replace .d colored dots with your images:
+          <img src="btc.png" width="6" height="6" style="border-radius:50%"> BTC
+          <img src="usdt.png" width="6" height="6" style="border-radius:50%"> USDT
+          <img src="trc20.png" width="6" height="6" style="border-radius:50%"> TRC20
+          <img src="bep20.png" width="6" height="6" style="border-radius:50%"> BEP20
+        -->
+                    <div class="bento-chip"> <img src="btc.png" width="6" height="6" style="border-radius:50%"> BTC
+                    </div>
+                    <div class="bento-chip"><img src="usdt.png" width="6" height="6" style="border-radius:50%"> USDT
+                    </div>
+                    <div class="bento-chip"> <img src="trc20.png" width="6" height="6" style="border-radius:50%"> TRC20
+                    </div>
+                    <div class="bento-chip"><img src="bep20.png" width="6" height="6" style="border-radius:50%"> BEP20
+                    </div>
+                    <div class="bento-chip"><img src="sol.png" width="6" height="6" style="border-radius:50%"> SOLANA
+                    </div>
+                    <div class="bento-chip"><span class="d" style="background:#3884FF"></span> Negotiable</div>
+                </div>
+            </div>
+
+            <!-- Games Arena -->
+            <div class="bento tall gsap-fade-up">
+                <span class="bento-tag">Earn DORX</span>
+                <div class="bento-icon"><i class="ri-gamepad-line"></i></div>
+                <h3 class="bento-title">Games Arena</h3>
+                <p class="bento-desc">Play Word Rush, Memory Match and more. Real-time multiplayer with tournaments,
+                    leaderboards, and DORX rewards.</p>
+                <div class="game-visual">
+                    <div class="game-tile solved">S</div>
+                    <div class="game-tile solved">C</div>
+                    <div class="game-tile solved">R</div>
+                    <div class="game-tile solved">A</div>
+                    <div class="game-tile">M</div>
+                    <div class="game-tile">B</div>
+                    <div class="game-tile">L</div>
+                    <div class="game-tile">E</div>
+                </div>
+            </div>
+
+            <!-- DoronSwap -->
+            <div class="bento sm gsap-fade-up">
+                <div class="bento-icon"><i class="ri-exchange-2-line"></i></div>
+                <h3 class="bento-title">DoronSwap</h3>
+                <p class="bento-desc">GHS ↔ USD ↔ Crypto in a single tap. Live rates. No network fees.</p>
+            </div>
+
+            <!-- Data Bundles -->
+            <div class="bento sm gsap-fade-up">
+                <div class="bento-icon"><i class="ri-signal-wifi-line"></i></div>
+                <h3 class="bento-title">Data Bundles</h3>
+                <p class="bento-desc">Buy data for MTN, Vodafone, AirtelTigo — from your wallet.</p>
+            </div>
+
+            <!-- Gift Cards -->
+            <div class="bento sm gsap-fade-up">
+                <div class="bento-icon"><i class="ri-gift-2-line"></i></div>
+                <h3 class="bento-title">Gift Cards</h3>
+                <p class="bento-desc">Yalla Ludo, gaming, shopping, entertainment brands.</p>
+            </div>
+
+            <!-- Smart Invoice -->
+            <div class="bento wide gsap-fade-up">
+                <span class="bento-tag">Merchants</span>
+                <div class="bento-icon"><i class="ri-file-list-3-line"></i></div>
+                <h3 class="bento-title">Smart Invoice &amp; Payment Stands</h3>
+                <p class="bento-desc">Generate QR codes for your counter. Fixed or open amount. Print-ready scan-to-pay
+                    tiles. Track every payment in the dashboard.</p>
+                <div class="bento-hero-visual">
+                    <!--
+          TRC20 / BEP20 / SOLANA / BTC IMAGE ICONS:
+          Add your PNG images inside each chip here.
+          Example: <div class="bento-chip"><img src="trc20.png" width="14" height="14" style="border-radius:50%;margin-right:4px"> TRC20</div>
+        -->
+                    <div class="bento-chip"><img src="btc.png" width="14" height="14"
+                            style="border-radius:50%;margin-right:4px"> BTC</div>
+                    <div class="bento-chip"><img src="trc20.png" width="14" height="14"
+                            style="border-radius:50%;margin-right:4px"> TRC20</div>
+                    <div class="bento-chip"><img src="bep20.png" width="14" height="14"
+                            style="border-radius:50%;margin-right:4px"> BEP20</div>
+                    <div class="bento-chip"><img src="sol.png" width="14" height="14"
+                            style="border-radius:50%;margin-right:4px"> SOLANA</div>
+                </div>
+            </div>
+
+            <!-- Web3 Wallet -->
+            <div class="bento sm gsap-fade-up">
+                <div class="bento-icon"><i class="ri-hexagon-line"></i></div>
+                <h3 class="bento-title">Web3 Funding</h3>
+                <p class="bento-desc">WalletConnect, MetaMask, Phantom, Trust Wallet.</p>
+            </div>
+
+            <!-- Community -->
+            <div class="bento sm gsap-fade-up">
+                <div class="bento-icon"><i class="ri-community-line"></i></div>
+                <h3 class="bento-title">Community</h3>
+                <p class="bento-desc">Share trades, follow traders, and earn via referrals.</p>
+            </div>
+
+            <!-- P2P Transfer -->
+            <div class="bento wide gsap-fade-up">
+                <span class="bento-tag">Free</span>
+                <div class="bento-icon"><i class="ri-arrow-left-right-line"></i></div>
+                <h3 class="bento-title">Instant &amp; free transfers between DoronX users</h3>
+                <p class="bento-desc">Send crypto or local currency to another DoronX user in a tap. No network fees. No
+                    delays. Pure ledger magic.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══════════════ ECOSYSTEM ═══════════════ -->
+    <section class="eco-section" id="ecosystem">
+        <div class="eco-left gsap-fade-left">
+            <h2>Built on<br>the <em>best</em><br>rails</h2>
+            <p>DoronX integrates with the banking, payment, blockchain, and infrastructure partners you already trust.
+                One app, all networks.</p>
+        </div>
+        <div class="eco-grid gsap-fade-right">
+            <div class="eco-bubble wide-2"><span class="eco-dot" style="background:#FFC107"></span> <span
+                    class="eco-logo-text">MTN MoMo</span></div>
+            <div class="eco-bubble icon-only" style="background:#F7931A;color:#000"><i class="ri-bit-coin-line"></i>
+            </div>
+            <div class="eco-bubble"><span class="eco-dot" style="background:#26A17B"></span> USDT</div>
+
+            <div class="eco-bubble"><span class="eco-dot" style="background:#E8541A"></span> Vodafone</div>
+            <div class="eco-bubble wide-2"><span class="eco-dot" style="background:#9945FF"></span> <span
+                    class="eco-logo-text">AAVE v3 · Polygon</span></div>
+            <div class="eco-bubble icon-only"><i class="ri-global-line"></i></div>
+
+            <div class="eco-bubble wide-3"><span class="eco-dot" style="background:#3884FF"></span> <span
+                    class="eco-logo-text">Paystack · Hubtel · Maplerad</span></div>
+            <div class="eco-bubble"><span class="eco-dot" style="background:#F0B90B"></span> BSC</div>
+
+            <div class="eco-bubble"><span class="eco-dot" style="background:#e84142"></span> TRON</div>
+            <div class="eco-bubble"><span class="eco-dot" style="background:#22C55E"></span> AirtelTigo</div>
+            <div class="eco-bubble wide-2"><span class="eco-dot" style="background:#9945FF"></span> <span
+                    class="eco-logo-text">WalletConnect</span></div>
+        </div>
+    </section>
+
+    <!-- ═══════════════ HOW IT WORKS ═══════════════ -->
+    <section class="how-section" id="how">
+        <div class="how-head gsap-fade-up">
+            <div class="eyebrow"><span class="eyebrow-dot"></span> Get started in minutes</div>
+            <h2 class="section-title">Three steps to <em>owning</em><br>your money</h2>
+        </div>
+        <div class="how-grid">
+            <div class="how-line"></div>
+            <div class="how-step gsap-fade-up">
+                <div class="how-num"><i class="ri-user-add-line" style="font-size:40px"></i></div>
+                <h4>Sign up in 60s</h4>
+                <p>Create a free account with just your phone number and email. No paperwork, no waiting.</p>
+            </div>
+            <div class="how-step gsap-fade-up">
+                <div class="how-num"><i class="ri-wallet-3-line" style="font-size:40px"></i></div>
+                <h4>Fund your wallet</h4>
+                <p>Top up with MoMo, bank transfer, or Web3 wallet. Your balance is ready instantly.</p>
+            </div>
+            <div class="how-step gsap-fade-up">
+                <div class="how-num"><i class="ri-flashlight-line" style="font-size:40px"></i></div>
+                <h4>Start earning &amp; spending</h4>
+                <p>Trade, earn yield, send money, shop with virtual cards — all from the same balance.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══════════════ TESTIMONIALS ═══════════════ -->
+    <section class="testimonial-section" id="testimonials">
+        <div class="section-head">
+            <div class="gsap-fade-up">
+                <div class="eyebrow"><span class="eyebrow-dot"></span> Real users</div>
+                <h2 class="section-title">Loved by <em>everyone</em>,<br>used worldwide</h2>
+            </div>
+            <p class="section-sub gsap-fade-up">
+                Over 50,000 people have made DoronX part of their daily financial lives. Here's what they say.
+            </p>
+        </div>
+        <div class="test-grid">
+            <div class="test-card gsap-fade-up">
+                <div class="test-quote-mark">"</div>
+                <p class="test-text">The Vault is insane. I've been earning 8% on dollars while my bank gives me 3%.
+                    Already convinced three friends to sign up.</p>
+                <div class="test-user">
+                    <div class="test-avatar">KA</div>
+                    <div>
+                        <div class="test-name">Kwame A.</div>
+                        <div class="test-role"><i class="ri-verified-badge-fill"
+                                style="color:var(--orange);font-size:11px"></i> Verified user · Engineer</div>
+                    </div>
+                </div>
+            </div>
+            <div class="test-card gsap-fade-up">
+                <div class="test-quote-mark">"</div>
+                <p class="test-text">I get paid in USDT from an overseas client. SalaryFlow converts it and drops it
+                    straight into my MoMo — no middleman, no stress.</p>
+                <div class="test-user">
+                    <div class="test-avatar">AM</div>
+                    <div>
+                        <div class="test-name">Ama M.</div>
+                        <div class="test-role"><i class="ri-verified-badge-fill"
+                                style="color:var(--orange);font-size:11px"></i> Verified user · Freelancer</div>
+                    </div>
+                </div>
+            </div>
+            <div class="test-card gsap-fade-up">
+                <div class="test-quote-mark">"</div>
+                <p class="test-text">Bulk payout saved me 4 hours a week paying my 48 vendors. Uploaded one file,
+                    confirmed, done. This should cost way more than it does.</p>
+                <div class="test-user">
+                    <div class="test-avatar">EO</div>
+                    <div>
+                        <div class="test-name">Efua O.</div>
+                        <div class="test-role"><i class="ri-verified-badge-fill"
+                                style="color:var(--orange);font-size:11px"></i> Verified user · Founder</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══════════════ CTA ═══════════════ -->
+    <section class="cta-section">
+        <div class="cta-orb"></div>
+        <div class="cta-inner gsap-scale">
+            <h2 class="cta-title">Ready to <em>step into</em><br>the future?</h2>
+            <p class="cta-sub">
+                Join 50,000+ users trading, earning, and sending money smarter. Open DoronX — it's free forever.
+            </p>
+            <div class="cta-ctas">
+                <button class="btn-primary">
+                    Open DoronX
+                    <span class="btn-arrow"><i class="ri-arrow-right-line"></i></span>
+                </button>
+                <button class="btn-outline">
+                    <i class="ri-apple-line" style="font-size:16px"></i>
+                    Download app
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══════════════ FOOTER ═══════════════ -->
+    <footer>
+        <div class="footer-inner">
+            <div class="footer-brand">
+                <!--
+        FOOTER LOGO: Same as nav — replace .logo-mark + .logo-text with your logo image
+      -->
+                <div class="nav-logo" style="text-decoration:none">
+                    <div class="logo-mark"><img src="logo.png" alt="DoronX" class="logo-img"></div>
+
+                </div>
+                <h4>Own your money.</h4>
+                <p>DoronX is a financial super-app — trade crypto, earn yield, send money, spend globally. All in one
+                    place.</p>
+                <div class="footer-badges">
+                    <div class="footer-badge"><i class="ri-shield-check-line" style="color:var(--green)"></i> Registered
+                        &amp; licensed</div>
+                    <div class="footer-badge"><i class="ri-lock-2-line" style="color:var(--green)"></i> 256-bit
+                        encryption</div>
+                </div>
+            </div>
+            <div class="footer-col">
+                <h5>Trade</h5>
+                <ul>
+                    <li><a href="#"><i class="ri-bit-coin-line"></i> Buy Bitcoin</a></li>
+                    <li><a href="#">Buy USDT</a></li>
+                    <li><a href="#"><i class="ri-swap-2-line"></i> OTC Trading</a></li>
+                    <li><a href="#"><i class="ri-exchange-2-line"></i> DoronSwap</a></li>
+                    <li><a href="#"><i class="ri-line-chart-line"></i> Markets</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h5>Earn &amp; spend</h5>
+                <ul>
+                    <li><a href="#"><i class="ri-safe-2-line"></i> The Vault</a></li>
+                    <li><a href="#"><i class="ri-money-dollar-circle-line"></i> SalaryFlow</a></li>
+                    <li><a href="#"><i class="ri-bank-card-2-line"></i> Virtual Cards</a></li>
+                    <li><a href="#"><i class="ri-gift-2-line"></i> Gift Cards</a></li>
+                    <li><a href="#"><i class="ri-signal-wifi-line"></i> Data Bundles</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h5>Business</h5>
+                <ul>
+                    <li><a href="#"><i class="ri-file-list-3-line"></i> Smart Invoice</a></li>
+                    <li><a href="#">Payment Stands</a></li>
+                    <li><a href="#"><i class="ri-send-plane-line"></i> Bulk Payout</a></li>
+                    <li><a href="#">API &amp; Docs</a></li>
+                    <li><a href="#">Merchant dashboard</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h5>Company</h5>
+                <ul>
+                    <li><a href="#"><i class="ri-information-line"></i> About</a></li>
+                    <li><a href="#">Careers</a></li>
+                    <li><a href="#"><i class="ri-gamepad-line"></i> Games Arena</a></li>
+                    <li><a href="#"><i class="ri-customer-service-2-line"></i> Support</a></li>
+                    <li><a href="#">Contact</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <span>© 2026 DoronX · All rights reserved</span>
+            <div>
+                <a href="#">Privacy</a>
+                <a href="#">Terms</a>
+                <a href="#">Disclosures</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- ═══════════════════════════════════════════════════════
+     SCRIPTS
+     ═══════════════════════════════════════════════════════ -->
+    <script>
+        /* ─────────────────────────────────────────
+           MOBILE MENU
+           ───────────────────────────────────────── */
+        const mobileMenu = document.getElementById('mobileMenu');
+        const navBurger = document.getElementById('navBurger');
+        let menuOpen = false;
+
+        function toggleMobileMenu() {
+            menuOpen = !menuOpen;
+            mobileMenu.classList.toggle('open', menuOpen);
+            navBurger.classList.toggle('active', menuOpen);
+            document.body.style.overflow = menuOpen ? 'hidden' : '';
+        }
+        function closeMobileMenu() {
+            menuOpen = false;
+            mobileMenu.classList.remove('open');
+            navBurger.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        // close on mobile link click
+        document.querySelectorAll('.mobile-nav-links a').forEach(a => {
+            a.addEventListener('click', closeMobileMenu);
+        });
+        // close on backdrop click
+        mobileMenu.addEventListener('click', (e) => {
+            if (e.target === mobileMenu || e.target === mobileMenu.querySelector('.mobile-menu-inner')) {
+                closeMobileMenu();
+            }
+        });
+        // close on ESC
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && menuOpen) closeMobileMenu();
+        });
+
+        /* ─────────────────────────────────────────
+           NAV SCROLL BEHAVIOUR
+           ───────────────────────────────────────── */
+        const mainNav = document.getElementById('mainNav');
+        window.addEventListener('scroll', () => {
+            mainNav.classList.toggle('scrolled', window.scrollY > 40);
+        }, { passive: true });
+
+        /* ─────────────────────────────────────────
+           NAV ACTIVE LINK ON SCROLL
+           ───────────────────────────────────────── */
+        const allNavLinks = document.querySelectorAll('.nav-links a, .mobile-nav-links a');
+        const navSections = ['home', 'features', 'ecosystem', 'how', 'testimonials']
+            .map(id => ({ id, el: document.getElementById(id) }))
+            .filter(s => s.el);
+
+        window.addEventListener('scroll', () => {
+            const y = window.scrollY + 100;
+            let current = navSections[0];
+            for (const s of navSections) {
+                if (s.el.offsetTop <= y) current = s;
+            }
+            allNavLinks.forEach(l => l.classList.toggle('active', l.getAttribute('href') === `#${current.id}`));
+        }, { passive: true });
+
+        /* ─────────────────────────────────────────
+           PREVIEW CARD INTERACTIONS
+           ───────────────────────────────────────── */
+        document.querySelectorAll('.pc-tab').forEach(t => {
+            t.addEventListener('click', () => {
+                t.closest('.pc-tabs').querySelectorAll('.pc-tab').forEach(x => x.classList.remove('active'));
+                t.classList.add('active');
+            });
+        });
+        document.querySelectorAll('.chart-timeline span').forEach(s => {
+            s.addEventListener('click', () => {
+                s.closest('.chart-timeline').querySelectorAll('span').forEach(x => x.classList.remove('active'));
+                s.classList.add('active');
+            });
+        });
+
+        /* ─────────────────────────────────────────
+           BENTO CURSOR-FOLLOW GLOW
+           ───────────────────────────────────────── */
+        document.querySelectorAll('.bento').forEach(el => {
+            el.addEventListener('mousemove', (e) => {
+                const r = el.getBoundingClientRect();
+                el.style.setProperty('--x', ((e.clientX - r.left) / r.width * 100) + '%');
+                el.style.setProperty('--y', ((e.clientY - r.top) / r.height * 100) + '%');
+            });
+        });
+
+        /* ─────────────────────────────────────────
+           STATS COUNTER + BARS
+           ───────────────────────────────────────── */
+        const statsBlock = document.getElementById('statsNumbers');
+        const statsObs = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (!entry.isIntersecting) return;
+                statsBlock.classList.add('in-view');
+                statsBlock.querySelectorAll('[data-target]').forEach(el => {
+                    const target = parseFloat(el.dataset.target);
+                    const prefix = el.dataset.prefix || '';
+                    const suffix = el.dataset.suffix || '';
+                    const dur = 1900, start = performance.now();
+                    const tick = (now) => {
+                        const p = Math.min((now - start) / dur, 1);
+                        const eased = 1 - Math.pow(1 - p, 3);
+                        const val = target * eased;
+                        el.textContent = `${prefix}${target % 1 !== 0 ? val.toFixed(1) : Math.round(val)}${suffix}`;
+                        if (p < 1) requestAnimationFrame(tick);
+                    };
+                    requestAnimationFrame(tick);
+                });
+                statsObs.unobserve(statsBlock);
+            });
+        }, { threshold: 0.3 });
+        if (statsBlock) statsObs.observe(statsBlock);
+
+        /* ─────────────────────────────────────────
+           GSAP SCROLL ANIMATIONS (Apple Vision Pro style)
+           ─────────────────────────────────────────
+           Key techniques used:
+           - scrub:true — animations tied to scroll progress (like AVP)
+           - stagger — cascading child reveals
+           - pin — elements stay fixed while content scrolls past (AVP hero)
+           - parallax depth layers
+           - horizontal split-word reveals
+           - scale from center on large text
+           ───────────────────────────────────────── */
+        gsap.registerPlugin(ScrollTrigger);
+
+        /* Ease aliases */
+        const E = {
+            out: 'power3.out',
+            inOut: 'power3.inOut',
+            back: 'back.out(1.4)',
+            expo: 'expo.out',
+        };
+
+        /* ── Hero elements (fire on load, not scroll) ── */
+        const heroTl = gsap.timeline({ defaults: { ease: E.out } });
+        heroTl
+            .to('.hero-badge', { opacity: 1, y: 0, duration: .7 }, 0.1)
+            .to('.hero-headline', { opacity: 1, y: 0, duration: .8 }, 0.2)
+            .to('.hero-sub', { opacity: 1, y: 0, duration: .7 }, 0.38)
+            .to('.hero-ctas', { opacity: 1, y: 0, duration: .7 }, 0.5)
+            .to('.hero-trust', { opacity: 1, y: 0, duration: .7 }, 0.62)
+            .to('.preview-wrap', { opacity: 1, y: 0, duration: .9 }, 0.72)
+            .to('.fp-1', { opacity: 1, duration: .6 }, 0.85)
+            .to('.fp-2', { opacity: 1, duration: .6 }, 0.95)
+            .to('.fp-3', { opacity: 1, duration: .6 }, 1.0)
+            .to('.fp-4', { opacity: 1, duration: .6 }, 1.1);
+
+        /* ── Floating pills continuous float ── */
+        gsap.to('.fp-1', { y: -10, duration: 4.2, repeat: -1, yoyo: true, ease: 'sine.inOut', delay: 0 });
+        gsap.to('.fp-2', { y: -8, duration: 3.8, repeat: -1, yoyo: true, ease: 'sine.inOut', delay: .8 });
+        gsap.to('.fp-3', { y: -12, duration: 4.6, repeat: -1, yoyo: true, ease: 'sine.inOut', delay: .3 });
+        gsap.to('.fp-4', { y: -7, duration: 5.0, repeat: -1, yoyo: true, ease: 'sine.inOut', delay: 1.2 });
+
+        /* ── Orb parallax on scroll (AVP hero feel) ── */
+        gsap.to('.hero-orb', {
+            yPercent: 28,
+            scale: 1.1,
+            ease: 'none',
+            scrollTrigger: {
+                trigger: '.hero',
+                start: 'top top',
+                end: 'bottom top',
+                scrub: 1.2,
+            }
+        });
+
+        /* ── Hero grid parallax ── */
+        gsap.to('.hero-grid-bg', {
+            yPercent: 20,
+            ease: 'none',
+            scrollTrigger: {
+                trigger: '.hero',
+                start: 'top top',
+                end: 'bottom top',
+                scrub: 1,
+            }
+        });
+
+        /* ── Generic scroll reveal helper ── */
+        function revealOn(el, vars = {}, triggerOpts = {}) {
+            gsap.to(el, {
+                opacity: 1, y: 0, x: 0, scale: 1,
+                duration: .9,
+                ease: E.out,
+                ...vars,
+                scrollTrigger: {
+                    trigger: el,
+                    start: 'top 88%',
+                    toggleActions: 'play none none none',
+                    ...triggerOpts,
+                }
+            });
+        }
+
+        /* ── Section eyebrows + titles (scrub zoom-in like AVP) ── */
+        document.querySelectorAll('.gsap-fade-up').forEach((el, i) => {
+            revealOn(el, { duration: .85 });
+        });
+        document.querySelectorAll('.gsap-fade').forEach(el => {
+            revealOn(el, { duration: .8 });
+        });
+        document.querySelectorAll('.gsap-fade-left').forEach(el => {
+            revealOn(el, { duration: .9 });
+        });
+        document.querySelectorAll('.gsap-fade-right').forEach(el => {
+            revealOn(el, { duration: .9 });
+        });
+        document.querySelectorAll('.gsap-scale').forEach(el => {
+            revealOn(el, { duration: 1.0, ease: E.expo });
+        });
+
+        /* ── Staggered bento grid (AVP feature grid cascade) ── */
+        const bentos = document.querySelectorAll('.bento');
+        bentos.forEach((b, i) => {
+            gsap.fromTo(b,
+                { opacity: 0, y: 50, scale: 0.96 },
+                {
+                    opacity: 1, y: 0, scale: 1,
+                    duration: .85,
+                    ease: E.out,
+                    scrollTrigger: {
+                        trigger: b,
+                        start: 'top 90%',
+                        toggleActions: 'play none none none',
+                    },
+                    delay: (i % 3) * 0.08
+                }
+            );
+        });
+
+        /* ── Giant text scrub-scale (classic AVP cinematic) ── */
+        gsap.fromTo('.giant-text',
+            { opacity: 0, scale: 0.75, y: 60 },
+            {
+                opacity: 1, scale: 1, y: 0,
+                ease: 'none',
+                scrollTrigger: {
+                    trigger: '.giant-section',
+                    start: 'top 80%',
+                    end: 'top 20%',
+                    scrub: 1.5,
+                }
+            }
+        );
+
+        /* ── Stats card scrub ── */
+        gsap.fromTo('.stats-card',
+            { opacity: 0, y: 70 },
+            {
+                opacity: 1, y: 0,
+                ease: 'none',
+                scrollTrigger: {
+                    trigger: '.stats-card',
+                    start: 'top 85%',
+                    end: 'top 40%',
+                    scrub: 1,
+                }
+            }
+        );
+
+        /* ── Stat numbers stagger (appear one by one) ── */
+        gsap.fromTo('.stat-item',
+            { opacity: 0, y: 30 },
+            {
+                opacity: 1, y: 0,
+                stagger: .12,
+                duration: .7,
+                ease: E.out,
+                scrollTrigger: {
+                    trigger: '.stats-numbers',
+                    start: 'top 80%',
+                }
+            }
+        );
+
+        /* ── How-steps stagger ── */
+        gsap.fromTo('.how-step',
+            { opacity: 0, y: 40 },
+            {
+                opacity: 1, y: 0,
+                stagger: .15,
+                duration: .8,
+                ease: E.out,
+                scrollTrigger: {
+                    trigger: '.how-grid',
+                    start: 'top 80%',
+                }
+            }
+        );
+
+        /* ── Testimonial cards stagger ── */
+        gsap.fromTo('.test-card',
+            { opacity: 0, y: 50, scale: 0.97 },
+            {
+                opacity: 1, y: 0, scale: 1,
+                stagger: .14,
+                duration: .85,
+                ease: E.out,
+                scrollTrigger: {
+                    trigger: '.test-grid',
+                    start: 'top 82%',
+                }
+            }
+        );
+
+        /* ── Eco bubbles stagger pop ── */
+        gsap.fromTo('.eco-bubble',
+            { opacity: 0, scale: 0.8 },
+            {
+                opacity: 1, scale: 1,
+                stagger: .05,
+                duration: .55,
+                ease: E.back,
+                scrollTrigger: {
+                    trigger: '.eco-grid',
+                    start: 'top 82%',
+                }
+            }
+        );
+
+        /* ── CTA section scrub-parallax (AVP immersive end) ── */
+        gsap.fromTo('.cta-orb',
+            { scale: 0.6, opacity: 0 },
+            {
+                scale: 1.4, opacity: 1,
+                ease: 'none',
+                scrollTrigger: {
+                    trigger: '.cta-section',
+                    start: 'top bottom',
+                    end: 'center center',
+                    scrub: 1.5,
+                }
+            }
+        );
+        gsap.fromTo('.cta-inner',
+            { opacity: 0, y: 60 },
+            {
+                opacity: 1, y: 0,
+                duration: 1,
+                ease: E.expo,
+                scrollTrigger: {
+                    trigger: '.cta-section',
+                    start: 'top 75%',
+                }
+            }
+        );
+
+        /* ── Marquee section reveal ── */
+        gsap.fromTo('.marquee-section',
+            { opacity: 0 },
+            {
+                opacity: 1, duration: .7, ease: E.out,
+                scrollTrigger: { trigger: '.marquee-section', start: 'top 92%' }
+            }
+        );
+
+        /* ── feat-card top (wide chart card) horizontal parallax ── */
+        gsap.fromTo('.fc-visual',
+            { x: 30 },
+            {
+                x: 0,
+                ease: 'none',
+                scrollTrigger: {
+                    trigger: '.fc-top',
+                    start: 'top 85%',
+                    end: 'bottom 30%',
+                    scrub: 1,
+                }
+            }
+        );
+
+        /* ── Footer brand reveal ── */
+        gsap.fromTo('.footer-brand',
+            { opacity: 0, y: 30 },
+            {
+                opacity: 1, y: 0, duration: .8, ease: E.out,
+                scrollTrigger: { trigger: 'footer', start: 'top 90%' }
+            }
+        );
+        gsap.fromTo('.footer-col',
+            { opacity: 0, y: 24 },
+            {
+                opacity: 1, y: 0,
+                stagger: .1, duration: .7, ease: E.out,
+                scrollTrigger: { trigger: 'footer', start: 'top 85%' }
+            }
+        );
+
+        /* ── Refresh on resize ── */
+        window.addEventListener('resize', () => ScrollTrigger.refresh(), { passive: true });
+    </script>
+
+</body>
+
+</html>
