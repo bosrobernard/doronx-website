@@ -1,0 +1,1412 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Terms of Service — DoronX</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@400;500;600;700&family=Space+Mono:wght@400;700&family=Instrument+Serif:ital@0;1&display=swap"
+        rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.9.0/fonts/remixicon.css" rel="stylesheet" />
+    <style>
+        /* ═══════════════════════════ TOKENS (shared) ═══════════════════════════ */
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        :root {
+            --orange: #F7931A;
+            --orange-warm: #FF7A1A;
+            --orange-deep: #E8541A;
+            --orange-soft: rgba(247, 147, 26, 0.10);
+            --orange-border: rgba(247, 147, 26, 0.22);
+            --white: #FFFFFF;
+            --black: #070707;
+            --dark: #0D0D0D;
+            --dark2: #131313;
+            --card: #141414;
+            --card2: #1A1A1A;
+            --border: rgba(255, 255, 255, 0.06);
+            --border-h: rgba(255, 255, 255, 0.11);
+            --gray: rgba(255, 255, 255, 0.55);
+            --gray2: rgba(255, 255, 255, 0.28);
+            --green: #22C55E;
+            --red: #EF4444;
+            --blue: #3884FF;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background: var(--black);
+            color: var(--white);
+            font-family: 'DM Sans', -apple-system, sans-serif;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+            min-width: 320px;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: 9999;
+            opacity: 0.03;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+        }
+
+        /* NAV */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 200;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 clamp(16px, 3vw, 36px);
+            height: 64px;
+            background: rgba(7, 7, 7, 0.88);
+            backdrop-filter: blur(24px) saturate(160%);
+            -webkit-backdrop-filter: blur(24px) saturate(160%);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .nav-logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+        }
+
+        .logo-mark {
+            /* width: 32px;
+            height: 32px;
+            border-radius: 9px; */
+            /* background: linear-gradient(135deg, var(--orange), var(--orange-deep)); */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 15px;
+            /* color: #fff; */
+            /* font-weight: 700; */
+            position: relative;
+            /* box-shadow: 0 0 24px rgba(247, 147, 26, 0.4); */
+            flex-shrink: 0;
+        }
+
+        .logo-mark::after {
+            content: '';
+            position: absolute;
+            inset: 1.5px;
+            border-radius: 8px;
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.22), transparent);
+            pointer-events: none;
+        }
+
+        .logo-mark span {
+            position: relative;
+            z-index: 1;
+        }
+
+        /* If you have a logo image: */
+        .logo-img {
+            height: 32px;
+            width: auto;
+            display: block;
+        }
+
+        .logo-text {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 22px;
+            letter-spacing: 0.05em;
+            line-height: 1;
+        }
+
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .btn-back {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 16px;
+            background: transparent;
+            border: 1px solid var(--border);
+            border-radius: 999px;
+            color: var(--gray);
+            font-family: inherit;
+            font-size: 13px;
+            font-weight: 500;
+            text-decoration: none;
+            transition: border-color .25s, color .25s, background .25s;
+        }
+
+        .btn-back:hover {
+            border-color: var(--orange-border);
+            color: var(--white);
+            background: var(--orange-soft);
+        }
+
+        .btn-solid {
+            padding: 9px 20px;
+            background: var(--orange);
+            border: none;
+            border-radius: 999px;
+            color: #0a0a0a;
+            font-family: inherit;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background .2s, transform .15s, box-shadow .25s;
+        }
+
+        .btn-solid:hover {
+            background: var(--orange-warm);
+            transform: translateY(-1px);
+            box-shadow: 0 8px 28px rgba(247, 147, 26, 0.42);
+        }
+
+        /* PAGE HERO */
+        .page-hero {
+            position: relative;
+            padding: 120px clamp(16px, 4vw, 40px) 80px;
+            overflow: hidden;
+            text-align: center;
+        }
+
+        .page-hero-orb {
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 700px;
+            height: 400px;
+            background: radial-gradient(ellipse at center top, rgba(56, 132, 255, 0.22) 0%, rgba(168, 85, 247, 0.12) 40%, transparent 70%);
+            filter: blur(60px);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .page-hero-grid {
+            position: absolute;
+            inset: 0;
+            z-index: 0;
+            background-image:
+                linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+            background-size: 70px 70px;
+            mask-image: radial-gradient(ellipse at 50% 0%, black 20%, transparent 70%);
+            -webkit-mask-image: radial-gradient(ellipse at 50% 0%, black 20%, transparent 70%);
+        }
+
+        .page-hero-fade {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 120px;
+            background: linear-gradient(0deg, var(--black), transparent);
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .page-hero-inner {
+            position: relative;
+            z-index: 2;
+            max-width: 760px;
+            margin: 0 auto;
+        }
+
+        .page-eyebrow {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 6px 12px;
+            background: var(--orange-soft);
+            border: 1px solid var(--orange-border);
+            border-radius: 999px;
+            font-size: 11px;
+            color: var(--orange);
+            font-weight: 600;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            margin-bottom: 20px;
+        }
+
+        .page-eyebrow-dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: var(--orange);
+            box-shadow: 0 0 8px var(--orange);
+            animation: pulseDot 2s ease-in-out infinite;
+        }
+
+        @keyframes pulseDot {
+
+            0%,
+            100% {
+                opacity: 1
+            }
+
+            50% {
+                opacity: 0.35
+            }
+        }
+
+        .page-title {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: clamp(44px, 7vw, 88px);
+            line-height: 0.92;
+            letter-spacing: -0.01em;
+            margin-bottom: 18px;
+        }
+
+        .page-title em {
+            font-family: 'Instrument Serif', serif;
+            font-style: italic;
+            font-weight: 400;
+            background: linear-gradient(120deg, var(--orange), var(--orange-warm), var(--orange-deep));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .page-meta {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+            font-size: 12px;
+            color: var(--gray2);
+        }
+
+        .page-meta span {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .page-meta i {
+            color: var(--orange);
+            font-size: 13px;
+        }
+
+        /* LAYOUT */
+        .doc-layout {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 clamp(16px, 4vw, 40px) 100px;
+            display: grid;
+            grid-template-columns: 260px 1fr;
+            gap: 48px;
+            align-items: start;
+        }
+
+        /* SIDEBAR */
+        .doc-sidebar {
+            position: sticky;
+            top: 84px;
+        }
+
+        .toc-card {
+            background: linear-gradient(180deg, var(--card2), var(--card));
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 24px;
+            margin-bottom: 16px;
+        }
+
+        .toc-title {
+            font-size: 10px;
+            color: var(--gray2);
+            text-transform: uppercase;
+            letter-spacing: 0.14em;
+            font-weight: 600;
+            margin-bottom: 16px;
+        }
+
+        .toc-list {
+            list-style: none;
+        }
+
+        .toc-list li {
+            margin-bottom: 4px;
+        }
+
+        .toc-list a {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 10px;
+            border-radius: 10px;
+            font-size: 13px;
+            color: var(--gray);
+            text-decoration: none;
+            transition: background .2s, color .2s;
+            font-weight: 500;
+        }
+
+        .toc-list a i {
+            font-size: 14px;
+            color: var(--orange);
+            opacity: 0.7;
+            flex-shrink: 0;
+        }
+
+        .toc-list a:hover {
+            background: rgba(255, 255, 255, 0.04);
+            color: var(--white);
+        }
+
+        .toc-list a:hover i {
+            opacity: 1;
+        }
+
+        .toc-list a.active {
+            background: var(--orange-soft);
+            color: var(--orange);
+            border: 1px solid var(--orange-border);
+        }
+
+        .toc-list a.active i {
+            opacity: 1;
+        }
+
+        .related-card {
+            background: linear-gradient(180deg, var(--card2), var(--card));
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 24px;
+        }
+
+        .related-card h4 {
+            font-size: 13px;
+            font-weight: 600;
+            margin-bottom: 14px;
+        }
+
+        .related-link {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 12px;
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            margin-bottom: 8px;
+            text-decoration: none;
+            transition: border-color .2s, background .2s;
+        }
+
+        .related-link:last-child {
+            margin-bottom: 0;
+        }
+
+        .related-link:hover {
+            border-color: var(--orange-border);
+            background: var(--orange-soft);
+        }
+
+        .related-link-icon {
+            width: 32px;
+            height: 32px;
+            border-radius: 9px;
+            background: var(--orange-soft);
+            border: 1px solid var(--orange-border);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--orange);
+            font-size: 15px;
+            flex-shrink: 0;
+        }
+
+        .related-link-text .t {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--white);
+        }
+
+        .related-link-text .s {
+            font-size: 11px;
+            color: var(--gray2);
+            margin-top: 1px;
+        }
+
+        /* CONTENT */
+        .doc-content {
+            min-width: 0;
+        }
+
+        .doc-section {
+            margin-bottom: 60px;
+            scroll-margin-top: 90px;
+        }
+
+        .section-num {
+            font-family: 'Space Mono', monospace;
+            font-size: 10px;
+            color: var(--orange);
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            margin-bottom: 8px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .section-num::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: var(--orange-border);
+        }
+
+        .doc-section h2 {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: clamp(26px, 3.5vw, 40px);
+            letter-spacing: -0.01em;
+            margin-bottom: 20px;
+            line-height: 1;
+        }
+
+        .doc-section p {
+            font-size: 14px;
+            color: var(--gray);
+            line-height: 1.75;
+            margin-bottom: 16px;
+        }
+
+        .doc-section p:last-child {
+            margin-bottom: 0;
+        }
+
+        .doc-section strong {
+            color: var(--white);
+            font-weight: 600;
+        }
+
+        .doc-section a {
+            color: var(--orange);
+            text-decoration: none;
+        }
+
+        .doc-section a:hover {
+            text-decoration: underline;
+        }
+
+        .doc-highlight {
+            background: var(--orange-soft);
+            border: 1px solid var(--orange-border);
+            border-left: 3px solid var(--orange);
+            border-radius: 12px;
+            padding: 18px 20px;
+            margin: 20px 0;
+            font-size: 14px;
+            color: rgba(255, 255, 255, 0.9);
+            line-height: 1.65;
+            display: flex;
+            gap: 14px;
+        }
+
+        .doc-highlight i {
+            color: var(--orange);
+            font-size: 20px;
+            flex-shrink: 0;
+            margin-top: 1px;
+        }
+
+        .doc-highlight-red {
+            background: rgba(239, 68, 68, 0.08);
+            border: 1px solid rgba(239, 68, 68, 0.22);
+            border-left: 3px solid var(--red);
+            border-radius: 12px;
+            padding: 18px 20px;
+            margin: 20px 0;
+            font-size: 14px;
+            color: rgba(255, 255, 255, 0.9);
+            line-height: 1.65;
+            display: flex;
+            gap: 14px;
+        }
+
+        .doc-highlight-red i {
+            color: var(--red);
+            font-size: 20px;
+            flex-shrink: 0;
+            margin-top: 1px;
+        }
+
+        .doc-highlight-blue {
+            background: rgba(56, 132, 255, 0.08);
+            border: 1px solid rgba(56, 132, 255, 0.22);
+            border-left: 3px solid var(--blue);
+            border-radius: 12px;
+            padding: 18px 20px;
+            margin: 20px 0;
+            font-size: 14px;
+            color: rgba(255, 255, 255, 0.9);
+            line-height: 1.65;
+            display: flex;
+            gap: 14px;
+        }
+
+        .doc-highlight-blue i {
+            color: var(--blue);
+            font-size: 20px;
+            flex-shrink: 0;
+            margin-top: 1px;
+        }
+
+        /* Feature badge row */
+        .feature-badges {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin: 20px 0;
+        }
+
+        .feat-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+            padding: 8px 14px;
+            background: linear-gradient(180deg, var(--card2), var(--card));
+            border: 1px solid var(--border);
+            border-radius: 999px;
+            font-size: 12px;
+            font-weight: 500;
+            color: var(--white);
+        }
+
+        .feat-badge i {
+            color: var(--orange);
+            font-size: 14px;
+        }
+
+        /* Info grid */
+        .info-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin: 20px 0;
+        }
+
+        .info-card {
+            background: linear-gradient(180deg, var(--card2), var(--card));
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 20px;
+        }
+
+        .info-card-icon {
+            width: 36px;
+            height: 36px;
+            border-radius: 10px;
+            background: var(--orange-soft);
+            border: 1px solid var(--orange-border);
+            color: var(--orange);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            margin-bottom: 12px;
+        }
+
+        .info-card h4 {
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 6px;
+        }
+
+        .info-card p {
+            font-size: 12px;
+            color: var(--gray);
+            line-height: 1.55;
+        }
+
+        /* Doc list */
+        .doc-list {
+            list-style: none;
+            margin: 16px 0;
+        }
+
+        .doc-list li {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            font-size: 14px;
+            color: var(--gray);
+            line-height: 1.65;
+            margin-bottom: 10px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .doc-list li:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+
+        .doc-list li i {
+            color: var(--orange);
+            font-size: 16px;
+            flex-shrink: 0;
+            margin-top: 2px;
+        }
+
+        .doc-list li strong {
+            color: var(--white);
+        }
+
+        /* Prohibited list */
+        .prohibit-list {
+            list-style: none;
+            margin: 16px 0;
+        }
+
+        .prohibit-list li {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            font-size: 14px;
+            color: var(--gray);
+            line-height: 1.65;
+            margin-bottom: 8px;
+            padding: 12px 14px;
+            background: rgba(239, 68, 68, 0.04);
+            border: 1px solid rgba(239, 68, 68, 0.12);
+            border-radius: 10px;
+        }
+
+        .prohibit-list li i {
+            color: var(--red);
+            font-size: 16px;
+            flex-shrink: 0;
+            margin-top: 1px;
+        }
+
+        .prohibit-list li strong {
+            color: var(--white);
+        }
+
+        /* Table */
+        .doc-table-wrap {
+            overflow-x: auto;
+            margin: 20px 0;
+            border-radius: 16px;
+            border: 1px solid var(--border);
+        }
+
+        .doc-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 13px;
+        }
+
+        .doc-table th {
+            padding: 12px 16px;
+            text-align: left;
+            background: var(--card2);
+            font-size: 10px;
+            color: var(--gray2);
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+            font-weight: 600;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .doc-table td {
+            padding: 14px 16px;
+            color: var(--gray);
+            border-bottom: 1px solid var(--border);
+            vertical-align: top;
+            line-height: 1.55;
+        }
+
+        .doc-table td:first-child {
+            color: var(--white);
+            font-weight: 500;
+        }
+
+        .doc-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .doc-table tr:hover td {
+            background: rgba(255, 255, 255, 0.015);
+        }
+
+        /* Contact box */
+        .contact-box {
+            background: linear-gradient(135deg, rgba(247, 147, 26, 0.08), rgba(232, 84, 26, 0.05));
+            border: 1px solid var(--orange-border);
+            border-radius: 20px;
+            padding: 28px;
+            display: flex;
+            align-items: flex-start;
+            gap: 20px;
+            margin-top: 60px;
+        }
+
+        .contact-box-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 14px;
+            background: var(--orange);
+            color: #0a0a0a;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 22px;
+            flex-shrink: 0;
+        }
+
+        .contact-box h4 {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 6px;
+        }
+
+        .contact-box p {
+            font-size: 13px;
+            color: var(--gray);
+            line-height: 1.6;
+            margin-bottom: 14px;
+        }
+
+        .contact-box a {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            color: var(--orange);
+            font-size: 13px;
+            font-weight: 600;
+            text-decoration: none;
+        }
+
+        .contact-box a:hover {
+            text-decoration: underline;
+        }
+
+        /* Progress bar */
+        .doc-progress {
+            position: fixed;
+            top: 64px;
+            left: 0;
+            right: 0;
+            z-index: 199;
+            height: 2px;
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .doc-progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--orange), var(--orange-warm));
+            width: 0%;
+            transition: width .1s linear;
+        }
+
+        /* FOOTER */
+        .page-footer {
+            border-top: 1px solid var(--border);
+            padding: 40px clamp(16px, 4vw, 40px);
+            background: var(--dark);
+        }
+
+        .page-footer-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .page-footer-logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 12px;
+            color: var(--gray2);
+        }
+
+        .page-footer-links {
+            display: flex;
+            gap: 6px;
+            flex-wrap: wrap;
+        }
+
+        .page-footer-links a {
+            padding: 7px 14px;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--border);
+            border-radius: 999px;
+            font-size: 12px;
+            color: var(--gray);
+            text-decoration: none;
+            transition: border-color .2s, color .2s;
+        }
+
+        .page-footer-links a:hover {
+            border-color: var(--orange-border);
+            color: var(--orange);
+        }
+
+        .page-footer-links a.current {
+            border-color: var(--orange-border);
+            color: var(--orange);
+            background: var(--orange-soft);
+        }
+
+        /* ANIMATIONS */
+        @keyframes fadeUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px)
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0)
+            }
+        }
+
+        .page-hero-inner {
+            animation: fadeUp .8s cubic-bezier(.2, .8, .2, 1) both;
+        }
+
+        .doc-sidebar {
+            animation: fadeUp .7s .2s cubic-bezier(.2, .8, .2, 1) both;
+        }
+
+        .doc-content {
+            animation: fadeUp .7s .1s cubic-bezier(.2, .8, .2, 1) both;
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 900px) {
+            .doc-layout {
+                grid-template-columns: 1fr;
+                gap: 32px;
+            }
+
+            .doc-sidebar {
+                position: static;
+            }
+
+            .toc-card {
+                display: none;
+            }
+
+            .info-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 640px) {
+            .page-hero {
+                padding: 100px 16px 60px;
+            }
+
+            .contact-box {
+                flex-direction: column;
+            }
+
+            .page-footer-inner {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .doc-layout {
+                padding: 0 16px 60px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="doc-progress">
+        <div class="doc-progress-fill" id="progressFill"></div>
+    </div>
+
+    <nav>
+        <a href="index.html" class="nav-logo">
+            <div class="logo-mark"><img src="logo.png" alt="DoronX" class="logo-img"></div>
+
+        </a>
+        <div class="nav-right">
+            <a href="index.html" class="btn-back"><i class="ri-arrow-left-line"></i> Back to home</a>
+            <a href="https://doronpay.com/" class="btn-solid">Open app <i class="ri-arrow-right-up-line"></i></a>
+        </div>
+    </nav>
+
+    <div class="page-hero">
+        <div class="page-hero-orb"></div>
+        <div class="page-hero-grid"></div>
+        <div class="page-hero-fade"></div>
+        <div class="page-hero-inner">
+            <div class="page-eyebrow"><span class="page-eyebrow-dot"></span> Legal</div>
+            <h1 class="page-title">Terms of <em>Service</em></h1>
+            <div class="page-meta">
+                <span><i class="ri-calendar-line"></i> Effective: January 1, 2026</span>
+                <span><i class="ri-refresh-line"></i> Last updated: April 2026</span>
+                <span><i class="ri-time-line"></i> 12 min read</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="doc-layout">
+        <aside class="doc-sidebar">
+            <div class="toc-card">
+                <div class="toc-title">On this page</div>
+                <ul class="toc-list">
+                    <li><a href="#agreement" class="active"><i class="ri-file-text-line"></i> Agreement</a></li>
+                    <li><a href="#eligibility"><i class="ri-user-check-line"></i> Eligibility</a></li>
+                    <li><a href="#account"><i class="ri-account-circle-line"></i> Your account</a></li>
+                    <li><a href="#services"><i class="ri-apps-line"></i> Our services</a></li>
+                    <li><a href="#fees"><i class="ri-money-dollar-circle-line"></i> Fees</a></li>
+                    <li><a href="#prohibited"><i class="ri-forbid-2-line"></i> Prohibited use</a></li>
+                    <li><a href="#crypto"><i class="ri-bit-coin-line"></i> Crypto rules</a></li>
+                    <li><a href="#intellectual"><i class="ri-copyright-line"></i> Intellectual property</a></li>
+                    <li><a href="#liability"><i class="ri-scales-3-line"></i> Liability</a></li>
+                    <li><a href="#termination"><i class="ri-logout-circle-line"></i> Termination</a></li>
+                    <li><a href="#disputes"><i class="ri-chat-4-line"></i> Disputes</a></li>
+                    <li><a href="#changes"><i class="ri-history-line"></i> Changes</a></li>
+                    <li><a href="#contact"><i class="ri-mail-line"></i> Contact</a></li>
+                </ul>
+            </div>
+            <div class="related-card">
+                <h4>Related documents</h4>
+                <a href="privacy.html" class="related-link">
+                    <div class="related-link-icon"><i class="ri-shield-user-line"></i></div>
+                    <div class="related-link-text">
+                        <div class="t">Privacy Policy</div>
+                        <div class="s">How we handle your data</div>
+                    </div>
+                </a>
+                <a href="disclosures.html" class="related-link">
+                    <div class="related-link-icon"><i class="ri-alert-line"></i></div>
+                    <div class="related-link-text">
+                        <div class="t">Disclosures</div>
+                        <div class="s">Risk &amp; regulatory notices</div>
+                    </div>
+                </a>
+            </div>
+        </aside>
+
+        <main class="doc-content">
+
+            <div class="doc-section" id="agreement">
+                <div class="section-num"><i class="ri-file-text-line"></i> 01 — Agreement</div>
+                <h2>Terms of Agreement</h2>
+                <div class="doc-highlight">
+                    <i class="ri-information-line"></i>
+                    <div>These Terms of Service ("Terms") form a legally binding agreement between you and <strong>Lazy
+                            Logic Limited</strong> ("DoronX," "we," "our," or "us"). By creating a DoronX account or
+                        using our services, you agree to be bound by these Terms. Please read them carefully.</div>
+                </div>
+                <p>These Terms govern your access to and use of the DoronX mobile app, web application at
+                    <strong>doronx.com</strong>, and all associated services including DoronSwap, the Vault, SalaryFlow,
+                    Smart Invoice, Payment Stands, Bulk Payout, Virtual Cards, Games Arena, and any APIs or integrations
+                    we provide.
+                </p>
+                <p>These Terms were last updated in April 2026 and supersede all previous versions. If you do not agree
+                    to these Terms, you must immediately stop using our services.</p>
+            </div>
+
+            <div class="doc-section" id="eligibility">
+                <div class="section-num"><i class="ri-user-check-line"></i> 02 — Eligibility</div>
+                <h2>Who Can Use DoronX</h2>
+                <p>To use DoronX, you must meet the following requirements:</p>
+                <ul class="doc-list">
+                    <li><i class="ri-checkbox-circle-line"></i><span>Be at least <strong>18 years of age</strong> or the
+                            legal age of majority in your jurisdiction, whichever is higher.</span></li>
+                    <li><i class="ri-checkbox-circle-line"></i><span>Have the <strong>legal capacity</strong> to enter
+                            into a binding contract.</span></li>
+                    <li><i class="ri-checkbox-circle-line"></i><span><strong>Not be a resident</strong> of a
+                            jurisdiction where our services are prohibited or require a licence we do not hold.</span>
+                    </li>
+                    <li><i class="ri-checkbox-circle-line"></i><span><strong>Not be a sanctioned person</strong> or
+                            entity under applicable laws and regulations.</span></li>
+                    <li><i class="ri-checkbox-circle-line"></i><span>Successfully complete our <strong>KYC/AML
+                                verification</strong> process as required for your account tier and transaction
+                            levels.</span></li>
+                    <li><i class="ri-checkbox-circle-line"></i><span>Provide <strong>true, accurate, and
+                                complete</strong> information during registration and keep it updated.</span></li>
+                </ul>
+                <div class="doc-highlight-blue">
+                    <i class="ri-global-line"></i>
+                    <div>DoronX is available in select jurisdictions. Availability of specific features (e.g. Mobile
+                        Money, virtual cards) may vary by country. We make no representation that our services are
+                        appropriate or available in all locations.</div>
+                </div>
+            </div>
+
+            <div class="doc-section" id="account">
+                <div class="section-num"><i class="ri-account-circle-line"></i> 03 — Your Account</div>
+                <h2>Account Responsibilities</h2>
+                <p>Your DoronX account is personal to you. You are solely responsible for all activity that occurs under
+                    your account credentials.</p>
+                <ul class="doc-list">
+                    <li><i class="ri-key-2-line"></i><span><strong>Credentials security:</strong> Keep your password,
+                            PIN, and 2FA codes confidential. Never share them with anyone, including DoronX
+                            staff.</span></li>
+                    <li><i class="ri-user-line"></i><span><strong>One account per person:</strong> You may not create
+                            multiple accounts. Duplicate accounts may be terminated without notice.</span></li>
+                    <li><i class="ri-alert-line"></i><span><strong>Suspicious activity:</strong> Notify us immediately
+                            at <a href="mailto:security@doronx.com">security@doronx.com</a> if you suspect unauthorised
+                            access to your account.</span></li>
+                    <li><i class="ri-profile-line"></i><span><strong>Accurate information:</strong> All information you
+                            provide must be truthful. Providing false information may result in immediate account
+                            suspension.</span></li>
+                    <li><i class="ri-lock-password-line"></i><span><strong>2FA required:</strong> We strongly recommend
+                            — and may require — two-factor authentication for certain transaction types and account
+                            changes.</span></li>
+                </ul>
+                <p>We reserve the right to refuse service, close accounts, or cancel transactions at our discretion,
+                    including for regulatory compliance, suspicious activity, or breach of these Terms.</p>
+            </div>
+
+            <div class="doc-section" id="services">
+                <div class="section-num"><i class="ri-apps-line"></i> 04 — Our Services</div>
+                <h2>DoronX Services</h2>
+                <p>DoronX provides a comprehensive suite of financial services. Each service is subject to these Terms
+                    and any additional product-specific terms that may apply.</p>
+                <div class="feature-badges">
+                    <div class="feat-badge"><i class="ri-bit-coin-line"></i> Buy/Sell BTC &amp; USDT</div>
+                    <div class="feat-badge"><i class="ri-safe-2-line"></i> Vault (AAVE v3)</div>
+                    <div class="feat-badge"><i class="ri-exchange-2-line"></i> DoronSwap</div>
+                    <div class="feat-badge"><i class="ri-bank-card-2-line"></i> Virtual Cards</div>
+                    <div class="feat-badge"><i class="ri-send-plane-line"></i> Bulk Payout</div>
+                    <div class="feat-badge"><i class="ri-money-dollar-circle-line"></i> SalaryFlow</div>
+                    <div class="feat-badge"><i class="ri-file-list-3-line"></i> Smart Invoice</div>
+                    <div class="feat-badge"><i class="ri-qr-code-line"></i> Payment Stands</div>
+                    <div class="feat-badge"><i class="ri-swap-2-line"></i> OTC Trading</div>
+                    <div class="feat-badge"><i class="ri-gamepad-line"></i> Games Arena</div>
+                    <div class="feat-badge"><i class="ri-hexagon-line"></i> Web3 Funding</div>
+                    <div class="feat-badge"><i class="ri-signal-wifi-line"></i> Data Bundles</div>
+                    <div class="feat-badge"><i class="ri-gift-2-line"></i> Gift Cards</div>
+                </div>
+                <p>Services may be modified, suspended, or discontinued at any time. We will provide reasonable notice
+                    where possible. DoronX is not a bank and deposits held in your wallet are not covered by bank
+                    deposit insurance schemes.</p>
+                <div class="doc-highlight-blue">
+                    <i class="ri-safe-2-line"></i>
+                    <div><strong>Vault notice:</strong> The Vault integrates with AAVE v3 on Polygon. While we display
+                        indicative APY rates, actual yields fluctuate based on market conditions. Past performance is
+                        not indicative of future results. Yield is subject to protocol risk.</div>
+                </div>
+            </div>
+
+            <div class="doc-section" id="fees">
+                <div class="section-num"><i class="ri-money-dollar-circle-line"></i> 05 — Fees</div>
+                <h2>Fees &amp; Charges</h2>
+                <p>Certain DoronX services carry fees. We are transparent about all charges before you confirm a
+                    transaction.</p>
+                <div class="doc-table-wrap">
+                    <table class="doc-table">
+                        <thead>
+                            <tr>
+                                <th>Service</th>
+                                <th>Fee structure</th>
+                                <th>Notes</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Buy/Sell Crypto</td>
+                                <td>Spread + DoronPay fee (displayed at checkout)</td>
+                                <td>Live rate includes our margin</td>
+                            </tr>
+                            <tr>
+                                <td>Mobile Money funding</td>
+                                <td>Network operator fee (if any) + processing fee</td>
+                                <td>Displayed before confirmation</td>
+                            </tr>
+                            <tr>
+                                <td>Internal transfers</td>
+                                <td>Free</td>
+                                <td>Between DoronX accounts only</td>
+                            </tr>
+                            <tr>
+                                <td>Withdrawal to MoMo/bank</td>
+                                <td>Fixed or % fee displayed at checkout</td>
+                                <td>Varies by network &amp; amount</td>
+                            </tr>
+                            <tr>
+                                <td>Virtual card funding</td>
+                                <td>DoronPay fee + Maplerad fee (displayed)</td>
+                                <td>Funding preview shown</td>
+                            </tr>
+                            <tr>
+                                <td>Bulk Payout</td>
+                                <td>Per-recipient fee (volume discounts available)</td>
+                                <td>Contact us for enterprise rates</td>
+                            </tr>
+                            <tr>
+                                <td>OTC Trading</td>
+                                <td>Negotiated rate, no hidden fees</td>
+                                <td>Agreed before trade execution</td>
+                            </tr>
+                            <tr>
+                                <td>Vault</td>
+                                <td>Management fee deducted from yield</td>
+                                <td>Net APY shown in app</td>
+                            </tr>
+                            <tr>
+                                <td>Web3 on-chain funding</td>
+                                <td>Gas/network fees paid by user</td>
+                                <td>DoronX does not control gas</td>
+                            </tr>
+                            <tr>
+                                <td>Games (DORX entry)</td>
+                                <td>Entry fee in DORX tokens</td>
+                                <td>See Games Arena for details</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <p>All fees are displayed clearly before you confirm any transaction. By confirming, you agree to the
+                    displayed fees. Fees may change with 30 days' notice.</p>
+            </div>
+
+            <div class="doc-section" id="prohibited">
+                <div class="section-num"><i class="ri-forbid-2-line"></i> 06 — Prohibited Use</div>
+                <h2>What You Must Not Do</h2>
+                <p>You agree not to use DoronX for any of the following prohibited activities. Violation may result in
+                    immediate account suspension and report to authorities.</p>
+                <ul class="prohibit-list">
+                    <li><i class="ri-close-circle-line"></i><span><strong>Money laundering or terrorist
+                                financing:</strong> Using our platform to conceal the origin of funds or finance illegal
+                            activities.</span></li>
+                    <li><i class="ri-close-circle-line"></i><span><strong>Fraud or impersonation:</strong> Creating
+                            accounts under false identities, impersonating others, or deceiving other users.</span></li>
+                    <li><i class="ri-close-circle-line"></i><span><strong>Market manipulation:</strong> Artificial
+                            inflation or deflation of crypto asset prices, wash trading, or co-ordinated pump-and-dump
+                            schemes.</span></li>
+                    <li><i class="ri-close-circle-line"></i><span><strong>Sanctions evasion:</strong> Circumventing
+                            financial sanctions imposed by any government or regulatory body.</span></li>
+                    <li><i class="ri-close-circle-line"></i><span><strong>Hacking or reverse engineering:</strong>
+                            Attempting to breach our security, access other users' accounts, or reverse-engineer our
+                            software or APIs.</span></li>
+                    <li><i class="ri-close-circle-line"></i><span><strong>Automated abuse:</strong> Using bots,
+                            scrapers, or automated tools to access the platform in a manner that degrades performance
+                            for others.</span></li>
+                    <li><i class="ri-close-circle-line"></i><span><strong>Illegal transactions:</strong> Using our
+                            services to purchase, sell, or facilitate any illegal goods or services.</span></li>
+                    <li><i class="ri-close-circle-line"></i><span><strong>Sharing account access:</strong> Allowing
+                            third parties to operate your account on your behalf without our written consent.</span>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="doc-section" id="crypto">
+                <div class="section-num"><i class="ri-bit-coin-line"></i> 07 — Crypto-Specific Rules</div>
+                <h2>Cryptocurrency Rules</h2>
+                <div class="doc-highlight-red">
+                    <i class="ri-error-warning-line"></i>
+                    <div><strong>Irreversibility warning:</strong> Blockchain transactions are final and irreversible
+                        once confirmed. Sending crypto to a wrong address or wrong network may result in permanent,
+                        unrecoverable loss. Always verify addresses carefully.</div>
+                </div>
+                <ul class="doc-list">
+                    <li><i class="ri-arrow-right-circle-line"></i><span><strong>Network selection:</strong> You are
+                            responsible for selecting the correct network (BEP20, ERC20, TRC20, Solana, BTC) for
+                            deposits and withdrawals. Sending on the wrong network will result in lost funds we cannot
+                            recover.</span></li>
+                    <li><i class="ri-timer-line"></i><span><strong>Confirmation times:</strong> On-chain transactions
+                            require network confirmations before crediting. Times vary by network and congestion.</span>
+                    </li>
+                    <li><i class="ri-price-tag-3-line"></i><span><strong>Rate volatility:</strong> Crypto prices
+                            fluctuate significantly. The rate you see at the time of viewing may differ from the rate at
+                            the time of execution.</span></li>
+                    <li><i class="ri-lock-2-line"></i><span><strong>Private keys:</strong> DoronX never stores your
+                            private keys. You are responsible for the security of any external wallets connected via
+                            WalletConnect.</span></li>
+                    <li><i class="ri-funds-line"></i><span><strong>DORX tokens:</strong> DORX is an in-app rewards
+                            token. It has utility value within the DoronX ecosystem but does not constitute an
+                            investment and its value may be zero outside the platform.</span></li>
+                </ul>
+            </div>
+
+            <div class="doc-section" id="intellectual">
+                <div class="section-num"><i class="ri-copyright-line"></i> 08 — Intellectual Property</div>
+                <h2>Intellectual Property</h2>
+                <p>All content, branding, software, code, designs, text, logos, and materials within DoronX are the
+                    exclusive property of <strong>Lazy Logic Limited</strong> or our licensors and are protected by
+                    applicable intellectual property laws.</p>
+                <p>You are granted a limited, non-exclusive, non-transferable, revocable licence to use DoronX solely
+                    for your own personal or business financial needs. This licence does not include the right to:</p>
+                <ul class="doc-list">
+                    <li><i class="ri-close-circle-line"></i><span>Reproduce, distribute, or create derivative works from
+                            our platform or content.</span></li>
+                    <li><i class="ri-close-circle-line"></i><span>Reverse engineer, decompile, or disassemble any part
+                            of our software.</span></li>
+                    <li><i class="ri-close-circle-line"></i><span>Use our brand name, logo, or trademarks without prior
+                            written consent.</span></li>
+                    <li><i class="ri-close-circle-line"></i><span>Build competing products or services using our
+                            proprietary methodologies.</span></li>
+                </ul>
+                <p>Any feedback or suggestions you provide to us may be used by DoronX without restriction or
+                    compensation to you.</p>
+            </div>
+
+            <div class="doc-section" id="liability">
+                <div class="section-num"><i class="ri-scales-3-line"></i> 09 — Liability</div>
+                <h2>Limitation of Liability</h2>
+                <div class="doc-highlight-red">
+                    <i class="ri-alert-line"></i>
+                    <div>To the maximum extent permitted by applicable law, DoronX's total liability to you for any
+                        claim arising out of or relating to these Terms or our services shall not exceed the amount of
+                        fees you have paid to us in the <strong>90 days preceding the claim</strong>.</div>
+                </div>
+                <p>DoronX shall not be liable for:</p>
+                <ul class="doc-list">
+                    <li><i class="ri-information-line"></i><span>Losses arising from <strong>blockchain network
+                                failures, congestion, or protocol bugs</strong> outside our control.</span></li>
+                    <li><i class="ri-information-line"></i><span><strong>Market losses</strong> resulting from crypto
+                            price volatility.</span></li>
+                    <li><i class="ri-information-line"></i><span>Losses resulting from <strong>your failure to maintain
+                                account security</strong> (e.g. sharing passwords, phishing).</span></li>
+                    <li><i class="ri-information-line"></i><span>Losses arising from <strong>third-party service
+                                disruptions</strong> (Maplerad, AAVE, MoMo operators, etc.).</span></li>
+                    <li><i class="ri-information-line"></i><span>Indirect, incidental, consequential, special, or
+                            <strong>punitive damages</strong> of any kind.</span></li>
+                    <li><i class="ri-information-line"></i><span>Loss of data, revenue, profits, or business arising
+                            from <strong>service interruptions</strong>.</span></li>
+                </ul>
+                <p>DoronX services are provided <strong>"as is"</strong> and <strong>"as available"</strong> without
+                    warranties of any kind, express or implied, to the fullest extent permitted by law.</p>
+            </div>
+
+            <div class="doc-section" id="termination">
+                <div class="section-num"><i class="ri-logout-circle-line"></i> 10 — Termination</div>
+                <h2>Account Termination</h2>
+                <p><strong>By you:</strong> You may close your DoronX account at any time by contacting us at <a
+                        href="mailto:support@doronx.com">support@doronx.com</a>. Before closure, you must withdraw all
+                    remaining balance. We may take up to 14 business days to process account closure requests.</p>
+                <p><strong>By us:</strong> We may suspend or terminate your account immediately and without prior notice
+                    if:</p>
+                <ul class="doc-list">
+                    <li><i class="ri-error-warning-line"></i><span>You violate these Terms or any applicable law or
+                            regulation.</span></li>
+                    <li><i class="ri-error-warning-line"></i><span>We are required to do so by law, court order, or
+                            regulatory direction.</span></li>
+                    <li><i class="ri-error-warning-line"></i><span>We reasonably suspect your account is involved in
+                            fraud, money laundering, or other illegal activity.</span></li>
+                    <li><i class="ri-error-warning-line"></i><span>Your account poses a risk to the security of the
+                            platform or other users.</span></li>
+                </ul>
+                <p>Upon termination, you remain liable for any obligations arising before termination. Sections on
+                    intellectual property, liability, and disputes survive termination.</p>
+            </div>
+
+            <div class="doc-section" id="disputes">
+                <div class="section-num"><i class="ri-chat-4-line"></i> 11 — Disputes</div>
+                <h2>Dispute Resolution</h2>
+                <p>We want to resolve any concerns you have quickly and fairly. In the event of a dispute:</p>
+                <ul class="doc-list">
+                    <li><i class="ri-chat-3-line"></i><span><strong>Step 1 — Contact us first:</strong> Reach out to <a
+                                href="mailto:support@doronx.com">support@doronx.com</a> with full details. We will
+                            respond within 5 business days and aim to resolve within 30 days.</span></li>
+                    <li><i class="ri-community-line"></i><span><strong>Step 2 — Mediation:</strong> If we cannot resolve
+                            the dispute informally, both parties agree to attempt resolution through good-faith
+                            mediation before pursuing formal proceedings.</span></li>
+                    <li><i class="ri-scales-3-line"></i><span><strong>Step 3 — Governing law:</strong> These Terms are
+                            governed by the laws of Ghana. Any legal proceedings shall be subject to the exclusive
+                            jurisdiction of the courts of Ghana.</span></li>
+                </ul>
+            </div>
+
+            <div class="doc-section" id="changes">
+                <div class="section-num"><i class="ri-history-line"></i> 12 — Changes to Terms</div>
+                <h2>Changes to These Terms</h2>
+                <p>We may update these Terms from time to time. When we make material changes, we will notify you via
+                    in-app notification and/or email at least <strong>14 days before</strong> the changes take effect.
+                </p>
+                <p>Continued use of DoronX after the effective date constitutes your acceptance of the revised Terms. If
+                    you do not accept the updated Terms, you must stop using our services before the effective date.</p>
+            </div>
+
+            <div class="doc-section" id="contact">
+                <div class="section-num"><i class="ri-mail-line"></i> 13 — Contact</div>
+                <h2>Get in Touch</h2>
+            </div>
+
+            <div class="contact-box">
+                <div class="contact-box-icon"><i class="ri-customer-service-2-line"></i></div>
+                <div>
+                    <h4>Questions about these Terms?</h4>
+                    <p>Our support team is available 7 days a week. For legal or compliance matters, please contact our
+                        dedicated legal team directly.</p>
+                    <a href="mailto:support@doronx.com"><i class="ri-customer-service-2-line"></i>
+                        support@doronx.com</a>
+                    <a href="mailto:legal@doronx.com" style="margin-left:20px"><i class="ri-scales-3-line"></i>
+                        legal@doronx.com</a>
+                </div>
+            </div>
+
+        </main>
+    </div>
+
+    <footer class="page-footer">
+        <div class="page-footer-inner">
+            <div class="page-footer-logo">
+                <!-- <div class="logo-mark" style="width:26px;height:26px;font-size:12px"><span>D</span></div> -->
+                <div class="logo-mark"><img src="logo1.png" alt="DoronX" class="logo-img"></div>
+
+                <span>© 2026 DoronX · Lazy Logic Limited · All rights reserved</span>
+            </div>
+            <div class="page-footer-links">
+                <a href="privacy.html"><i class="ri-shield-user-line"></i> Privacy</a>
+                <a href="terms.html" class="current"><i class="ri-file-text-line"></i> Terms</a>
+                <a href="disclosures.html"><i class="ri-alert-line"></i> Disclosures</a>
+                <a href="index.html"><i class="ri-home-4-line"></i> Home</a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        const fill = document.getElementById('progressFill');
+        window.addEventListener('scroll', () => {
+            const total = document.documentElement.scrollHeight - window.innerHeight;
+            fill.style.width = (window.scrollY / total * 100) + '%';
+        }, { passive: true });
+        const sections = document.querySelectorAll('.doc-section[id]');
+        const tocLinks = document.querySelectorAll('.toc-list a');
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    tocLinks.forEach(a => a.classList.remove('active'));
+                    const active = document.querySelector(`.toc-list a[href="#${entry.target.id}"]`);
+                    if (active) active.classList.add('active');
+                }
+            });
+        }, { rootMargin: '-20% 0px -70% 0px' });
+        sections.forEach(s => observer.observe(s));
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,1332 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Privacy Policy — DoronX</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@400;500;600;700&family=Space+Mono:wght@400;700&family=Instrument+Serif:ital@0;1&display=swap"
+        rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.9.0/fonts/remixicon.css" rel="stylesheet" />
+    <style>
+        /* ═══════════════════════════ TOKENS ═══════════════════════════ */
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        :root {
+            --orange: #F7931A;
+            --orange-warm: #FF7A1A;
+            --orange-deep: #E8541A;
+            --orange-soft: rgba(247, 147, 26, 0.10);
+            --orange-border: rgba(247, 147, 26, 0.22);
+            --white: #FFFFFF;
+            --black: #070707;
+            --dark: #0D0D0D;
+            --dark2: #131313;
+            --card: #141414;
+            --card2: #1A1A1A;
+            --border: rgba(255, 255, 255, 0.06);
+            --border-h: rgba(255, 255, 255, 0.11);
+            --gray: rgba(255, 255, 255, 0.55);
+            --gray2: rgba(255, 255, 255, 0.28);
+            --green: #22C55E;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background: var(--black);
+            color: var(--white);
+            font-family: 'DM Sans', -apple-system, sans-serif;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+            min-width: 320px;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: 9999;
+            opacity: 0.03;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+        }
+
+        /* ═══════════════════════════ NAV ═══════════════════════════ */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 200;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 clamp(16px, 3vw, 36px);
+            height: 64px;
+            background: rgba(7, 7, 7, 0.88);
+            backdrop-filter: blur(24px) saturate(160%);
+            -webkit-backdrop-filter: blur(24px) saturate(160%);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .nav-logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+        }
+
+        .logo-mark {
+            /* width: 32px;
+            height: 32px;
+            border-radius: 9px; */
+            /* background: linear-gradient(135deg, var(--orange), var(--orange-deep)); */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 15px;
+            /* color: #fff; */
+            /* font-weight: 700; */
+            position: relative;
+            /* box-shadow: 0 0 24px rgba(247, 147, 26, 0.4); */
+            flex-shrink: 0;
+        }
+
+        .logo-mark::after {
+            content: '';
+            position: absolute;
+            inset: 1.5px;
+            border-radius: 8px;
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.22), transparent);
+            pointer-events: none;
+        }
+
+        .logo-mark span {
+            position: relative;
+            z-index: 1;
+        }
+
+        /* If you have a logo image: */
+        .logo-img {
+            height: 32px;
+            width: auto;
+            display: block;
+        }
+
+        .logo-text {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 22px;
+            letter-spacing: 0.05em;
+            line-height: 1;
+        }
+
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .btn-back {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 16px;
+            background: transparent;
+            border: 1px solid var(--border);
+            border-radius: 999px;
+            color: var(--gray);
+            font-family: inherit;
+            font-size: 13px;
+            font-weight: 500;
+            text-decoration: none;
+            transition: border-color .25s, color .25s, background .25s;
+        }
+
+        .btn-back:hover {
+            border-color: var(--orange-border);
+            color: var(--white);
+            background: var(--orange-soft);
+        }
+
+        .btn-solid {
+            padding: 9px 20px;
+            background: var(--orange);
+            border: none;
+            border-radius: 999px;
+            color: #0a0a0a;
+            font-family: inherit;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background .2s, transform .15s, box-shadow .25s;
+        }
+
+        .btn-solid:hover {
+            background: var(--orange-warm);
+            transform: translateY(-1px);
+            box-shadow: 0 8px 28px rgba(247, 147, 26, 0.42);
+        }
+
+        /* ═══════════════════════════ HERO BANNER ═══════════════════════════ */
+        .page-hero {
+            position: relative;
+            padding: 120px clamp(16px, 4vw, 40px) 80px;
+            overflow: hidden;
+            text-align: center;
+        }
+
+        .page-hero-orb {
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 700px;
+            height: 400px;
+            background: radial-gradient(ellipse at center top,
+                    rgba(247, 147, 26, 0.3) 0%, rgba(232, 84, 26, 0.18) 30%, transparent 70%);
+            filter: blur(60px);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .page-hero-grid {
+            position: absolute;
+            inset: 0;
+            z-index: 0;
+            background-image:
+                linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+            background-size: 70px 70px;
+            mask-image: radial-gradient(ellipse at 50% 0%, black 20%, transparent 70%);
+            -webkit-mask-image: radial-gradient(ellipse at 50% 0%, black 20%, transparent 70%);
+        }
+
+        .page-hero-fade {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 120px;
+            background: linear-gradient(0deg, var(--black), transparent);
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .page-hero-inner {
+            position: relative;
+            z-index: 2;
+            max-width: 760px;
+            margin: 0 auto;
+        }
+
+        .page-eyebrow {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 6px 12px;
+            background: var(--orange-soft);
+            border: 1px solid var(--orange-border);
+            border-radius: 999px;
+            font-size: 11px;
+            color: var(--orange);
+            font-weight: 600;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            margin-bottom: 20px;
+        }
+
+        .page-eyebrow-dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: var(--orange);
+            box-shadow: 0 0 8px var(--orange);
+            animation: pulseDot 2s ease-in-out infinite;
+        }
+
+        @keyframes pulseDot {
+
+            0%,
+            100% {
+                opacity: 1
+            }
+
+            50% {
+                opacity: 0.35
+            }
+        }
+
+        .page-title {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: clamp(44px, 7vw, 88px);
+            line-height: 0.92;
+            letter-spacing: -0.01em;
+            margin-bottom: 18px;
+        }
+
+        .page-title em {
+            font-family: 'Instrument Serif', serif;
+            font-style: italic;
+            font-weight: 400;
+            background: linear-gradient(120deg, var(--orange), var(--orange-warm), var(--orange-deep));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .page-meta {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+            font-size: 12px;
+            color: var(--gray2);
+        }
+
+        .page-meta span {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .page-meta i {
+            color: var(--orange);
+            font-size: 13px;
+        }
+
+        /* ═══════════════════════════ LAYOUT ═══════════════════════════ */
+        .doc-layout {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 clamp(16px, 4vw, 40px) 100px;
+            display: grid;
+            grid-template-columns: 260px 1fr;
+            gap: 48px;
+            align-items: start;
+        }
+
+        /* ── Sidebar TOC ── */
+        .doc-sidebar {
+            position: sticky;
+            top: 84px;
+        }
+
+        .toc-card {
+            background: linear-gradient(180deg, var(--card2), var(--card));
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 24px;
+            margin-bottom: 16px;
+        }
+
+        .toc-title {
+            font-size: 10px;
+            color: var(--gray2);
+            text-transform: uppercase;
+            letter-spacing: 0.14em;
+            font-weight: 600;
+            margin-bottom: 16px;
+        }
+
+        .toc-list {
+            list-style: none;
+        }
+
+        .toc-list li {
+            margin-bottom: 4px;
+        }
+
+        .toc-list a {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 10px;
+            border-radius: 10px;
+            font-size: 13px;
+            color: var(--gray);
+            text-decoration: none;
+            transition: background .2s, color .2s;
+            font-weight: 500;
+        }
+
+        .toc-list a i {
+            font-size: 14px;
+            color: var(--orange);
+            opacity: 0.7;
+            flex-shrink: 0;
+        }
+
+        .toc-list a:hover {
+            background: rgba(255, 255, 255, 0.04);
+            color: var(--white);
+        }
+
+        .toc-list a:hover i {
+            opacity: 1;
+        }
+
+        .toc-list a.active {
+            background: var(--orange-soft);
+            color: var(--orange);
+            border: 1px solid var(--orange-border);
+        }
+
+        .toc-list a.active i {
+            opacity: 1;
+        }
+
+        .related-card {
+            background: linear-gradient(180deg, var(--card2), var(--card));
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 24px;
+        }
+
+        .related-card h4 {
+            font-size: 13px;
+            font-weight: 600;
+            margin-bottom: 14px;
+        }
+
+        .related-link {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 12px;
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            margin-bottom: 8px;
+            text-decoration: none;
+            transition: border-color .2s, background .2s;
+        }
+
+        .related-link:last-child {
+            margin-bottom: 0;
+        }
+
+        .related-link:hover {
+            border-color: var(--orange-border);
+            background: var(--orange-soft);
+        }
+
+        .related-link-icon {
+            width: 32px;
+            height: 32px;
+            border-radius: 9px;
+            background: var(--orange-soft);
+            border: 1px solid var(--orange-border);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--orange);
+            font-size: 15px;
+            flex-shrink: 0;
+        }
+
+        .related-link-text .t {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--white);
+        }
+
+        .related-link-text .s {
+            font-size: 11px;
+            color: var(--gray2);
+            margin-top: 1px;
+        }
+
+        /* ── Main Content ── */
+        .doc-content {
+            min-width: 0;
+        }
+
+        .doc-section {
+            margin-bottom: 60px;
+            scroll-margin-top: 90px;
+        }
+
+        .section-num {
+            font-family: 'Space Mono', monospace;
+            font-size: 10px;
+            color: var(--orange);
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            margin-bottom: 8px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .section-num::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: var(--orange-border);
+        }
+
+        .doc-section h2 {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: clamp(26px, 3.5vw, 40px);
+            letter-spacing: -0.01em;
+            margin-bottom: 20px;
+            line-height: 1;
+        }
+
+        .doc-section p {
+            font-size: 14px;
+            color: var(--gray);
+            line-height: 1.75;
+            margin-bottom: 16px;
+        }
+
+        .doc-section p:last-child {
+            margin-bottom: 0;
+        }
+
+        .doc-section strong {
+            color: var(--white);
+            font-weight: 600;
+        }
+
+        .doc-section a {
+            color: var(--orange);
+            text-decoration: none;
+        }
+
+        .doc-section a:hover {
+            text-decoration: underline;
+        }
+
+        /* Highlight box */
+        .doc-highlight {
+            background: var(--orange-soft);
+            border: 1px solid var(--orange-border);
+            border-left: 3px solid var(--orange);
+            border-radius: 12px;
+            padding: 18px 20px;
+            margin: 20px 0;
+            font-size: 14px;
+            color: rgba(255, 255, 255, 0.9);
+            line-height: 1.65;
+            display: flex;
+            gap: 14px;
+        }
+
+        .doc-highlight i {
+            color: var(--orange);
+            font-size: 20px;
+            flex-shrink: 0;
+            margin-top: 1px;
+        }
+
+        /* Info card grid */
+        .info-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin: 20px 0;
+        }
+
+        .info-card {
+            background: linear-gradient(180deg, var(--card2), var(--card));
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 20px;
+        }
+
+        .info-card-icon {
+            width: 36px;
+            height: 36px;
+            border-radius: 10px;
+            background: var(--orange-soft);
+            border: 1px solid var(--orange-border);
+            color: var(--orange);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            margin-bottom: 12px;
+        }
+
+        .info-card h4 {
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 6px;
+        }
+
+        .info-card p {
+            font-size: 12px;
+            color: var(--gray);
+            line-height: 1.55;
+        }
+
+        /* List styles */
+        .doc-list {
+            list-style: none;
+            margin: 16px 0;
+        }
+
+        .doc-list li {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            font-size: 14px;
+            color: var(--gray);
+            line-height: 1.65;
+            margin-bottom: 10px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .doc-list li:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+
+        .doc-list li i {
+            color: var(--orange);
+            font-size: 16px;
+            flex-shrink: 0;
+            margin-top: 2px;
+        }
+
+        .doc-list li strong {
+            color: var(--white);
+        }
+
+        /* Table */
+        .doc-table-wrap {
+            overflow-x: auto;
+            margin: 20px 0;
+            border-radius: 16px;
+            border: 1px solid var(--border);
+        }
+
+        .doc-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 13px;
+        }
+
+        .doc-table th {
+            padding: 12px 16px;
+            text-align: left;
+            background: var(--card2);
+            font-size: 10px;
+            color: var(--gray2);
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+            font-weight: 600;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .doc-table td {
+            padding: 14px 16px;
+            color: var(--gray);
+            border-bottom: 1px solid var(--border);
+            vertical-align: top;
+            line-height: 1.55;
+        }
+
+        .doc-table td:first-child {
+            color: var(--white);
+            font-weight: 500;
+        }
+
+        .doc-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .doc-table tr:hover td {
+            background: rgba(255, 255, 255, 0.015);
+        }
+
+        /* Contact box */
+        .contact-box {
+            background: linear-gradient(135deg, rgba(247, 147, 26, 0.08), rgba(232, 84, 26, 0.05));
+            border: 1px solid var(--orange-border);
+            border-radius: 20px;
+            padding: 28px;
+            display: flex;
+            align-items: flex-start;
+            gap: 20px;
+            margin-top: 60px;
+        }
+
+        .contact-box-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 14px;
+            background: var(--orange);
+            color: #0a0a0a;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 22px;
+            flex-shrink: 0;
+        }
+
+        .contact-box h4 {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 6px;
+        }
+
+        .contact-box p {
+            font-size: 13px;
+            color: var(--gray);
+            line-height: 1.6;
+            margin-bottom: 14px;
+        }
+
+        .contact-box a {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            color: var(--orange);
+            font-size: 13px;
+            font-weight: 600;
+            text-decoration: none;
+        }
+
+        .contact-box a:hover {
+            text-decoration: underline;
+        }
+
+        /* Progress bar */
+        .doc-progress {
+            position: fixed;
+            top: 64px;
+            left: 0;
+            right: 0;
+            z-index: 199;
+            height: 2px;
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .doc-progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--orange), var(--orange-warm));
+            width: 0%;
+            transition: width .1s linear;
+        }
+
+        /* ═══════════════════════════ FOOTER ═══════════════════════════ */
+        .page-footer {
+            border-top: 1px solid var(--border);
+            padding: 40px clamp(16px, 4vw, 40px);
+            background: var(--dark);
+        }
+
+        .page-footer-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .page-footer-logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 12px;
+            color: var(--gray2);
+        }
+
+        .page-footer-links {
+            display: flex;
+            gap: 6px;
+            flex-wrap: wrap;
+        }
+
+        .page-footer-links a {
+            padding: 7px 14px;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--border);
+            border-radius: 999px;
+            font-size: 12px;
+            color: var(--gray);
+            text-decoration: none;
+            transition: border-color .2s, color .2s;
+        }
+
+        .page-footer-links a:hover {
+            border-color: var(--orange-border);
+            color: var(--orange);
+        }
+
+        .page-footer-links a.current {
+            border-color: var(--orange-border);
+            color: var(--orange);
+            background: var(--orange-soft);
+        }
+
+        /* ═══════════════════════════ ANIMATIONS ═══════════════════════════ */
+        @keyframes fadeUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px)
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0)
+            }
+        }
+
+        .page-hero-inner {
+            animation: fadeUp .8s cubic-bezier(.2, .8, .2, 1) both;
+        }
+
+        .doc-sidebar {
+            animation: fadeUp .7s .2s cubic-bezier(.2, .8, .2, 1) both;
+        }
+
+        .doc-content {
+            animation: fadeUp .7s .1s cubic-bezier(.2, .8, .2, 1) both;
+        }
+
+        /* ═══════════════════════════ RESPONSIVE ═══════════════════════════ */
+        @media (max-width: 900px) {
+            .doc-layout {
+                grid-template-columns: 1fr;
+                gap: 32px;
+            }
+
+            .doc-sidebar {
+                position: static;
+                display: flex;
+                flex-direction: column;
+                gap: 12px;
+            }
+
+            .toc-card {
+                display: none;
+            }
+
+            .info-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 640px) {
+            .page-hero {
+                padding: 100px 16px 60px;
+            }
+
+            .contact-box {
+                flex-direction: column;
+            }
+
+            .page-footer-inner {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .doc-layout {
+                padding: 0 16px 60px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Progress bar -->
+    <div class="doc-progress">
+        <div class="doc-progress-fill" id="progressFill"></div>
+    </div>
+
+    <!-- NAV -->
+    <nav>
+        <a href="index.html" class="nav-logo">
+            <div class="logo-mark"><img src="logo.png" alt="DoronX" class="logo-img"></div>
+
+        </a>
+        <div class="nav-right">
+            <a href="index.html" class="btn-back"><i class="ri-arrow-left-line"></i> Back to home</a>
+            <a href="https://doronpay.com/" class="btn-solid">Open app <i class="ri-arrow-right-up-line"></i></a>
+        </div>
+    </nav>
+
+    <!-- HERO -->
+    <div class="page-hero">
+        <div class="page-hero-orb"></div>
+        <div class="page-hero-grid"></div>
+        <div class="page-hero-fade"></div>
+        <div class="page-hero-inner">
+            <div class="page-eyebrow"><span class="page-eyebrow-dot"></span> Legal</div>
+            <h1 class="page-title">Privacy <em>Policy</em></h1>
+            <div class="page-meta">
+                <span><i class="ri-calendar-line"></i> Effective: January 1, 2026</span>
+                <span><i class="ri-refresh-line"></i> Last updated: April 2026</span>
+                <span><i class="ri-time-line"></i> 8 min read</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- LAYOUT -->
+    <div class="doc-layout">
+
+        <!-- SIDEBAR -->
+        <aside class="doc-sidebar">
+            <div class="toc-card">
+                <div class="toc-title">On this page</div>
+                <ul class="toc-list">
+                    <li><a href="#overview" class="active"><i class="ri-eye-line"></i> Overview</a></li>
+                    <li><a href="#collect"><i class="ri-database-2-line"></i> Data we collect</a></li>
+                    <li><a href="#use"><i class="ri-settings-3-line"></i> How we use data</a></li>
+                    <li><a href="#sharing"><i class="ri-share-line"></i> Sharing &amp; disclosure</a></li>
+                    <li><a href="#security"><i class="ri-shield-check-line"></i> Security</a></li>
+                    <li><a href="#cookies"><i class="ri-cookie-line"></i> Cookies</a></li>
+                    <li><a href="#rights"><i class="ri-user-settings-line"></i> Your rights</a></li>
+                    <li><a href="#retention"><i class="ri-archive-line"></i> Data retention</a></li>
+                    <li><a href="#children"><i class="ri-parent-line"></i> Children</a></li>
+                    <li><a href="#changes"><i class="ri-history-line"></i> Policy changes</a></li>
+                    <li><a href="#contact"><i class="ri-mail-line"></i> Contact</a></li>
+                </ul>
+            </div>
+            <div class="related-card">
+                <h4>Related documents</h4>
+                <a href="terms.html" class="related-link">
+                    <div class="related-link-icon"><i class="ri-file-text-line"></i></div>
+                    <div class="related-link-text">
+                        <div class="t">Terms of Service</div>
+                        <div class="s">Usage rules &amp; agreements</div>
+                    </div>
+                </a>
+                <a href="disclosures.html" class="related-link">
+                    <div class="related-link-icon"><i class="ri-alert-line"></i></div>
+                    <div class="related-link-text">
+                        <div class="t">Disclosures</div>
+                        <div class="s">Risk &amp; regulatory notices</div>
+                    </div>
+                </a>
+            </div>
+        </aside>
+
+        <!-- CONTENT -->
+        <main class="doc-content">
+
+            <div class="doc-section" id="overview">
+                <div class="section-num"><i class="ri-eye-line"></i> 01 — Overview</div>
+                <h2>Your Privacy Matters</h2>
+                <div class="doc-highlight">
+                    <i class="ri-information-line"></i>
+                    <div>DoronX ("we," "our," or "us") is committed to protecting your personal information. This
+                        Privacy Policy explains how we collect, use, share, and safeguard your data when you use the
+                        DoronX app, website, and related services.</div>
+                </div>
+                <p>By accessing or using DoronX, you agree to the collection and use of information in accordance with
+                    this policy. We operate under applicable data protection laws and financial regulations. Our
+                    services are provided by <strong>Lazy Logic Limited</strong>, a registered company operating
+                    globally.</p>
+                <p>This policy applies to all users of the DoronX mobile app, web app at <strong>doronx.com</strong>,
+                    and any related services including pay.doronx.com, gamecore.doronx.com, and API integrations.</p>
+            </div>
+
+            <div class="doc-section" id="collect">
+                <div class="section-num"><i class="ri-database-2-line"></i> 02 — Data We Collect</div>
+                <h2>Information We Collect</h2>
+                <p>We collect information you provide directly, data generated through your use of our services, and
+                    information from third-party partners.</p>
+                <div class="info-grid">
+                    <div class="info-card">
+                        <div class="info-card-icon"><i class="ri-user-line"></i></div>
+                        <h4>Identity Data</h4>
+                        <p>Full name, date of birth, national ID or passport number, selfie/photo ID for KYC
+                            verification.</p>
+                    </div>
+                    <div class="info-card">
+                        <div class="info-card-icon"><i class="ri-contacts-line"></i></div>
+                        <h4>Contact Data</h4>
+                        <p>Email address, phone number, and physical address for account communication and verification.
+                        </p>
+                    </div>
+                    <div class="info-card">
+                        <div class="info-card-icon"><i class="ri-bank-card-line"></i></div>
+                        <h4>Financial Data</h4>
+                        <p>Wallet balances, transaction history, bank account details, Mobile Money numbers, and crypto
+                            addresses.</p>
+                    </div>
+                    <div class="info-card">
+                        <div class="info-card-icon"><i class="ri-smartphone-line"></i></div>
+                        <h4>Device &amp; Usage Data</h4>
+                        <p>IP address, device type, OS version, app version, pages visited, features used, and session
+                            duration.</p>
+                    </div>
+                </div>
+                <ul class="doc-list">
+                    <li><i class="ri-checkbox-circle-line"></i><span><strong>Blockchain data:</strong> On-chain
+                            transaction hashes, wallet addresses, and network confirmations for Web3 funding flows
+                            (BEP20, ERC20, TRC20, Solana, BTC).</span></li>
+                    <li><i class="ri-checkbox-circle-line"></i><span><strong>KYC/AML data:</strong> Identity
+                            verification documents submitted to comply with financial regulations. Processed by our
+                            regulated KYC provider.</span></li>
+                    <li><i class="ri-checkbox-circle-line"></i><span><strong>Games data:</strong> In-game actions, DORX
+                            token balances, leaderboard rankings, and tournament participation via
+                            gamecore.doronx.com.</span></li>
+                    <li><i class="ri-checkbox-circle-line"></i><span><strong>Support data:</strong> Messages,
+                            complaints, and support tickets submitted to our team.</span></li>
+                    <li><i class="ri-checkbox-circle-line"></i><span><strong>Referral data:</strong> Your referral code
+                            usage and the accounts you've referred.</span></li>
+                </ul>
+            </div>
+
+            <div class="doc-section" id="use">
+                <div class="section-num"><i class="ri-settings-3-line"></i> 03 — How We Use Data</div>
+                <h2>How We Use Your Information</h2>
+                <div class="doc-table-wrap">
+                    <table class="doc-table">
+                        <thead>
+                            <tr>
+                                <th>Purpose</th>
+                                <th>Data used</th>
+                                <th>Basis</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Account creation &amp; authentication</td>
+                                <td>Identity, contact, device</td>
+                                <td>Contract performance</td>
+                            </tr>
+                            <tr>
+                                <td>Processing transactions (MoMo, crypto, transfers)</td>
+                                <td>Financial, identity</td>
+                                <td>Contract performance</td>
+                            </tr>
+                            <tr>
+                                <td>KYC/AML compliance</td>
+                                <td>Identity, financial</td>
+                                <td>Legal obligation</td>
+                            </tr>
+                            <tr>
+                                <td>Vault yield calculations (AAVE v3)</td>
+                                <td>Financial, blockchain</td>
+                                <td>Contract performance</td>
+                            </tr>
+                            <tr>
+                                <td>Virtual card issuance (Maplerad)</td>
+                                <td>Identity, financial</td>
+                                <td>Contract performance</td>
+                            </tr>
+                            <tr>
+                                <td>Smart Invoice &amp; Payment Stands</td>
+                                <td>Financial, contact</td>
+                                <td>Contract performance</td>
+                            </tr>
+                            <tr>
+                                <td>Fraud detection &amp; security</td>
+                                <td>Device, usage, financial</td>
+                                <td>Legitimate interest</td>
+                            </tr>
+                            <tr>
+                                <td>Customer support</td>
+                                <td>All applicable</td>
+                                <td>Legitimate interest</td>
+                            </tr>
+                            <tr>
+                                <td>Product improvement &amp; analytics</td>
+                                <td>Usage, device</td>
+                                <td>Legitimate interest</td>
+                            </tr>
+                            <tr>
+                                <td>Marketing communications (opt-in only)</td>
+                                <td>Contact, usage</td>
+                                <td>Consent</td>
+                            </tr>
+                            <tr>
+                                <td>Games &amp; DORX rewards</td>
+                                <td>Games, identity</td>
+                                <td>Contract performance</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <p>We never sell your personal data to third parties for their marketing purposes.</p>
+            </div>
+
+            <div class="doc-section" id="sharing">
+                <div class="section-num"><i class="ri-share-line"></i> 04 — Sharing &amp; Disclosure</div>
+                <h2>Who We Share Data With</h2>
+                <p>We share your data only with trusted partners necessary to deliver our services. All third-party
+                    processors are bound by data processing agreements and applicable law.</p>
+                <ul class="doc-list">
+                    <li><i class="ri-shield-check-line"></i><span><strong>Maplerad:</strong> For USD virtual card
+                            issuance and management. Processes your identity and financial data under their own privacy
+                            policy.</span></li>
+                    <li><i class="ri-shield-check-line"></i><span><strong>Paystack / Hubtel:</strong> For payment
+                            processing, Mobile Money integrations (MTN MoMo, Vodafone Cash, AirtelTigo Money).</span>
+                    </li>
+                    <li><i class="ri-shield-check-line"></i><span><strong>AAVE v3 / Polygon:</strong> Blockchain
+                            interactions for Vault yield are executed on-chain and are publicly visible by nature of
+                            blockchain technology.</span></li>
+                    <li><i class="ri-shield-check-line"></i><span><strong>KYC Provider:</strong> Identity documents for
+                            regulatory verification. We do not store raw document images beyond the required
+                            period.</span></li>
+                    <li><i class="ri-shield-check-line"></i><span><strong>WalletConnect:</strong> For Web3 wallet
+                            connections. DoronX does not receive your private keys — ever.</span></li>
+                    <li><i class="ri-shield-check-line"></i><span><strong>Law enforcement / regulators:</strong> When
+                            required by law, court order, or to protect the rights and safety of users.</span></li>
+                    <li><i class="ri-shield-check-line"></i><span><strong>Business transfers:</strong> In the event of a
+                            merger, acquisition, or sale of assets, your data may be transferred. We will notify you
+                            beforehand.</span></li>
+                </ul>
+                <div class="doc-highlight">
+                    <i class="ri-lock-2-line"></i>
+                    <div>We <strong>never sell, rent, or trade</strong> your personal data to advertisers or data
+                        brokers. DoronX is ad-free and we do not monetise your personal information.</div>
+                </div>
+            </div>
+
+            <div class="doc-section" id="security">
+                <div class="section-num"><i class="ri-shield-check-line"></i> 05 — Security</div>
+                <h2>How We Protect Your Data</h2>
+                <p>We implement industry-standard technical and organisational measures to protect your personal
+                    information from unauthorised access, alteration, disclosure, or destruction.</p>
+                <ul class="doc-list">
+                    <li><i class="ri-key-2-line"></i><span><strong>256-bit AES encryption</strong> for all data at rest
+                            and TLS 1.3 for data in transit.</span></li>
+                    <li><i class="ri-fingerprint-line"></i><span><strong>Biometric authentication</strong> support and
+                            mandatory two-factor authentication (2FA) for sensitive operations.</span></li>
+                    <li><i class="ri-eye-off-line"></i><span><strong>Zero-knowledge wallet design:</strong> We never
+                            store your private keys or seed phrases. Web3 signing is performed client-side.</span></li>
+                    <li><i class="ri-scan-line"></i><span><strong>Real-time fraud monitoring</strong> and anomaly
+                            detection across all transaction flows.</span></li>
+                    <li><i class="ri-server-line"></i><span><strong>Regular security audits</strong> and penetration
+                            testing by independent security professionals.</span></li>
+                    <li><i class="ri-archive-2-line"></i><span><strong>Secure backups</strong> with geographic
+                            redundancy and tested disaster-recovery procedures.</span></li>
+                </ul>
+                <p>Despite our best efforts, no method of electronic transmission or storage is 100% secure. If you
+                    suspect unauthorised access to your account, contact us immediately at <a
+                        href="mailto:security@doronx.com">security@doronx.com</a>.</p>
+            </div>
+
+            <div class="doc-section" id="cookies">
+                <div class="section-num"><i class="ri-cookie-line"></i> 06 — Cookies &amp; Tracking</div>
+                <h2>Cookies &amp; Similar Technologies</h2>
+                <p>We use cookies and similar technologies in our web application to maintain sessions, remember
+                    preferences, and improve performance. We do not use third-party advertising cookies.</p>
+                <div class="doc-table-wrap">
+                    <table class="doc-table">
+                        <thead>
+                            <tr>
+                                <th>Cookie type</th>
+                                <th>Purpose</th>
+                                <th>Duration</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Essential / Session</td>
+                                <td>Authentication, security, session state</td>
+                                <td>Session</td>
+                            </tr>
+                            <tr>
+                                <td>Functional</td>
+                                <td>Language, theme, UI preferences</td>
+                                <td>1 year</td>
+                            </tr>
+                            <tr>
+                                <td>Analytics</td>
+                                <td>Aggregate usage patterns (anonymised)</td>
+                                <td>90 days</td>
+                            </tr>
+                            <tr>
+                                <td>PWA / Service Worker</td>
+                                <td>Offline access, push notifications</td>
+                                <td>Persistent</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <p>You can manage cookie preferences in your browser settings. Disabling essential cookies will affect
+                    your ability to use the app.</p>
+            </div>
+
+            <div class="doc-section" id="rights">
+                <div class="section-num"><i class="ri-user-settings-line"></i> 07 — Your Rights</div>
+                <h2>Your Data Rights</h2>
+                <p>Depending on your location, you have specific rights regarding your personal data. We honour these
+                    rights for all users regardless of jurisdiction.</p>
+                <ul class="doc-list">
+                    <li><i class="ri-eye-line"></i><span><strong>Right of access:</strong> Request a copy of all
+                            personal data we hold about you.</span></li>
+                    <li><i class="ri-edit-line"></i><span><strong>Right to rectification:</strong> Request correction of
+                            inaccurate or incomplete data.</span></li>
+                    <li><i class="ri-delete-bin-line"></i><span><strong>Right to erasure:</strong> Request deletion of
+                            your data, subject to legal retention obligations.</span></li>
+                    <li><i class="ri-pause-circle-line"></i><span><strong>Right to restrict processing:</strong> Request
+                            that we limit how we use your data in certain circumstances.</span></li>
+                    <li><i class="ri-download-2-line"></i><span><strong>Right to data portability:</strong> Receive your
+                            data in a structured, machine-readable format.</span></li>
+                    <li><i class="ri-close-circle-line"></i><span><strong>Right to object:</strong> Object to processing
+                            based on legitimate interest, including direct marketing.</span></li>
+                    <li><i class="ri-robot-line"></i><span><strong>Rights related to automated decisions:</strong>
+                            Request human review of automated decisions that significantly affect you.</span></li>
+                </ul>
+                <p>To exercise any of these rights, contact us at <a
+                        href="mailto:privacy@doronx.com">privacy@doronx.com</a>. We will respond within 30 days.
+                    Identity verification may be required before we action your request.</p>
+            </div>
+
+            <div class="doc-section" id="retention">
+                <div class="section-num"><i class="ri-archive-line"></i> 08 — Data Retention</div>
+                <h2>How Long We Keep Your Data</h2>
+                <p>We retain your personal data only for as long as necessary to provide our services and comply with
+                    legal obligations.</p>
+                <div class="doc-table-wrap">
+                    <table class="doc-table">
+                        <thead>
+                            <tr>
+                                <th>Data category</th>
+                                <th>Retention period</th>
+                                <th>Reason</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Account &amp; identity data</td>
+                                <td>5 years after account closure</td>
+                                <td>AML/KYC regulatory requirement</td>
+                            </tr>
+                            <tr>
+                                <td>Transaction records</td>
+                                <td>7 years</td>
+                                <td>Financial regulation</td>
+                            </tr>
+                            <tr>
+                                <td>Support communications</td>
+                                <td>3 years</td>
+                                <td>Dispute resolution</td>
+                            </tr>
+                            <tr>
+                                <td>Usage &amp; analytics</td>
+                                <td>12 months</td>
+                                <td>Product improvement</td>
+                            </tr>
+                            <tr>
+                                <td>Marketing preferences</td>
+                                <td>Until withdrawal of consent</td>
+                                <td>Consent basis</td>
+                            </tr>
+                            <tr>
+                                <td>Games &amp; DORX activity</td>
+                                <td>Duration of account</td>
+                                <td>Service delivery</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="doc-section" id="children">
+                <div class="section-num"><i class="ri-parent-line"></i> 09 — Children</div>
+                <h2>Children's Privacy</h2>
+                <p>DoronX services are intended for users aged <strong>18 and over</strong>. We do not knowingly collect
+                    personal information from anyone under the age of 18. If we become aware that a child under 18 has
+                    provided us with personal information, we will take steps to delete such information immediately.
+                </p>
+                <p>If you are a parent or guardian and believe your child has provided us with personal data, please
+                    contact us at <a href="mailto:privacy@doronx.com">privacy@doronx.com</a>.</p>
+            </div>
+
+            <div class="doc-section" id="changes">
+                <div class="section-num"><i class="ri-history-line"></i> 10 — Policy Changes</div>
+                <h2>Changes to This Policy</h2>
+                <p>We may update this Privacy Policy from time to time to reflect changes in our practices, technology,
+                    legal requirements, or for other operational reasons. When we make material changes, we will:</p>
+                <ul class="doc-list">
+                    <li><i class="ri-notification-3-line"></i><span>Send you an in-app notification and/or email at
+                            least <strong>14 days before</strong> the changes take effect.</span></li>
+                    <li><i class="ri-calendar-check-line"></i><span>Update the "Last updated" date at the top of this
+                            page.</span></li>
+                    <li><i class="ri-file-list-3-line"></i><span>Maintain a changelog so you can review what changed and
+                            when.</span></li>
+                </ul>
+                <p>Continued use of DoronX after the effective date constitutes acceptance of the revised policy.</p>
+            </div>
+
+            <div class="doc-section" id="contact">
+                <div class="section-num"><i class="ri-mail-line"></i> 11 — Contact</div>
+                <h2>Contact Our Privacy Team</h2>
+            </div>
+
+            <div class="contact-box">
+                <div class="contact-box-icon"><i class="ri-mail-send-line"></i></div>
+                <div>
+                    <h4>Questions about your privacy?</h4>
+                    <p>Our Data Protection team is here to help. Reach out and we'll respond within 2 business days. For
+                        urgent security concerns, we aim to respond within 24 hours.</p>
+                    <a href="mailto:privacy@doronx.com"><i class="ri-mail-line"></i> privacy@doronx.com</a>
+                    <a href="mailto:security@doronx.com" style="margin-left:20px"><i class="ri-shield-line"></i>
+                        security@doronx.com</a>
+                </div>
+            </div>
+
+        </main>
+    </div>
+
+    <!-- FOOTER -->
+    <footer class="page-footer">
+        <div class="page-footer-inner">
+            <div class="page-footer-logo">
+                <div class="logo-mark"><img src="logo1.png" alt="DoronX" class="logo-img"></div>
+
+                <span>© 2026 DoronX · Lazy Logic Limited · All rights reserved</span>
+            </div>
+            <div class="page-footer-links">
+                <a href="privacy.html" class="current"><i class="ri-shield-user-line"></i> Privacy</a>
+                <a href="terms.html"><i class="ri-file-text-line"></i> Terms</a>
+                <a href="disclosures.html"><i class="ri-alert-line"></i> Disclosures</a>
+                <a href="index.html"><i class="ri-home-4-line"></i> Home</a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        /* Progress bar */
+        const fill = document.getElementById('progressFill');
+        window.addEventListener('scroll', () => {
+            const total = document.documentElement.scrollHeight - window.innerHeight;
+            fill.style.width = (window.scrollY / total * 100) + '%';
+        }, { passive: true });
+
+        /* TOC active link on scroll */
+        const sections = document.querySelectorAll('.doc-section[id]');
+        const tocLinks = document.querySelectorAll('.toc-list a');
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    tocLinks.forEach(a => a.classList.remove('active'));
+                    const active = document.querySelector(`.toc-list a[href="#${entry.target.id}"]`);
+                    if (active) active.classList.add('active');
+                }
+            });
+        }, { rootMargin: '-20% 0px -70% 0px' });
+        sections.forEach(s => observer.observe(s));
+    </script>
+</body>
+
+</html>

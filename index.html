@@ -75,6 +75,10 @@
             background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
         }
 
+        a {
+            text-decoration: none;
+        }
+
         /* ════════════════════════════════════════
    NAV
    ════════════════════════════════════════ */
@@ -683,6 +687,46 @@
         .btn-primary:hover .btn-arrow {
             transform: translateX(3px);
         }
+
+
+        .a-primary {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 13px 18px 13px 24px;
+            background: var(--orange);
+            border: none;
+            border-radius: 999px;
+            color: #0a0a0a;
+            font-family: inherit;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background .2s, transform .15s, box-shadow .25s;
+            box-shadow: 0 8px 28px rgba(247, 147, 26, 0.28);
+        }
+
+        .a-primary:hover {
+            background: var(--orange-warm);
+            transform: translateY(-2px);
+            box-shadow: 0 14px 40px rgba(247, 147, 26, 0.48);
+        }
+
+        .btn-arrow {
+            width: 26px;
+            height: 26px;
+            border-radius: 50%;
+            background: rgba(0, 0, 0, 0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: transform .2s;
+        }
+
+        .a-primary:hover .btn-arrow {
+            transform: translateX(3px);
+        }
+
 
         .btn-outline {
             display: inline-flex;
@@ -2680,9 +2724,9 @@
                 <a href="#testimonials">Reviews</a>
             </nav>
             <div class="mobile-menu-ctas">
-                <button class="btn-ghost" onclick="closeMobileMenu()">Sign in</button>
-                <button class="btn-solid" onclick="closeMobileMenu()">Open app <i
-                        class="ri-arrow-right-line"></i></button>
+                <a href="https://doronpay.com/" class="btn-ghost" onclick="closeMobileMenu()">Sign in</a>
+                <a href="https://doronpay.com/" class="btn-solid" onclick="closeMobileMenu()">Open app <i
+                        class="ri-arrow-right-line"></i></a>
             </div>
         </div>
     </div>
@@ -2710,7 +2754,7 @@
         </div>
         <div class="nav-cta">
             <button class="btn-ghost">Sign in</button>
-            <button class="btn-solid">Open app <i class="ri-arrow-right-up-line"></i></button>
+            <a href="https://doronpay.com/" class="btn-solid">Open app <i class="ri-arrow-right-up-line"></i></a>
             <button class="nav-burger" id="navBurger" aria-label="Open menu" onclick="toggleMobileMenu()">
                 <span class="burger-bar"></span>
                 <span class="burger-bar"></span>
@@ -2789,14 +2833,14 @@
 
             <p class="hero-sub gsap-fade-up">
                 Buy &amp; sell crypto, earn yield in the Vault, send money across borders, spend anywhere with virtual
-                cards, and play games — all in one beautifully designed app.
+                cards— all in one beautifully designed app.
             </p>
 
             <div class="hero-ctas gsap-fade-up">
-                <button class="btn-primary">
+                <a href="https://doronpay.com/" class="a-primary">
                     Get started
                     <span class="btn-arrow"><i class="ri-arrow-right-line"></i></span>
-                </button>
+                </a>
                 <button class="btn-outline">
                     <i class="ri-play-circle-line" style="font-size:16px"></i>
                     Watch demo
@@ -2804,15 +2848,15 @@
             </div>
 
             <div class="hero-trust gsap-fade-up">
-                <span><i class="ri-star-fill" style="color:var(--orange)"></i> <strong>4.9</strong> · 2,400+
+                <span><i class="ri-star-fill" style="color:var(--orange)"></i> <strong>4.9</strong> · 1,000+
                     reviews</span>
                 <span class="hero-trust-sep"></span>
-                <span><strong>50K+</strong> active users</span>
+                <span><strong>5K+</strong> active users</span>
                 <span class="hero-trust-sep"></span>
-                <span><strong>$12M+</strong> transacted</span>
-                <span class="hero-trust-sep"></span>
-                <span><i class="ri-verified-badge-fill" style="color:var(--orange)"></i> licensed &amp;
-                    registered</span>
+                <span><strong>₵1M+</strong> transacted</span>
+                <!--  <span class="hero-trust-sep"></span>
+               <span><i class="ri-verified-badge-fill" style="color:var(--orange)"></i> licensed &amp;
+                    registered</span> -->
             </div>
 
             <!-- Dashboard preview -->
@@ -2975,18 +3019,24 @@
 
     <!-- ═══════════════ MARQUEE ═══════════════ -->
     <section class="marquee-section">
-        <div class="marquee-label">Powering finance for <strong>50,000+ users</strong> · Trusted worldwide</div>
+        <div class="marquee-label">Powering finance for <strong>10,000+ users</strong> · Trusted</div>
         <div class="marquee">
             <div class="marquee-track">
+                <div class="m-item"><i class="ri-wallet-3-line"></i> BTC</div>
+                <div class="m-item" style="opacity:.25">·</div>
+                <div class="m-item"><i class="ri-wallet-3-line"></i> USDT</div>
+                <div class="m-item" style="opacity:.25">·</div>
+                <div class="m-item"><i class="ri-wallet-3-line"></i> SOLANA</div>
+                <div class="m-item" style="opacity:.25">·</div>
+                <div class="m-item"><i class="ri-wallet-3-line"></i> BEP20</div>
+                <div class="m-item" style="opacity:.25">·</div>
+                <div class="m-item"><i class="ri-wallet-3-line"></i> TRC20</div>
+                <div class="m-item" style="opacity:.25">·</div>
                 <div class="m-item"><i class="ri-cell-phone-line"></i> MTN MoMo</div>
                 <div class="m-item" style="opacity:.25">·</div>
                 <div class="m-item"><i class="ri-cell-phone-line"></i> Vodafone Cash</div>
                 <div class="m-item" style="opacity:.25">·</div>
                 <div class="m-item"><i class="ri-cell-phone-line"></i> AirtelTigo</div>
-                <div class="m-item" style="opacity:.25">·</div>
-                <div class="m-item"><i class="ri-store-2-line"></i> Hubtel</div>
-                <div class="m-item" style="opacity:.25">·</div>
-                <div class="m-item"><i class="ri-bank-card-line"></i> Paystack</div>
                 <div class="m-item" style="opacity:.25">·</div>
                 <div class="m-item"><i class="ri-bank-card-2-line"></i> Maplerad</div>
                 <div class="m-item" style="opacity:.25">·</div>
@@ -2997,15 +3047,21 @@
                 <div class="m-item"><i class="ri-wallet-3-line"></i> WalletConnect</div>
                 <div class="m-item" style="opacity:.25">·</div>
                 <!-- duplicate for seamless loop -->
+                <div class="m-item"><i class="ri-wallet-3-line"></i> BTC</div>
+                <div class="m-item" style="opacity:.25">·</div>
+                <div class="m-item"><i class="ri-wallet-3-line"></i> USDT</div>
+                <div class="m-item" style="opacity:.25">·</div>
+                <div class="m-item"><i class="ri-wallet-3-line"></i> SOLANA</div>
+                <div class="m-item" style="opacity:.25">·</div>
+                <div class="m-item"><i class="ri-wallet-3-line"></i> BEP20</div>
+                <div class="m-item" style="opacity:.25">·</div>
+                <div class="m-item"><i class="ri-wallet-3-line"></i> TRC20</div>
+                <div class="m-item" style="opacity:.25">·</div>
                 <div class="m-item"><i class="ri-cell-phone-line"></i> MTN MoMo</div>
                 <div class="m-item" style="opacity:.25">·</div>
                 <div class="m-item"><i class="ri-cell-phone-line"></i> Vodafone Cash</div>
                 <div class="m-item" style="opacity:.25">·</div>
                 <div class="m-item"><i class="ri-cell-phone-line"></i> AirtelTigo</div>
-                <div class="m-item" style="opacity:.25">·</div>
-                <div class="m-item"><i class="ri-store-2-line"></i> Hubtel</div>
-                <div class="m-item" style="opacity:.25">·</div>
-                <div class="m-item"><i class="ri-bank-card-line"></i> Paystack</div>
                 <div class="m-item" style="opacity:.25">·</div>
                 <div class="m-item"><i class="ri-bank-card-2-line"></i> Maplerad</div>
                 <div class="m-item" style="opacity:.25">·</div>
@@ -3111,7 +3167,7 @@
 
             <div class="feat-card fc-small gsap-fade-up">
                 <div class="fc-kicker"><i class="ri-shield-check-line"></i> SECURITY</div>
-                <h4>Bank-grade<br>by default</h4>
+                <h4>Industry Standard<br>by default</h4>
                 <p>2FA, biometric login, encrypted wallets, on-chain verification, and real-time fraud monitoring. Your
                     funds stay yours.</p>
                 <div class="sec-visual">
@@ -3135,7 +3191,7 @@
     <!-- ═══════════════ GIANT STATS ═══════════════ -->
     <section class="giant-section">
         <div class="giant-inner">
-            <div class="giant-year-tag gsap-fade">FOUNDED 2024 · BUILT FOR THE WORLD</div>
+            <div class="giant-year-tag gsap-fade">FOUNDED 2023 · BUILT FOR THE WORLD</div>
             <div class="giant-text gsap-scale">
                 <span class="line1">DORONX</span>
                 <span class="line2">by the numbers</span>
@@ -3162,14 +3218,14 @@
                 </div>
                 <div class="stats-numbers" id="statsNumbers">
                     <div class="stat-item">
-                        <div class="stat-num" data-target="50" data-suffix="K+">0</div>
+                        <div class="stat-num" data-target="1" data-suffix="K+">0</div>
                         <div class="stat-label"><span class="stat-dot"></span> Active users</div>
                         <div class="stat-bar">
                             <div class="stat-bar-fill"></div>
                         </div>
                     </div>
                     <div class="stat-item">
-                        <div class="stat-num"><span data-target="12" data-prefix="$" data-suffix="M+">0</span></div>
+                        <div class="stat-num"><span data-target="1" data-prefix="₵" data-suffix="M+">0</span></div>
                         <div class="stat-label"><span class="stat-dot"></span> Transacted</div>
                         <div class="stat-bar">
                             <div class="stat-bar-fill"></div>
@@ -3301,11 +3357,11 @@
             </div>
 
             <!-- Data Bundles -->
-            <div class="bento sm gsap-fade-up">
+            <!-- <div class="bento sm gsap-fade-up">
                 <div class="bento-icon"><i class="ri-signal-wifi-line"></i></div>
                 <h3 class="bento-title">Data Bundles</h3>
                 <p class="bento-desc">Buy data for MTN, Vodafone, AirtelTigo — from your wallet.</p>
-            </div>
+            </div> -->
 
             <!-- Gift Cards -->
             <div class="bento sm gsap-fade-up">
@@ -3349,7 +3405,7 @@
             <div class="bento sm gsap-fade-up">
                 <div class="bento-icon"><i class="ri-community-line"></i></div>
                 <h3 class="bento-title">Community</h3>
-                <p class="bento-desc">Share trades, follow traders, and earn via referrals.</p>
+                <p class="bento-desc">Share your thoughts, follow doronx users, and earn via referrals.</p>
             </div>
 
             <!-- P2P Transfer -->
@@ -3414,7 +3470,8 @@
             <div class="how-step gsap-fade-up">
                 <div class="how-num"><i class="ri-flashlight-line" style="font-size:40px"></i></div>
                 <h4>Start earning &amp; spending</h4>
-                <p>Trade, earn yield, send money, shop with virtual cards — all from the same balance.</p>
+                <p>Trade, earn yield, send money, receive money, shop with virtual cards — all from the same balance.
+                </p>
             </div>
         </div>
     </section>
@@ -3427,7 +3484,7 @@
                 <h2 class="section-title">Loved by <em>everyone</em>,<br>used worldwide</h2>
             </div>
             <p class="section-sub gsap-fade-up">
-                Over 50,000 people have made DoronX part of their daily financial lives. Here's what they say.
+                Over 1,000 people have made DoronX part of their daily financial lives. Here's what they say.
             </p>
         </div>
         <div class="test-grid">
@@ -3479,17 +3536,18 @@
         <div class="cta-inner gsap-scale">
             <h2 class="cta-title">Ready to <em>step into</em><br>the future?</h2>
             <p class="cta-sub">
-                Join 50,000+ users trading, earning, and sending money smarter. Open DoronX — it's free forever.
+                Join 1,000+ users trading, earning, and sending money smarter. Open DoronX — it's free forever.
             </p>
             <div class="cta-ctas">
-                <button class="btn-primary">
+                <!-- <button class="btn-primary">
                     Open DoronX
                     <span class="btn-arrow"><i class="ri-arrow-right-line"></i></span>
-                </button>
-                <button class="btn-outline">
-                    <i class="ri-apple-line" style="font-size:16px"></i>
-                    Download app
-                </button>
+                </button> -->
+                <a href="https://doronpay.com/" class="btn-outline">
+                    <!-- <i class="ri-apple-line" style="font-size:16px"></i> -->
+                    Open DoronX
+                    <span class="btn-arrow"><i class="ri-arrow-right-line"></i></span>
+                </a>
             </div>
         </div>
     </section>
@@ -3518,50 +3576,58 @@
             <div class="footer-col">
                 <h5>Trade</h5>
                 <ul>
-                    <li><a href="#"><i class="ri-bit-coin-line"></i> Buy Bitcoin</a></li>
-                    <li><a href="#">Buy USDT</a></li>
-                    <li><a href="#"><i class="ri-swap-2-line"></i> OTC Trading</a></li>
-                    <li><a href="#"><i class="ri-exchange-2-line"></i> DoronSwap</a></li>
-                    <li><a href="#"><i class="ri-line-chart-line"></i> Markets</a></li>
+                    <li><a href="https://doronpay.com/#/app/buy-bitcoin/buy-btc"><i class="ri-bit-coin-line"></i> Buy
+                            Bitcoin</a></li>
+                    <li><a href="https://doronpay.com/#/app/buy-usdt/buy-usdt">Buy USDT</a></li>
+                    <li><a href="https://doronpay.com/#/app/otc/list"><i class="ri-swap-2-line"></i> OTC Trading</a>
+                    </li>
+                    <li><a href="http://doronpay.com/#/app/doron-swap/doron-swap"><i class="ri-exchange-2-line"></i>
+                            DoronSwap</a></li>
+                    <!-- <li><a href="#"><i class="ri-line-chart-line"></i> Markets</a></li> -->
                 </ul>
             </div>
             <div class="footer-col">
                 <h5>Earn &amp; spend</h5>
                 <ul>
-                    <li><a href="#"><i class="ri-safe-2-line"></i> The Vault</a></li>
-                    <li><a href="#"><i class="ri-money-dollar-circle-line"></i> SalaryFlow</a></li>
-                    <li><a href="#"><i class="ri-bank-card-2-line"></i> Virtual Cards</a></li>
-                    <li><a href="#"><i class="ri-gift-2-line"></i> Gift Cards</a></li>
-                    <li><a href="#"><i class="ri-signal-wifi-line"></i> Data Bundles</a></li>
+                    <li><a href="https://doronpay.com/#/app/bitcoin/vault"><i class="ri-safe-2-line"></i> The Vault</a>
+                    </li>
+                    <li><a href="https://doronpay.com/#/app/bitcoin/salary-flow"><i
+                                class="ri-money-dollar-circle-line"></i> SalaryFlow</a></li>
+                    <li><a href="https://doronpay.com/#/app/virtual-cards"><i class="ri-bank-card-2-line"></i> Virtual
+                            Cards</a></li>
+                    <li><a href="https://doronpay.com/#/app/gift-cards/cards"><i class="ri-gift-2-line"></i> Gift
+                            Cards</a></li>
+                    <!-- <li><a href="#"><i class="ri-signal-wifi-line"></i> Data Bundles</a></li> -->
                 </ul>
             </div>
             <div class="footer-col">
                 <h5>Business</h5>
                 <ul>
-                    <li><a href="#"><i class="ri-file-list-3-line"></i> Smart Invoice</a></li>
-                    <li><a href="#">Payment Stands</a></li>
-                    <li><a href="#"><i class="ri-send-plane-line"></i> Bulk Payout</a></li>
-                    <li><a href="#">API &amp; Docs</a></li>
-                    <li><a href="#">Merchant dashboard</a></li>
+                    <li><a href="https://doronpay.com/#/app/bitcoin/smart-invoice"><i class="ri-file-list-3-line"></i>
+                            Smart Invoice</a></li>
+                    <li><a href="https://doronpay.com/#/app/bitcoin/smart-invoice">Payment Stands</a></li>
+                    <li><a href="https://doronpay.com/#/app/bitcoin/bulk-payout"><i class="ri-send-plane-line"></i> Bulk
+                            Payout</a></li>
+                    <!-- <li><a href="#">Merchant dashboard</a></li> -->
                 </ul>
             </div>
             <div class="footer-col">
                 <h5>Company</h5>
                 <ul>
-                    <li><a href="#"><i class="ri-information-line"></i> About</a></li>
-                    <li><a href="#">Careers</a></li>
+                    <!-- <li><a href="#"><i class="ri-information-line"></i> About</a></li> -->
                     <li><a href="#"><i class="ri-gamepad-line"></i> Games Arena</a></li>
-                    <li><a href="#"><i class="ri-customer-service-2-line"></i> Support</a></li>
-                    <li><a href="#">Contact</a></li>
+                    <li><a href="https://doronpay.com/#/app/support/support"><i class="ri-customer-service-2-line"></i>
+                            Support</a></li>
+                    <li><a href="https://doronpay.com/#/app/support/support">Contact</a></li>
                 </ul>
             </div>
         </div>
         <div class="footer-bottom">
             <span>© 2026 DoronX · All rights reserved</span>
             <div>
-                <a href="#">Privacy</a>
-                <a href="#">Terms</a>
-                <a href="#">Disclosures</a>
+                <a href="privacy.html">Privacy</a>
+                <a href="terms.html">Terms</a>
+                <a href="disclosures.html">Disclosures</a>
             </div>
         </div>
     </footer>
