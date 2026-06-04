@@ -4,16 +4,22 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DoronX — Smart Invoicing for Modern Businesses</title>
+    <title>DoronX — The Future of Finance</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
         href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@400;500;600;700&family=Space+Mono:wght@400;700&family=Instrument+Serif:ital@0;1&display=swap"
         rel="stylesheet">
+    <!-- Remix Icons 4.9.0 -->
     <link href="https://cdn.jsdelivr.net/npm/remixicon@4.9.0/fonts/remixicon.css" rel="stylesheet" />
+    <!-- GSAP + ScrollTrigger -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+
     <style>
+        /* ════════════════════════════════════════
+   RESET & TOKENS
+   ════════════════════════════════════════ */
         *,
         *::before,
         *::after {
@@ -58,6 +64,7 @@
             -webkit-font-smoothing: antialiased;
         }
 
+        /* grain */
         body::before {
             content: '';
             position: fixed;
@@ -72,7 +79,9 @@
             text-decoration: none;
         }
 
-        /* NAV */
+        /* ════════════════════════════════════════
+   NAV
+   ════════════════════════════════════════ */
         nav {
             position: fixed;
             top: 0;
@@ -95,6 +104,10 @@
             background: rgba(7, 7, 7, 0.97);
         }
 
+        /* LOGO — replace "DoronX" text with your logo image.
+   Add: <img src="YOUR_LOGO.png" alt="DoronX" class="logo-img"> inside .nav-logo
+   and remove the span.logo-text element.
+   The logo-mark placeholder below will also go away once you add your real logo. */
         .nav-logo {
             display: flex;
             align-items: center;
@@ -103,11 +116,18 @@
         }
 
         .logo-mark {
+            /* width: 32px;
+            height: 32px;
+            border-radius: 9px; */
+            /* background: linear-gradient(135deg, var(--orange), var(--orange-deep)); */
             display: flex;
             align-items: center;
             justify-content: center;
             font-size: 15px;
+            /* color: #fff; */
+            /* font-weight: 700; */
             position: relative;
+            /* box-shadow: 0 0 24px rgba(247, 147, 26, 0.4); */
             flex-shrink: 0;
         }
 
@@ -125,6 +145,7 @@
             z-index: 1;
         }
 
+        /* If you have a logo image: */
         .logo-img {
             height: 32px;
             width: auto;
@@ -210,6 +231,7 @@
             box-shadow: 0 8px 28px rgba(247, 147, 26, 0.45);
         }
 
+        /* Hamburger */
         .nav-burger {
             display: none;
             width: 38px;
@@ -242,6 +264,7 @@
             transform-origin: center;
         }
 
+        /* Mobile menu overlay */
         .mobile-menu {
             position: fixed;
             top: 0;
@@ -308,6 +331,7 @@
             background: rgba(255, 255, 255, 0.03);
             border: 1px solid var(--border);
             transition: background .2s, border-color .2s, color .2s, transform .2s;
+            /* stagger via JS */
             opacity: 0;
             transform: translateX(-20px);
         }
@@ -374,6 +398,7 @@
             border-radius: 14px;
         }
 
+        /* Hamburger → X animation */
         .nav-burger.active .burger-bar:nth-child(1) {
             transform: translateY(7px) rotate(45deg);
         }
@@ -387,7 +412,9 @@
             transform: translateY(-7px) rotate(-45deg);
         }
 
-        /* HERO */
+        /* ════════════════════════════════════════
+   HERO
+   ════════════════════════════════════════ */
         .hero {
             position: relative;
             min-height: 100vh;
@@ -405,7 +432,11 @@
             width: min(920px, 95vw);
             height: min(920px, 95vw);
             border-radius: 50%;
-            background: radial-gradient(ellipse at center, rgba(247, 147, 26, 0.55) 0%, rgba(232, 84, 26, 0.35) 20%, rgba(120, 30, 0, 0.32) 45%, transparent 72%);
+            background: radial-gradient(ellipse at center,
+                    rgba(247, 147, 26, 0.55) 0%,
+                    rgba(232, 84, 26, 0.35) 20%,
+                    rgba(120, 30, 0, 0.32) 45%,
+                    transparent 72%);
             filter: blur(64px);
             pointer-events: none;
             z-index: 0;
@@ -417,7 +448,7 @@
 
             0%,
             100% {
-                opacity: .9;
+                opacity: 0.9;
                 transform: translate(-50%, -50%) scale(1);
             }
 
@@ -431,7 +462,9 @@
             position: absolute;
             inset: 0;
             z-index: 0;
-            background-image: linear-gradient(rgba(255, 255, 255, 0.022) 1px, transparent 1px), linear-gradient(90deg, rgba(255, 255, 255, 0.022) 1px, transparent 1px);
+            background-image:
+                linear-gradient(rgba(255, 255, 255, 0.022) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 255, 255, 0.022) 1px, transparent 1px);
             background-size: 80px 80px;
             mask-image: radial-gradient(ellipse at center, black 20%, transparent 76%);
             -webkit-mask-image: radial-gradient(ellipse at center, black 20%, transparent 76%);
@@ -446,6 +479,7 @@
             pointer-events: none;
         }
 
+        /* Floating pills */
         .hero-floats {
             position: absolute;
             inset: 0;
@@ -482,6 +516,43 @@
             overflow: hidden;
         }
 
+        /* IMAGE PLACEHOLDERS for BTC, USDT, MoMo, GHS
+   Replace the background-color fallback with your actual img tags inside .fp-dot:
+   <div class="fp-dot"><img src="btc.png" alt="BTC" style="width:100%;height:100%;object-fit:cover;border-radius:50%"></div>
+*/
+        .fp-dot.btc {
+            background: #000000;
+            color: #fff;
+            font-weight: 700;
+            font-size: 12px;
+        }
+
+        .fp-dot.usdt {
+            background: #000000;
+            color: #fff;
+            font-weight: 700;
+            font-size: 11px;
+        }
+
+        .fp-dot.momo {
+            background: #FFC107;
+            color: #000;
+            font-weight: 700;
+            font-size: 10px;
+        }
+
+        .fp-dot.ghs {
+            background: var(--red);
+            color: #fff;
+            font-weight: 700;
+            font-size: 12px;
+        }
+
+        .fp-check {
+            color: var(--green);
+            font-size: 15px;
+        }
+
         .fp-1 {
             top: 20%;
             left: 6%;
@@ -500,16 +571,6 @@
         .fp-4 {
             top: 38%;
             right: 3%;
-        }
-
-        .fp-5 {
-            top: 54%;
-            left: 5%;
-        }
-
-        .fp-6 {
-            top: 56%;
-            right: 5%;
         }
 
         .hero-inner {
@@ -589,6 +650,45 @@
             margin-bottom: 44px;
         }
 
+        .btn-primary {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 13px 18px 13px 24px;
+            background: var(--orange);
+            border: none;
+            border-radius: 999px;
+            color: #0a0a0a;
+            font-family: inherit;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background .2s, transform .15s, box-shadow .25s;
+            box-shadow: 0 8px 28px rgba(247, 147, 26, 0.28);
+        }
+
+        .btn-primary:hover {
+            background: var(--orange-warm);
+            transform: translateY(-2px);
+            box-shadow: 0 14px 40px rgba(247, 147, 26, 0.48);
+        }
+
+        .btn-arrow {
+            width: 26px;
+            height: 26px;
+            border-radius: 50%;
+            background: rgba(0, 0, 0, 0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: transform .2s;
+        }
+
+        .btn-primary:hover .btn-arrow {
+            transform: translateX(3px);
+        }
+
+
         .a-primary {
             display: inline-flex;
             align-items: center;
@@ -626,6 +726,7 @@
         .a-primary:hover .btn-arrow {
             transform: translateX(3px);
         }
+
 
         .btn-outline {
             display: inline-flex;
@@ -672,7 +773,7 @@
             flex-shrink: 0;
         }
 
-        /* PREVIEW CARDS */
+        /* Dashboard Preview */
         .preview-wrap {
             position: relative;
             z-index: 4;
@@ -729,7 +830,8 @@
             letter-spacing: 0.04em;
         }
 
-        .inv-row {
+        /* Markets */
+        .mkt-row {
             display: flex;
             align-items: center;
             gap: 10px;
@@ -737,77 +839,63 @@
             transition: background .2s;
         }
 
-        .inv-row:hover {
+        .mkt-row:hover {
             background: rgba(255, 255, 255, 0.025);
         }
 
-        .inv-icon {
+        .mkt-icon {
             width: 28px;
             height: 28px;
-            border-radius: 8px;
+            border-radius: 50%;
             flex-shrink: 0;
+            overflow: hidden;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 13px;
+            font-size: 11px;
+            font-weight: 700;
+            color: #fff;
         }
 
-        .inv-icon.paid {
-            background: rgba(34, 197, 94, 0.15);
-            color: var(--green);
-        }
-
-        .inv-icon.pending {
-            background: var(--orange-soft);
-            color: var(--orange);
-        }
-
-        .inv-icon.confirm {
-            background: rgba(56, 132, 255, 0.15);
-            color: var(--blue);
-        }
-
-        .inv-info {
+        /* BTC / USDT / DORX image placeholders in markets card:
+   Replace .mkt-icon background with <img> inside them.
+   E.g.: <div class="mkt-icon"><img src="btc.png" style="width:100%;height:100%;object-fit:cover;border-radius:50%"></div>
+*/
+        .mkt-info {
             flex: 1;
             min-width: 0;
         }
 
-        .inv-info .name {
+        .mkt-info .name {
             font-size: 12px;
             font-weight: 600;
         }
 
-        .inv-info .sub {
+        .mkt-info .chg {
             font-size: 10px;
-            color: var(--gray2);
+            color: var(--green);
         }
 
-        .inv-right {
+        .mkt-info .chg.down {
+            color: var(--red);
+        }
+
+        .mkt-right {
             text-align: right;
         }
 
-        .inv-right .amount {
+        .mkt-right .price {
             font-size: 12px;
             font-weight: 600;
             font-family: 'Space Mono', monospace;
         }
 
-        .inv-right .net {
+        .mkt-right .val {
             font-size: 10px;
+            color: var(--gray2);
         }
 
-        .inv-right .net.green {
-            color: var(--green);
-        }
-
-        .inv-right .net.orange {
-            color: var(--orange);
-        }
-
-        .inv-right .net.blue {
-            color: var(--blue);
-        }
-
+        /* Balance card */
         .pc-tabs {
             display: flex;
             gap: 2px;
@@ -918,6 +1006,7 @@
             font-weight: 600;
         }
 
+        /* Quick actions */
         .pc-qa-body {
             padding: 6px 14px 14px;
         }
@@ -946,27 +1035,27 @@
             flex-shrink: 0;
         }
 
-        .qa-icon.invoice {
+        .qa-icon.buy {
             background: rgba(247, 147, 26, 0.14);
             color: var(--orange);
         }
 
-        .qa-icon.wallet {
+        .qa-icon.vault {
             background: rgba(34, 197, 94, 0.12);
             color: var(--green);
         }
 
-        .qa-icon.rate {
+        .qa-icon.swap {
             background: rgba(56, 132, 255, 0.12);
             color: var(--blue);
         }
 
-        .qa-icon.webhook {
+        .qa-icon.card {
             background: rgba(168, 85, 247, 0.14);
             color: var(--purple);
         }
 
-        .qa-icon.report {
+        .qa-icon.game {
             background: rgba(239, 68, 68, 0.14);
             color: var(--red);
         }
@@ -992,7 +1081,9 @@
             font-size: 14px;
         }
 
-        /* MARQUEE */
+        /* ════════════════════════════════════════
+   MARQUEE
+   ════════════════════════════════════════ */
         .marquee-section {
             padding: 36px 0 28px;
             border-top: 1px solid var(--border);
@@ -1052,7 +1143,9 @@
             letter-spacing: 0.05em;
         }
 
-        /* SECTIONS */
+        /* ════════════════════════════════════════
+   SECTION SHARED
+   ════════════════════════════════════════ */
         .section {
             padding: clamp(60px, 10vw, 120px) clamp(16px, 4vw, 40px);
             max-width: 1200px;
@@ -1128,7 +1221,9 @@
             max-width: 380px;
         }
 
-        /* FEATURES */
+        /* ════════════════════════════════════════
+   FEATURES GRID
+   ════════════════════════════════════════ */
         .feat-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -1231,7 +1326,8 @@
 
         .fc-visual {
             position: relative;
-            background: radial-gradient(ellipse at 30% 20%, rgba(247, 147, 26, 0.22), transparent 60%), linear-gradient(135deg, #1a0c02 0%, #2a1600 100%);
+            background: radial-gradient(ellipse at 30% 20%, rgba(247, 147, 26, 0.22), transparent 60%),
+                linear-gradient(135deg, #1a0c02 0%, #2a1600 100%);
             overflow: hidden;
             display: flex;
             align-items: flex-end;
@@ -1377,6 +1473,10 @@
             color: var(--green);
         }
 
+        .txn-amount.red {
+            color: var(--red);
+        }
+
         .txn-amount.orange {
             color: var(--orange);
         }
@@ -1402,6 +1502,11 @@
             position: relative;
             z-index: 2;
             box-shadow: 0 0 40px rgba(247, 147, 26, 0.28);
+        }
+
+        .sec-shield i {
+            font-size: 32px;
+            color: var(--orange);
         }
 
         .sec-ring {
@@ -1463,7 +1568,9 @@
             }
         }
 
-        /* GIANT STATS */
+        /* ════════════════════════════════════════
+   GIANT STATS
+   ════════════════════════════════════════ */
         .giant-section {
             position: relative;
             padding: clamp(80px, 12vw, 140px) clamp(16px, 4vw, 40px);
@@ -1716,7 +1823,9 @@
             width: 95%;
         }
 
-        /* BENTO */
+        /* ════════════════════════════════════════
+   BENTO GRID
+   ════════════════════════════════════════ */
         .bento-section {
             padding: clamp(60px, 10vw, 120px) clamp(16px, 4vw, 40px);
             max-width: 1200px;
@@ -1829,7 +1938,8 @@
         }
 
         .bento.hero-bento {
-            background: radial-gradient(ellipse at 20% 20%, rgba(247, 147, 26, 0.18), transparent 60%), linear-gradient(180deg, var(--card2), #1a0a00);
+            background: radial-gradient(ellipse at 20% 20%, rgba(247, 147, 26, 0.18), transparent 60%),
+                linear-gradient(180deg, var(--card2), #1a0a00);
             border-color: var(--orange-border);
         }
 
@@ -1861,6 +1971,13 @@
             height: 6px;
             border-radius: 50%;
         }
+
+        /* network image chips — add your PNG icons here:
+   <div class="bento-chip"><img src="trc20.png" alt="TRC20" width="14" height="14" style="border-radius:50%"> TRC20</div>
+   <div class="bento-chip"><img src="bep20.png" alt="BEP20" width="14" height="14" style="border-radius:50%"> BEP20</div>
+   <div class="bento-chip"><img src="btc.png" alt="BTC" width="14" height="14" style="border-radius:50%"> BTC</div>
+   <div class="bento-chip"><img src="usdt.png" alt="USDT" width="14" height="14" style="border-radius:50%"> USDT</div>
+*/
 
         .bento-card-stack {
             margin-top: auto;
@@ -1963,7 +2080,9 @@
             color: #0a0a0a;
         }
 
-        /* ECOSYSTEM */
+        /* ════════════════════════════════════════
+   ECOSYSTEM
+   ════════════════════════════════════════ */
         .eco-section {
             padding: clamp(60px, 10vw, 120px) clamp(16px, 4vw, 40px);
             max-width: 1200px;
@@ -2055,7 +2174,9 @@
             font-size: 14px;
         }
 
-        /* HOW IT WORKS */
+        /* ════════════════════════════════════════
+   HOW IT WORKS
+   ════════════════════════════════════════ */
         .how-section {
             padding: clamp(60px, 10vw, 120px) clamp(16px, 4vw, 40px);
             max-width: 1200px;
@@ -2124,7 +2245,9 @@
             margin: 0 auto;
         }
 
-        /* TESTIMONIALS */
+        /* ════════════════════════════════════════
+   TESTIMONIALS
+   ════════════════════════════════════════ */
         .testimonial-section {
             padding: clamp(60px, 10vw, 120px) clamp(16px, 4vw, 40px);
             max-width: 1200px;
@@ -2193,7 +2316,9 @@
             color: var(--gray2);
         }
 
-        /* CTA */
+        /* ════════════════════════════════════════
+   CTA
+   ════════════════════════════════════════ */
         .cta-section {
             padding: clamp(80px, 12vw, 140px) clamp(16px, 4vw, 40px);
             position: relative;
@@ -2253,7 +2378,9 @@
             flex-wrap: wrap;
         }
 
-        /* FOOTER */
+        /* ════════════════════════════════════════
+   FOOTER
+   ════════════════════════════════════════ */
         footer {
             border-top: 1px solid var(--border);
             padding: 56px clamp(16px, 4vw, 40px) 24px;
@@ -2299,6 +2426,10 @@
             border-radius: 999px;
             font-size: 10px;
             color: var(--gray);
+        }
+
+        .footer-badge .c {
+            color: var(--green);
         }
 
         .footer-col h5 {
@@ -2355,7 +2486,9 @@
             color: var(--orange);
         }
 
-        /* GSAP */
+        /* ════════════════════════════════════════
+   GSAP INITIAL HIDDEN STATES (pre-animation)
+   ════════════════════════════════════════ */
         .gsap-fade {
             opacity: 0;
         }
@@ -2380,7 +2513,17 @@
             transform: scale(0.92);
         }
 
-        /* RESPONSIVE */
+        .gsap-split-word {
+            overflow: hidden;
+        }
+
+        .gsap-split-word span {
+            display: inline-block;
+        }
+
+        /* ════════════════════════════════════════
+   RESPONSIVE
+   ════════════════════════════════════════ */
         @media (max-width: 960px) {
 
             .nav-links,
@@ -2419,14 +2562,17 @@
                 grid-row: span 1;
             }
 
-            .bento.med,
-            .bento.wide {
+            .bento.med {
                 grid-column: span 2;
             }
 
             .bento.tall {
                 grid-column: span 2;
                 grid-row: span 1;
+            }
+
+            .bento.wide {
+                grid-column: span 2;
             }
 
             .bento.sm {
@@ -2508,6 +2654,10 @@
                 grid-template-columns: 1fr;
             }
 
+            .fc-top {
+                grid-template-columns: 1fr;
+            }
+
             .preview-wrap {
                 padding: 0 12px;
             }
@@ -2563,39 +2713,48 @@
 
 <body>
 
-    <!-- MOBILE MENU -->
+    <!-- ═══════════════ MOBILE MENU OVERLAY ═══════════════ -->
     <div class="mobile-menu" id="mobileMenu">
         <div class="mobile-menu-inner">
             <nav class="mobile-nav-links">
                 <a href="#home" class="active">Home</a>
                 <a href="#features">Features</a>
-                <a href="#ecosystem">Integrations</a>
+                <a href="#ecosystem">Ecosystem</a>
                 <a href="#how">How it works</a>
                 <a href="#testimonials">Reviews</a>
             </nav>
             <div class="mobile-menu-ctas">
                 <a href="https://doronpay.com/" class="btn-ghost" onclick="closeMobileMenu()">Sign in</a>
-                <a href="https://doronpay.com/" class="btn-solid" onclick="closeMobileMenu()">Start free <i
+                <a href="https://doronpay.com/" class="btn-solid" onclick="closeMobileMenu()">Open app <i
                         class="ri-arrow-right-line"></i></a>
             </div>
         </div>
     </div>
 
-    <!-- NAV -->
+    <!-- ═══════════════ NAV ═══════════════ -->
     <nav id="mainNav">
         <a href="#home" class="nav-logo">
+            <!--
+      LOGO PLACEMENT:
+      Option A (image logo): Replace everything below up to </a> with:
+        <img src="YOUR_LOGO.png" alt="DoronX" class="logo-img">
+      Option B (keep text + mark):
+    -->
+            <!-- <div class="logo-mark"><span>D</span></div>
+            <span class="logo-text">DoronX</span> -->
+
             <div class="logo-mark"><img src="logo.png" alt="DoronX" class="logo-img"></div>
         </a>
         <div class="nav-links">
             <a href="#home" class="active">Home</a>
             <a href="#features">Features</a>
-            <a href="#ecosystem">Integrations</a>
+            <a href="#ecosystem">Ecosystem</a>
             <a href="#how">How it works</a>
             <a href="#testimonials">Reviews</a>
         </div>
         <div class="nav-cta">
             <button class="btn-ghost">Sign in</button>
-            <a href="https://doronpay.com/" class="btn-solid">Start free <i class="ri-arrow-right-up-line"></i></a>
+            <a href="https://doronpay.com/" class="btn-solid">Open app <i class="ri-arrow-right-up-line"></i></a>
             <button class="nav-burger" id="navBurger" aria-label="Open menu" onclick="toggleMobileMenu()">
                 <span class="burger-bar"></span>
                 <span class="burger-bar"></span>
@@ -2604,47 +2763,60 @@
         </div>
     </nav>
 
-    <!-- HERO -->
+    <!-- ═══════════════ HERO ═══════════════ -->
     <section class="hero" id="home">
         <div class="hero-grid-bg"></div>
         <div class="hero-orb"></div>
         <div class="hero-bg-fade"></div>
 
+        <!-- Floating pills -->
         <div class="hero-floats">
+            <!--
+      BTC / USDT / MoMo / GHS COIN IMAGES:
+      Replace the .fp-dot text content with your PNG:
+      <div class="fp-dot btc"><img src="btc.png" style="width:100%;border-radius:50%"></div>
+    -->
             <div class="float-pill fp-1 gsap-fade">
-                <div class="fp-dot" style="background:#000"><img src="btc.png" style="width:100%;border-radius:50%">
-                </div>
-                Invoice in GHS
+                <!-- <div class="fp-dot btc"><i class="ri-bit-coin-line"></i></div> -->
+                <div class="fp-dot btc"><img src="btc.png" style="width:100%;border-radius:50%"></div>
+
+                Buy Bitcoin
                 <i class="ri-checkbox-circle-fill" style="color:var(--green);font-size:14px"></i>
             </div>
             <div class="float-pill fp-2 gsap-fade">
-                <div class="fp-dot" style="background:#000"><img src="trc20.png"
+                <div class="fp-dot usdt" style="font-size:11px;font-weight:700"> <img src="trc20.png"
                         style="width:24px;height:24px;border-radius:50%"></div>
+                <!--
+        USDT ICON: <img src="usdt.png" style="width:24px;height:24px;border-radius:50%">
+        TRC20 / BEP20 ICONS: same approach — place img inside .fp-dot
+      -->
                 USDT · TRC20
                 <i class="ri-checkbox-circle-fill" style="color:var(--green);font-size:14px"></i>
             </div>
+
             <div class="float-pill fp-3 gsap-fade">
-                <div class="fp-dot" style="background:var(--green);color:#000;font-size:13px"><i
-                        class="ri-checkbox-circle-line"></i></div>
-                Payment Detected
-                <i class="ri-checkbox-circle-fill" style="color:var(--green);font-size:14px"></i>
-            </div>
-            <div class="float-pill fp-4 gsap-fade">
-                <div class="fp-dot" style="background:#26A17B"><img src="bep20.png"
+                <div class="fp-dot bep20" style="font-size:11px;font-weight:700"> <img src="bep20.png"
                         style="width:24px;height:24px;border-radius:50%"></div>
                 USDT · BEP20
                 <i class="ri-checkbox-circle-fill" style="color:var(--green);font-size:14px"></i>
             </div>
+
+            <div class="float-pill fp-4 gsap-fade">
+                <div class="fp-dot sol" style="font-size:11px;font-weight:700"> <img src="SOL.png"
+                        style="width:24px;height:24px;border-radius:50%"></div>
+                USDT · SOLANA
+                <i class="ri-checkbox-circle-fill" style="color:var(--green);font-size:14px"></i>
+            </div>
+
+
             <div class="float-pill fp-5 gsap-fade">
-                <div class="fp-dot" style="background:var(--orange);color:#000;font-size:13px"><i
-                        class="ri-file-list-3-line"></i></div>
-                Invoice Paid
+                <div class="fp-dot momo" style="font-size:9px;font-weight:700">MM</div>
+                Mobile Money
                 <i class="ri-checkbox-circle-fill" style="color:var(--green);font-size:14px"></i>
             </div>
             <div class="float-pill fp-6 gsap-fade">
-                <div class="fp-dot" style="background:#9945FF"><img src="SOL.png"
-                        style="width:24px;height:24px;border-radius:50%"></div>
-                USDT · Solana
+                <div class="fp-dot ghs" style="font-size:12px;font-weight:700">₵</div>
+                Pay in GHS
                 <i class="ri-checkbox-circle-fill" style="color:var(--green);font-size:14px"></i>
             </div>
         </div>
@@ -2652,26 +2824,26 @@
         <div class="hero-inner">
             <div class="hero-badge gsap-fade-up">
                 <span class="hero-badge-tag">NEW</span>
-                <span>Smart Invoicing SaaS · Non-custodial · Callback-based detection</span>
+                <span>Vault · AAVE v3 · Earn up to 8% APY</span>
             </div>
 
             <h1 class="hero-headline gsap-fade-up">
-                Accept crypto<br>payments the <em>smart</em><br>way
+                Step into the<br>future of <em>global</em><br>finance
             </h1>
 
             <p class="hero-sub gsap-fade-up">
-                Create invoices in GHS, USD, NGN, CAD or EUR. Quote crypto at live rates. Receive payments directly into
-                your own wallets — DoronX never holds your funds.
+                Buy &amp; sell crypto, earn yield in the Vault, send money across borders, spend anywhere with virtual
+                cards— all in one beautifully designed app.
             </p>
 
             <div class="hero-ctas gsap-fade-up">
                 <a href="https://doronpay.com/" class="a-primary">
-                    Create free workspace
+                    Get started
                     <span class="btn-arrow"><i class="ri-arrow-right-line"></i></span>
                 </a>
                 <button class="btn-outline">
                     <i class="ri-play-circle-line" style="font-size:16px"></i>
-                    See how it works
+                    Watch demo
                 </button>
             </div>
 
@@ -2679,68 +2851,92 @@
                 <span><i class="ri-star-fill" style="color:var(--orange)"></i> <strong>4.9</strong> · 1,000+
                     reviews</span>
                 <span class="hero-trust-sep"></span>
-                <span><strong>500+</strong> merchant workspaces</span>
+                <span><strong>5K+</strong> active users</span>
                 <span class="hero-trust-sep"></span>
-                <span><strong>TRC20 · BEP20 · Solana · BTC</strong></span>
+                <span><strong>₵1M+</strong> transacted</span>
+                <!--  <span class="hero-trust-sep"></span>
+               <span><i class="ri-verified-badge-fill" style="color:var(--orange)"></i> licensed &amp;
+                    registered</span> -->
             </div>
 
             <!-- Dashboard preview -->
             <div class="preview-wrap gsap-fade-up">
-                <!-- Invoices card -->
+                <!-- Markets -->
                 <div class="preview-card">
                     <div class="pc-head">
-                        <h5>Invoices</h5>
+                        <h5>Markets</h5>
                         <span class="pc-see">See all <i class="ri-arrow-right-s-line"></i></span>
                     </div>
-                    <div class="inv-row">
-                        <div class="inv-icon paid"><i class="ri-checkbox-circle-line"></i></div>
-                        <div class="inv-info">
-                            <div class="name">DRX-INV-000001</div>
-                            <div class="sub">John Customer · USDT/TRC20</div>
+                    <!--
+          COIN IMAGE NOTES:
+          In each .mkt-icon replace the background + emoji with:
+          <div class="mkt-icon"><img src="btc.png" style="width:100%;height:100%;object-fit:cover;border-radius:50%"></div>
+        -->
+                    <div class="mkt-row">
+                        <div class="mkt-icon"><img src="btc.png"
+                                style="width:100%;height:100%;object-fit:cover;border-radius:50%"></div>
+                        <div class="mkt-info">
+                            <div class="name">BTC</div>
+                            <div class="chg"><i class="ri-arrow-up-s-fill" style="font-size:11px"></i>+4.2%</div>
                         </div>
-                        <div class="inv-right">
-                            <div class="amount">₵1,000</div>
-                            <div class="net green">PAID</div>
+                        <svg width="42" height="20" viewBox="0 0 42 20">
+                            <polyline points="0,16 8,12 16,14 24,7 32,9 42,3" fill="none" stroke="#22C55E"
+                                stroke-width="1.5" stroke-linecap="round" />
+                        </svg>
+                        <div class="mkt-right">
+                            <div class="price">$68,230</div>
+                            <div class="val">0.145 BTC</div>
                         </div>
                     </div>
-                    <div class="inv-row">
-                        <div class="inv-icon pending"><i class="ri-time-line"></i></div>
-                        <div class="inv-info">
-                            <div class="name">DRX-INV-000002</div>
-                            <div class="sub">Ama Serwaa · USDT/BEP20</div>
+                    <div class="mkt-row">
+                        <div class="mkt-icon"><img src="usdt.png"
+                                style="width:100%;height:100%;object-fit:cover;border-radius:50%"></div>
+                        <!-- USDT: replace above with <img src="usdt.png"> inside .mkt-icon -->
+                        <div class="mkt-info">
+                            <div class="name">USDT</div>
+                            <div class="chg"><i class="ri-arrow-up-s-fill" style="font-size:11px"></i>+0.01%</div>
                         </div>
-                        <div class="inv-right">
-                            <div class="amount">₵500</div>
-                            <div class="net orange">PENDING</div>
+                        <svg width="42" height="20" viewBox="0 0 42 20">
+                            <polyline points="0,10 8,10 16,11 24,9 32,10 42,10" fill="none" stroke="#22C55E"
+                                stroke-width="1.5" stroke-linecap="round" />
+                        </svg>
+                        <div class="mkt-right">
+                            <div class="price">$1.00</div>
+                            <div class="val">523.50 USDT</div>
                         </div>
                     </div>
-                    <div class="inv-row">
-                        <div class="inv-icon confirm"><i class="ri-loader-4-line"></i></div>
-                        <div class="inv-info">
-                            <div class="name">DRX-INV-000003</div>
-                            <div class="sub">Kojo Mensah · USDT/Solana</div>
+                    <div class="mkt-row">
+                        <div class="mkt-icon"><img src="dorx-coin.png"
+                                style="width:100%;height:100%;object-fit:cover;border-radius:50%"></div>
+                        <div class="mkt-info">
+                            <div class="name">DORX</div>
+                            <div class="chg"><i class="ri-arrow-up-s-fill" style="font-size:11px"></i>+12%</div>
                         </div>
-                        <div class="inv-right">
-                            <div class="amount">$240</div>
-                            <div class="net blue">CONFIRMING</div>
+                        <svg width="42" height="20" viewBox="0 0 42 20">
+                            <polyline points="0,14 8,13 16,14 24,10 32,7 42,4" fill="none" stroke="#22C55E"
+                                stroke-width="1.5" stroke-linecap="round" />
+                        </svg>
+                        <div class="mkt-right">
+                            <div class="price">$0.04</div>
+                            <div class="val">1,250 DORX</div>
                         </div>
                     </div>
                 </div>
 
-                <!-- Revenue center card -->
+                <!-- Balance center -->
                 <div class="preview-card">
                     <div class="pc-tabs">
-                        <div class="pc-tab active">Revenue</div>
-                        <div class="pc-tab">Invoices</div>
-                        <div class="pc-tab">Rates</div>
-                        <div class="pc-tab">Webhooks</div>
+                        <div class="pc-tab active">Wallet</div>
+                        <div class="pc-tab">Vault</div>
+                        <div class="pc-tab">Salary</div>
+                        <div class="pc-tab">Games</div>
                     </div>
                     <div class="pc-balance-body">
-                        <div class="bal-label">Total Received (Month)</div>
+                        <div class="bal-label">Total Balance</div>
                         <div class="bal-row">
-                            <div class="bal-amount">₵48,210</div>
-                            <div class="bal-usd">GHS</div>
-                            <div class="bal-change"><i class="ri-arrow-up-line"></i> +₵6,800 (+16.4%)</div>
+                            <div class="bal-amount">$4,821.50</div>
+                            <div class="bal-usd">USD</div>
+                            <div class="bal-change"><i class="ri-arrow-up-line"></i> +$432 (+9.8%)</div>
                         </div>
                     </div>
                     <div class="chart-area">
@@ -2762,56 +2958,56 @@
                         </svg>
                     </div>
                     <div class="chart-timeline">
-                        <span>1D</span><span>1W</span><span
-                            class="active">1M</span><span>3M</span><span>1Y</span><span>ALL</span>
-                        <span style="margin-left:auto;color:var(--green)">+₵6,800 GHS</span>
+                        <span>1H</span><span>1D</span><span
+                            class="active">1W</span><span>1M</span><span>1Y</span><span>ALL</span>
+                        <span style="margin-left:auto;color:var(--green)">+$432 USD</span>
                     </div>
                 </div>
 
-                <!-- Workspace quick actions card -->
+                <!-- Quick actions -->
                 <div class="preview-card">
                     <div class="pc-head">
-                        <h5>Workspace</h5>
+                        <h5>Quick Actions</h5>
                         <span class="pc-see"><i class="ri-settings-3-line"></i></span>
                     </div>
                     <div class="pc-qa-body">
                         <div class="qa-row">
-                            <div class="qa-icon invoice"><i class="ri-file-add-line"></i></div>
+                            <div class="qa-icon buy"><i class="ri-bit-coin-line"></i></div>
                             <div class="qa-info">
-                                <div class="qa-name">Create Invoice</div>
-                                <div class="qa-sub">GHS · USDT · TRC20</div>
+                                <div class="qa-name">Buy Bitcoin</div>
+                                <div class="qa-sub">Instant via MoMo</div>
                             </div>
                             <i class="ri-arrow-right-s-line qa-arrow"></i>
                         </div>
                         <div class="qa-row">
-                            <div class="qa-icon wallet"><i class="ri-wallet-3-line"></i></div>
+                            <div class="qa-icon vault"><i class="ri-safe-2-line"></i></div>
                             <div class="qa-info">
-                                <div class="qa-name">Wallet Profiles</div>
-                                <div class="qa-sub">Connect receiving address</div>
+                                <div class="qa-name">Vault</div>
+                                <div class="qa-sub">Earn 8% APY</div>
                             </div>
                             <i class="ri-arrow-right-s-line qa-arrow"></i>
                         </div>
                         <div class="qa-row">
-                            <div class="qa-icon rate"><i class="ri-exchange-line"></i></div>
+                            <div class="qa-icon swap"><i class="ri-exchange-2-line"></i></div>
                             <div class="qa-info">
-                                <div class="qa-name">Rate Engine</div>
-                                <div class="qa-sub">Kraken · Fixer cross rates</div>
+                                <div class="qa-name">DoronSwap</div>
+                                <div class="qa-sub">GHS ↔ USD</div>
                             </div>
                             <i class="ri-arrow-right-s-line qa-arrow"></i>
                         </div>
                         <div class="qa-row">
-                            <div class="qa-icon webhook"><i class="ri-webhook-line"></i></div>
+                            <div class="qa-icon card"><i class="ri-bank-card-line"></i></div>
                             <div class="qa-info">
-                                <div class="qa-name">Merchant Webhooks</div>
-                                <div class="qa-sub">invoice.paid events</div>
+                                <div class="qa-name">Virtual Cards</div>
+                                <div class="qa-sub">Shop worldwide</div>
                             </div>
                             <i class="ri-arrow-right-s-line qa-arrow"></i>
                         </div>
                         <div class="qa-row">
-                            <div class="qa-icon report"><i class="ri-bar-chart-2-line"></i></div>
+                            <div class="qa-icon game"><i class="ri-gamepad-line"></i></div>
                             <div class="qa-info">
-                                <div class="qa-name">Reports</div>
-                                <div class="qa-sub">Usage &amp; billing dashboard</div>
+                                <div class="qa-name">Games Arena</div>
+                                <div class="qa-sub">Earn DORX</div>
                             </div>
                             <i class="ri-arrow-right-s-line qa-arrow"></i>
                         </div>
@@ -2821,89 +3017,96 @@
         </div>
     </section>
 
-    <!-- MARQUEE -->
+    <!-- ═══════════════ MARQUEE ═══════════════ -->
     <section class="marquee-section">
-        <div class="marquee-label">Powering merchant payments for <strong>500+ businesses</strong> · Non-custodial</div>
+        <div class="marquee-label">Powering finance for <strong>10,000+ users</strong> · Trusted</div>
         <div class="marquee">
             <div class="marquee-track">
-                <div class="m-item"><i class="ri-file-list-3-line"></i> SMART INVOICING</div>
+                <div class="m-item"><i class="ri-wallet-3-line"></i> BTC</div>
                 <div class="m-item" style="opacity:.25">·</div>
-                <div class="m-item"><i class="ri-wallet-3-line"></i> TRC20</div>
-                <div class="m-item" style="opacity:.25">·</div>
-                <div class="m-item"><i class="ri-wallet-3-line"></i> BEP20</div>
+                <div class="m-item"><i class="ri-wallet-3-line"></i> USDT</div>
                 <div class="m-item" style="opacity:.25">·</div>
                 <div class="m-item"><i class="ri-wallet-3-line"></i> SOLANA</div>
                 <div class="m-item" style="opacity:.25">·</div>
-                <div class="m-item"><i class="ri-bit-coin-line"></i> BTC</div>
-                <div class="m-item" style="opacity:.25">·</div>
-                <div class="m-item"><i class="ri-exchange-line"></i> KRAKEN RATES</div>
-                <div class="m-item" style="opacity:.25">·</div>
-                <div class="m-item"><i class="ri-global-line"></i> FIXER FX</div>
-                <div class="m-item" style="opacity:.25">·</div>
-                <div class="m-item"><i class="ri-currency-line"></i> GHS · USD · NGN · CAD · EUR</div>
-                <div class="m-item" style="opacity:.25">·</div>
-                <div class="m-item"><i class="ri-webhook-line"></i> WEBHOOKS</div>
-                <div class="m-item" style="opacity:.25">·</div>
-                <div class="m-item"><i class="ri-shield-check-line"></i> NON-CUSTODIAL</div>
-                <div class="m-item" style="opacity:.25">·</div>
-                <div class="m-item"><i class="ri-key-line"></i> API KEYS</div>
-                <div class="m-item" style="opacity:.25">·</div>
-                <!-- duplicate for loop -->
-                <div class="m-item"><i class="ri-file-list-3-line"></i> SMART INVOICING</div>
+                <div class="m-item"><i class="ri-wallet-3-line"></i> BEP20</div>
                 <div class="m-item" style="opacity:.25">·</div>
                 <div class="m-item"><i class="ri-wallet-3-line"></i> TRC20</div>
                 <div class="m-item" style="opacity:.25">·</div>
-                <div class="m-item"><i class="ri-wallet-3-line"></i> BEP20</div>
+                <div class="m-item"><i class="ri-cell-phone-line"></i> MTN MoMo</div>
+                <div class="m-item" style="opacity:.25">·</div>
+                <div class="m-item"><i class="ri-cell-phone-line"></i> Vodafone Cash</div>
+                <div class="m-item" style="opacity:.25">·</div>
+                <div class="m-item"><i class="ri-cell-phone-line"></i> AirtelTigo</div>
+                <div class="m-item" style="opacity:.25">·</div>
+                <div class="m-item"><i class="ri-bank-card-2-line"></i> Maplerad</div>
+                <div class="m-item" style="opacity:.25">·</div>
+                <div class="m-item"><i class="ri-exchange-dollar-line"></i> AAVE v3</div>
+                <div class="m-item" style="opacity:.25">·</div>
+                <div class="m-item"><i class="ri-polygon-line"></i> Polygon</div>
+                <div class="m-item" style="opacity:.25">·</div>
+                <div class="m-item"><i class="ri-wallet-3-line"></i> WalletConnect</div>
+                <div class="m-item" style="opacity:.25">·</div>
+                <!-- duplicate for seamless loop -->
+                <div class="m-item"><i class="ri-wallet-3-line"></i> BTC</div>
+                <div class="m-item" style="opacity:.25">·</div>
+                <div class="m-item"><i class="ri-wallet-3-line"></i> USDT</div>
                 <div class="m-item" style="opacity:.25">·</div>
                 <div class="m-item"><i class="ri-wallet-3-line"></i> SOLANA</div>
                 <div class="m-item" style="opacity:.25">·</div>
-                <div class="m-item"><i class="ri-bit-coin-line"></i> BTC</div>
+                <div class="m-item"><i class="ri-wallet-3-line"></i> BEP20</div>
                 <div class="m-item" style="opacity:.25">·</div>
-                <div class="m-item"><i class="ri-exchange-line"></i> KRAKEN RATES</div>
+                <div class="m-item"><i class="ri-wallet-3-line"></i> TRC20</div>
                 <div class="m-item" style="opacity:.25">·</div>
-                <div class="m-item"><i class="ri-global-line"></i> FIXER FX</div>
+                <div class="m-item"><i class="ri-cell-phone-line"></i> MTN MoMo</div>
                 <div class="m-item" style="opacity:.25">·</div>
-                <div class="m-item"><i class="ri-currency-line"></i> GHS · USD · NGN · CAD · EUR</div>
+                <div class="m-item"><i class="ri-cell-phone-line"></i> Vodafone Cash</div>
                 <div class="m-item" style="opacity:.25">·</div>
-                <div class="m-item"><i class="ri-webhook-line"></i> WEBHOOKS</div>
+                <div class="m-item"><i class="ri-cell-phone-line"></i> AirtelTigo</div>
                 <div class="m-item" style="opacity:.25">·</div>
-                <div class="m-item"><i class="ri-shield-check-line"></i> NON-CUSTODIAL</div>
+                <div class="m-item"><i class="ri-bank-card-2-line"></i> Maplerad</div>
                 <div class="m-item" style="opacity:.25">·</div>
-                <div class="m-item"><i class="ri-key-line"></i> API KEYS</div>
+                <div class="m-item"><i class="ri-exchange-dollar-line"></i> AAVE v3</div>
+                <div class="m-item" style="opacity:.25">·</div>
+                <div class="m-item"><i class="ri-polygon-line"></i> Polygon</div>
+                <div class="m-item" style="opacity:.25">·</div>
+                <div class="m-item"><i class="ri-wallet-3-line"></i> WalletConnect</div>
                 <div class="m-item" style="opacity:.25">·</div>
             </div>
         </div>
     </section>
 
-    <!-- FEATURES -->
+    <!-- ═══════════════ FEATURES ═══════════════ -->
     <section class="section" id="features">
         <div class="section-head">
             <div class="gsap-fade-up">
                 <div class="eyebrow"><span class="eyebrow-dot"></span> What's inside</div>
-                <h2 class="section-title">Everything you need<br>to get <em>paid in crypto</em></h2>
+                <h2 class="section-title">Everything you need<br>to <em>own your money</em></h2>
             </div>
             <p class="section-sub gsap-fade-up">
-                From your first invoice to enterprise-scale payment detection — DoronX Smart Invoicing gives merchants
-                every tool in one beautifully designed workspace.
+                From buying your first bitcoin to earning daily yield on dollars — DoronX brings every financial tool
+                into one beautifully designed app.
             </p>
         </div>
 
         <div class="feat-grid">
-            <!-- Wide: Rate Engine -->
             <div class="feat-card fc-top gsap-scale">
                 <div class="fc-text">
-                    <div class="fc-kicker"><i class="ri-exchange-line"></i> RATE ENGINE</div>
-                    <h3>Live crypto rates,<br>merchant-<em>scoped</em> pricing</h3>
-                    <p>Powered by Kraken for crypto/USD and Fixer for fiat FX. Set your own markup and spread per trade
-                        pair. Every invoice quotes the exact crypto amount your customer pays — with full rate snapshots
-                        stored on every transaction.</p>
-                    <a href="#" class="fc-link">Configure trade pairs <span class="fc-link-arrow"><i
+                    <div class="fc-kicker"><i class="ri-line-chart-line"></i> CRYPTO TRADING</div>
+                    <h3>Trade BTC &amp; USDT<br>with <em>world-class</em> rails</h3>
+                    <p>Buy and sell Bitcoin and USDT instantly with Mobile Money or bank transfer. Live rates, low fees,
+                        TRC20 · BEP20 · Solana support, and settlement directly to your local wallet.</p>
+                    <!--
+          NETWORK ICONS NOTE:
+          TRC20, BEP20, BTC, USDT images — add them in the bento chips and here.
+          E.g.: <img src="trc20.png" alt="TRC20" width="14" height="14" style="border-radius:50%"> TRC20
+        -->
+                    <a href="#" class="fc-link">Start trading <span class="fc-link-arrow"><i
                                 class="ri-arrow-right-line"></i></span></a>
                 </div>
                 <div class="fc-visual">
                     <div class="fc-chart-float">
-                        <div class="lbl">USDT/GHS live</div>
-                        <div class="amt">15.30</div>
+                        <div class="lbl">BTC/USD live</div>
+                        <div class="amt">$68,230</div>
                     </div>
                     <div class="fc-chart">
                         <svg viewBox="0 0 400 180" preserveAspectRatio="none">
@@ -2923,56 +3126,50 @@
                         </svg>
                     </div>
                     <div class="fc-chart-pill">
-                        <i class="ri-file-list-3-line" style="color:var(--orange)"></i> Invoice ₵1,000 <span
-                            class="val">= 65.36 USDT</span>
+                        <i class="ri-wallet-3-line" style="color:var(--orange)"></i> Your balance <span
+                            class="val">0.145 BTC</span>
                     </div>
                 </div>
             </div>
 
-            <!-- Small: Webhooks -->
             <div class="feat-card fc-small gsap-fade-up">
-                <div class="fc-kicker"><i class="ri-webhook-line"></i> MERCHANT WEBHOOKS · REAL-TIME</div>
-                <h4>Instant payment<br>events, every time</h4>
-                <p>After on-chain detection, DoronX fires merchant webhook events — invoice.payment_detected,
-                    invoice.paid, invoice.underpaid — delivered straight to your endpoint with idempotency keys to
-                    prevent duplicates.</p>
+                <div class="fc-kicker"><i class="ri-send-plane-line"></i> BULK PAYOUTS · SALARYFLOW</div>
+                <h4>Pay anyone,<br>anywhere — in seconds</h4>
+                <p>Send to thousands of recipients in one batch, or receive crypto salary that auto-converts and lands
+                    in your Mobile Money.</p>
                 <div class="txn-list">
                     <div class="txn-row">
-                        <div class="txn-avatar" style="background:linear-gradient(135deg,#22C55E,#15803D)"><i
-                                class="ri-checkbox-circle-fill" style="font-size:14px"></i></div>
+                        <div class="txn-avatar" style="background:linear-gradient(135deg,#F7931A,#E8541A)">KA</div>
                         <div class="txn-info">
-                            <div class="txn-name">invoice.paid · DRXREFABC123</div>
-                            <div class="txn-date">USDT/TRC20 · 3 confirmations</div>
+                            <div class="txn-name">Salary · Kofi Addo</div>
+                            <div class="txn-date">Today · 09:41 · USDT → GHS</div>
                         </div>
-                        <div class="txn-amount green">EXACT</div>
+                        <div class="txn-amount green">+₵8,450</div>
                     </div>
                     <div class="txn-row">
-                        <div class="txn-avatar" style="background:linear-gradient(135deg,#F7931A,#E8541A)"><i
-                                class="ri-radar-line" style="font-size:14px"></i></div>
+                        <div class="txn-avatar" style="background:linear-gradient(135deg,#3884FF,#1E5ED6)">VE</div>
                         <div class="txn-info">
-                            <div class="txn-name">invoice.payment_detected</div>
-                            <div class="txn-date">BEP20 · 0 confirmations · SEEN</div>
+                            <div class="txn-name">Vendor payout · 48 recipients</div>
+                            <div class="txn-date">Batch · DRXBULK001</div>
                         </div>
-                        <div class="txn-amount orange">SEEN</div>
+                        <div class="txn-amount orange">$2,340</div>
                     </div>
                     <div class="txn-row">
-                        <div class="txn-avatar" style="background:linear-gradient(135deg,#3884FF,#1E5ED6)"><i
-                                class="ri-loader-4-line" style="font-size:14px"></i></div>
+                        <div class="txn-avatar" style="background:linear-gradient(135deg,#22C55E,#15803D)">AM</div>
                         <div class="txn-info">
-                            <div class="txn-name">invoice.confirming · Solana</div>
-                            <div class="txn-date">2 of 3 confirmations</div>
+                            <div class="txn-name">Ama · MoMo transfer</div>
+                            <div class="txn-date">2min ago · MTN</div>
                         </div>
-                        <div class="txn-amount" style="color:var(--blue)">CONFIRMING</div>
+                        <div class="txn-amount green">+₵500</div>
                     </div>
                 </div>
             </div>
 
-            <!-- Small: Non-custodial -->
             <div class="feat-card fc-small gsap-fade-up">
-                <div class="fc-kicker"><i class="ri-shield-check-line"></i> NON-CUSTODIAL</div>
-                <h4>Your wallets,<br>your funds — always</h4>
-                <p>DoronX stores only your public wallet address. No private keys, no seed phrases, no custodial risk.
-                    Payments land directly in your business wallet the moment they're confirmed on-chain.</p>
+                <div class="fc-kicker"><i class="ri-shield-check-line"></i> SECURITY</div>
+                <h4>Industry Standard<br>by default</h4>
+                <p>2FA, biometric login, encrypted wallets, on-chain verification, and real-time fraud monitoring. Your
+                    funds stay yours.</p>
                 <div class="sec-visual">
                     <div class="sec-ring r3">
                         <div class="dot"></div>
@@ -2991,14 +3188,15 @@
         </div>
     </section>
 
-    <!-- GIANT STATS -->
+    <!-- ═══════════════ GIANT STATS ═══════════════ -->
     <section class="giant-section">
         <div class="giant-inner">
-            <div class="giant-year-tag gsap-fade">LAUNCHED 2024 · BUILT FOR MERCHANTS</div>
+            <div class="giant-year-tag gsap-fade">FOUNDED 2023 · BUILT FOR THE WORLD</div>
             <div class="giant-text gsap-scale">
                 <span class="line1">DORONX</span>
                 <span class="line2">by the numbers</span>
             </div>
+
             <div class="stats-card gsap-fade-up">
                 <div class="stats-top">
                     <div class="stats-meta">
@@ -3014,28 +3212,28 @@
                         </div>
                     </div>
                     <div class="stats-tagline">
-                        We're on a <em>mission</em> to make non-custodial crypto payment acceptance effortless for every
-                        merchant — without ever touching their funds.
+                        We're on a <em>mission</em> to make world-class financial services accessible to everyone — with
+                        a single tap.
                     </div>
                 </div>
                 <div class="stats-numbers" id="statsNumbers">
                     <div class="stat-item">
-                        <div class="stat-num" data-target="500" data-suffix="+">0</div>
-                        <div class="stat-label"><span class="stat-dot"></span> Merchant workspaces</div>
+                        <div class="stat-num" data-target="1" data-suffix="K+">0</div>
+                        <div class="stat-label"><span class="stat-dot"></span> Active users</div>
                         <div class="stat-bar">
                             <div class="stat-bar-fill"></div>
                         </div>
                     </div>
                     <div class="stat-item">
-                        <div class="stat-num"><span data-target="4" data-suffix=" networks">0</span></div>
-                        <div class="stat-label"><span class="stat-dot"></span> Blockchain networks</div>
+                        <div class="stat-num"><span data-target="1" data-prefix="₵" data-suffix="M+">0</span></div>
+                        <div class="stat-label"><span class="stat-dot"></span> Transacted</div>
                         <div class="stat-bar">
                             <div class="stat-bar-fill"></div>
                         </div>
                     </div>
                     <div class="stat-item">
-                        <div class="stat-num"><span data-target="5" data-suffix=" currencies">0</span></div>
-                        <div class="stat-label"><span class="stat-dot"></span> Invoice currencies</div>
+                        <div class="stat-num"><span data-target="8" data-suffix="% APY">0</span></div>
+                        <div class="stat-label"><span class="stat-dot"></span> Vault yield</div>
                         <div class="stat-bar">
                             <div class="stat-bar-fill"></div>
                         </div>
@@ -3052,27 +3250,27 @@
         </div>
     </section>
 
-    <!-- BENTO GRID -->
+    <!-- ═══════════════ BENTO GRID ═══════════════ -->
     <section class="bento-section">
         <div class="section-head">
             <div class="gsap-fade-up">
-                <div class="eyebrow"><span class="eyebrow-dot"></span> One platform · Every feature</div>
+                <div class="eyebrow"><span class="eyebrow-dot"></span> One app · Every feature</div>
                 <h2 class="section-title">Built to do <em>everything</em></h2>
             </div>
             <p class="section-sub gsap-fade-up">
-                From invoice creation to on-chain detection to merchant webhooks — DoronX Smart Invoicing handles the
-                entire payment lifecycle in one workspace.
+                Thirteen features. One app. Zero confusion. See why DoronX users leave behind four apps the day they
+                sign up.
             </p>
         </div>
 
         <div class="bento-grid">
+            <!-- Vault hero bento -->
             <div class="bento big hero-bento gsap-fade-up">
-                <span class="bento-tag">Core</span>
-                <div class="bento-icon"><i class="ri-file-list-3-line"></i></div>
-                <h3 class="bento-title">Smart Invoicing</h3>
-                <p class="bento-desc">Create invoices in GHS, USD, NGN, CAD or EUR. DoronX auto-quotes the exact USDT or
-                    BTC amount using live Kraken × Fixer cross rates. Share a payment link — your customer pays, you
-                    receive crypto directly in your own wallet.</p>
+                <span class="bento-tag">Earn</span>
+                <div class="bento-icon"><i class="ri-safe-2-line"></i></div>
+                <h3 class="bento-title">The Vault</h3>
+                <p class="bento-desc">Deposit USDC, earn up to 8% APY automatically via AAVE v3 on Polygon. Watch your
+                    balance grow daily. Withdraw anytime — no lock-ups, no penalties.</p>
                 <div class="vault-bar">
                     <span style="height:40%"></span><span style="height:55%"></span><span style="height:45%"></span>
                     <span style="height:70%"></span><span style="height:60%"></span><span style="height:80%"></span>
@@ -3081,81 +3279,110 @@
                 </div>
             </div>
 
+            <!-- Virtual Cards -->
             <div class="bento med gsap-fade-up">
-                <span class="bento-tag">Non-custodial</span>
-                <div class="bento-icon"><i class="ri-wallet-3-line"></i></div>
-                <h3 class="bento-title">Wallet Profiles</h3>
-                <p class="bento-desc">Connect your own business wallet address for any supported network. DoronX stores
-                    only the public address — your private keys stay with you, always.</p>
+                <span class="bento-tag">Global</span>
+                <div class="bento-icon"><i class="ri-bank-card-2-line"></i></div>
+                <h3 class="bento-title">Virtual USD Cards</h3>
+                <p class="bento-desc">Shop on any platform that accepts Visa. Issued instantly via Maplerad. Fund from
+                    your DoronX wallet.</p>
                 <div class="bento-card-stack">
                     <div class="vc vc-2">
-                        <div class="vc-brand">USDT · BEP20</div>
-                        <div class="vc-num">0xTPJy…1jphM</div>
-                        <div style="margin-top:6px;font-size:9px;opacity:0.7">EXTERNAL WALLET</div>
+                        <div class="vc-brand">DORONX</div>
+                        <div class="vc-num">•••• •••• •••• 2847</div>
+                        <div style="margin-top:6px;font-size:9px;opacity:0.7">USD · VIRTUAL</div>
                     </div>
                     <div class="vc vc-1">
-                        <div class="vc-brand">USDT · TRC20</div>
-                        <div class="vc-num">TPJyzt…jphM1</div>
-                        <div style="margin-top:6px;font-size:9px;opacity:0.9">DEFAULT · ACTIVE</div>
+                        <div class="vc-brand">DORONX</div>
+                        <div class="vc-num">•••• •••• •••• 4891</div>
+                        <div style="margin-top:6px;font-size:9px;opacity:0.9">USD · PRIMARY</div>
                     </div>
                 </div>
             </div>
 
+            <!-- OTC Trading -->
             <div class="bento med gsap-fade-up">
-                <span class="bento-tag">Pricing</span>
-                <div class="bento-icon"><i class="ri-exchange-line"></i></div>
-                <h3 class="bento-title">Merchant Rate Engine</h3>
-                <p class="bento-desc">Set markup and spread per trade pair. Force-refresh live rates on every invoice.
-                    Full rate snapshots stored on every transaction for complete auditability.</p>
+                <span class="bento-tag">Bulk</span>
+                <div class="bento-icon"><i class="ri-swap-2-line"></i></div>
+                <h3 class="bento-title">OTC Trading</h3>
+                <p class="bento-desc">Move large amounts at negotiated rates. Upload proof, get settled fast. Perfect
+                    for businesses and high-volume traders.</p>
                 <div class="bento-hero-visual">
-                    <div class="bento-chip"><img src="btc.png" width="6" height="6" style="border-radius:50%"> BTC/GHS
+                    <!--
+          BTC / USDT NETWORK CHIP ICONS:
+          Replace .d colored dots with your images:
+          <img src="btc.png" width="6" height="6" style="border-radius:50%"> BTC
+          <img src="usdt.png" width="6" height="6" style="border-radius:50%"> USDT
+          <img src="trc20.png" width="6" height="6" style="border-radius:50%"> TRC20
+          <img src="bep20.png" width="6" height="6" style="border-radius:50%"> BEP20
+        -->
+                    <div class="bento-chip"> <img src="btc.png" width="6" height="6" style="border-radius:50%"> BTC
                     </div>
-                    <div class="bento-chip"><img src="usdt.png" width="6" height="6" style="border-radius:50%"> USDT/GHS
+                    <div class="bento-chip"><img src="usdt.png" width="6" height="6" style="border-radius:50%"> USDT
                     </div>
-                    <div class="bento-chip"><span class="d" style="background:#3884FF"></span> Markup %</div>
-                    <div class="bento-chip"><span class="d" style="background:#22C55E"></span> Spread %</div>
-                    <div class="bento-chip"><span class="d" style="background:var(--orange)"></span> AUTO</div>
+                    <div class="bento-chip"> <img src="trc20.png" width="6" height="6" style="border-radius:50%"> TRC20
+                    </div>
+                    <div class="bento-chip"><img src="bep20.png" width="6" height="6" style="border-radius:50%"> BEP20
+                    </div>
+                    <div class="bento-chip"><img src="sol.png" width="6" height="6" style="border-radius:50%"> SOLANA
+                    </div>
+                    <div class="bento-chip"><span class="d" style="background:#3884FF"></span> Negotiable</div>
                 </div>
             </div>
 
+            <!-- Games Arena -->
             <div class="bento tall gsap-fade-up">
-                <span class="bento-tag">Auto</span>
-                <div class="bento-icon"><i class="ri-radar-line"></i></div>
-                <h3 class="bento-title">Payment Detection</h3>
-                <p class="bento-desc">Callback-based on-chain detection across TRC20, BEP20, Solana, Polygon and BTC. No
-                    polling — the gateway pushes every confirmation event the moment it's detected.</p>
+                <span class="bento-tag">Earn DORX</span>
+                <div class="bento-icon"><i class="ri-gamepad-line"></i></div>
+                <h3 class="bento-title">Games Arena</h3>
+                <p class="bento-desc">Play Word Rush, Memory Match and more. Real-time multiplayer with tournaments,
+                    leaderboards, and DORX rewards.</p>
                 <div class="game-visual">
                     <div class="game-tile solved">S</div>
-                    <div class="game-tile solved">E</div>
-                    <div class="game-tile solved">E</div>
-                    <div class="game-tile solved">N</div>
-                    <div class="game-tile">→</div>
-                    <div class="game-tile solved">P</div>
-                    <div class="game-tile">A</div>
-                    <div class="game-tile">I</div>
+                    <div class="game-tile solved">C</div>
+                    <div class="game-tile solved">R</div>
+                    <div class="game-tile solved">A</div>
+                    <div class="game-tile">M</div>
+                    <div class="game-tile">B</div>
+                    <div class="game-tile">L</div>
+                    <div class="game-tile">E</div>
                 </div>
             </div>
 
+            <!-- DoronSwap -->
             <div class="bento sm gsap-fade-up">
-                <div class="bento-icon"><i class="ri-currency-line"></i></div>
-                <h3 class="bento-title">Multi-Currency</h3>
-                <p class="bento-desc">Invoice in GHS, USD, NGN, CAD or EUR. Payer always settles in crypto.</p>
+                <div class="bento-icon"><i class="ri-exchange-2-line"></i></div>
+                <h3 class="bento-title">DoronSwap</h3>
+                <p class="bento-desc">GHS ↔ USD ↔ Crypto in a single tap. Live rates. No network fees.</p>
             </div>
 
+            <!-- Data Bundles -->
+            <!-- <div class="bento sm gsap-fade-up">
+                <div class="bento-icon"><i class="ri-signal-wifi-line"></i></div>
+                <h3 class="bento-title">Data Bundles</h3>
+                <p class="bento-desc">Buy data for MTN, Vodafone, AirtelTigo — from your wallet.</p>
+            </div> -->
+
+            <!-- Gift Cards -->
             <div class="bento sm gsap-fade-up">
-                <div class="bento-icon"><i class="ri-key-line"></i></div>
-                <h3 class="bento-title">API Keys</h3>
-                <p class="bento-desc">Server-to-server merchant access with scoped Smart Invoicing API keys.</p>
+                <div class="bento-icon"><i class="ri-gift-2-line"></i></div>
+                <h3 class="bento-title">Gift Cards</h3>
+                <p class="bento-desc">Yalla Ludo, gaming, shopping, entertainment brands.</p>
             </div>
 
+            <!-- Smart Invoice -->
             <div class="bento wide gsap-fade-up">
                 <span class="bento-tag">Merchants</span>
-                <div class="bento-icon"><i class="ri-qr-code-line"></i></div>
-                <h3 class="bento-title">Hosted Payment Pages &amp; QR Stands</h3>
-                <p class="bento-desc">Every invoice gets a public payment URL and QR code. Print it, share it, embed it.
-                    Customers see the crypto amount, wallet address, and countdown — you see real-time status in your
-                    dashboard.</p>
+                <div class="bento-icon"><i class="ri-file-list-3-line"></i></div>
+                <h3 class="bento-title">Smart Invoice &amp; Payment Stands</h3>
+                <p class="bento-desc">Generate QR codes for your counter. Fixed or open amount. Print-ready scan-to-pay
+                    tiles. Track every payment in the dashboard.</p>
                 <div class="bento-hero-visual">
+                    <!--
+          TRC20 / BEP20 / SOLANA / BTC IMAGE ICONS:
+          Add your PNG images inside each chip here.
+          Example: <div class="bento-chip"><img src="trc20.png" width="14" height="14" style="border-radius:50%;margin-right:4px"> TRC20</div>
+        -->
                     <div class="bento-chip"><img src="btc.png" width="14" height="14"
                             style="border-radius:50%;margin-right:4px"> BTC</div>
                     <div class="bento-chip"><img src="trc20.png" width="14" height="14"
@@ -3167,215 +3394,231 @@
                 </div>
             </div>
 
+            <!-- Web3 Wallet -->
             <div class="bento sm gsap-fade-up">
-                <div class="bento-icon"><i class="ri-shield-flash-line"></i></div>
-                <h3 class="bento-title">Idempotency</h3>
-                <p class="bento-desc">Duplicate-safe callbacks. Every event keyed to prevent double-billing.</p>
+                <div class="bento-icon"><i class="ri-hexagon-line"></i></div>
+                <h3 class="bento-title">Web3 Funding</h3>
+                <p class="bento-desc">WalletConnect, MetaMask, Phantom, Trust Wallet.</p>
             </div>
 
+            <!-- Community -->
             <div class="bento sm gsap-fade-up">
-                <div class="bento-icon"><i class="ri-bar-chart-2-line"></i></div>
-                <h3 class="bento-title">Usage Billing</h3>
-                <p class="bento-desc">Pay-per-detection SaaS billing. One usage event per confirmed payment.</p>
+                <div class="bento-icon"><i class="ri-community-line"></i></div>
+                <h3 class="bento-title">Community</h3>
+                <p class="bento-desc">Share your thoughts, follow doronx users, and earn via referrals.</p>
             </div>
 
+            <!-- P2P Transfer -->
             <div class="bento wide gsap-fade-up">
-                <span class="bento-tag">Smart</span>
-                <div class="bento-icon"><i class="ri-scales-3-line"></i></div>
-                <h3 class="bento-title">Smart Amount Tolerance &amp; Underpayment Handling</h3>
-                <p class="bento-desc">Payments within tolerance are auto-marked PAID. True underpayments are flagged
-                    UNDERPAID. Overpayments captured as OVERPAID — full amount classification in every webhook payload,
-                    no manual review needed.</p>
+                <span class="bento-tag">Free</span>
+                <div class="bento-icon"><i class="ri-arrow-left-right-line"></i></div>
+                <h3 class="bento-title">Instant &amp; free transfers between DoronX users</h3>
+                <p class="bento-desc">Send crypto or local currency to another DoronX user in a tap. No network fees. No
+                    delays. Pure ledger magic.</p>
             </div>
         </div>
     </section>
 
-    <!-- ECOSYSTEM -->
+    <!-- ═══════════════ ECOSYSTEM ═══════════════ -->
     <section class="eco-section" id="ecosystem">
         <div class="eco-left gsap-fade-left">
-            <h2>Powered by<br>the <em>best</em><br>infrastructure</h2>
-            <p>DoronX Smart Invoicing integrates with the blockchain networks, rate sources, and infrastructure
-                providers merchants rely on. Connect once — accept crypto from anywhere.</p>
+            <h2>Built on<br>the <em>best</em><br>rails</h2>
+            <p>DoronX integrates with the banking, payment, blockchain, and infrastructure partners you already trust.
+                One app, all networks.</p>
         </div>
         <div class="eco-grid gsap-fade-right">
-            <div class="eco-bubble wide-2"><span class="eco-dot" style="background:#26A17B"></span> <span
-                    class="eco-logo-text">USDT · TRC20 · TRON</span></div>
+            <div class="eco-bubble wide-2"><span class="eco-dot" style="background:#FFC107"></span> <span
+                    class="eco-logo-text">MTN MoMo</span></div>
             <div class="eco-bubble icon-only" style="background:#F7931A;color:#000"><i class="ri-bit-coin-line"></i>
             </div>
-            <div class="eco-bubble"><span class="eco-dot" style="background:#F0B90B"></span> BEP20</div>
+            <div class="eco-bubble"><span class="eco-dot" style="background:#26A17B"></span> USDT</div>
 
-            <div class="eco-bubble"><span class="eco-dot" style="background:#9945FF"></span> Solana</div>
-            <div class="eco-bubble wide-2"><span class="eco-dot" style="background:#8247E5"></span> <span
-                    class="eco-logo-text">Polygon Network</span></div>
+            <div class="eco-bubble"><span class="eco-dot" style="background:#E8541A"></span> Vodafone</div>
+            <div class="eco-bubble wide-2"><span class="eco-dot" style="background:#9945FF"></span> <span
+                    class="eco-logo-text">AAVE v3 · Polygon</span></div>
             <div class="eco-bubble icon-only"><i class="ri-global-line"></i></div>
 
-            <div class="eco-bubble"><span class="eco-dot" style="background:#0066CC"></span> Fixer FX</div>
-            <div class="eco-bubble"><span class="eco-dot" style="background:#CF1722"></span> Kraken</div>
-            <div class="eco-bubble wide-2"><span class="eco-dot" style="background:#22C55E"></span> <span
-                    class="eco-logo-text">Callback Gateway</span></div>
+            <!-- <div class="eco-bubble wide-3"><span class="eco-dot" style="background:#3884FF"></span> <span
+                    class="eco-logo-text">Paystack · Hubtel · Maplerad</span></div> -->
+            <div class="eco-bubble"><span class="eco-dot" style="background:#F0B90B"></span> BSC</div>
+
+            <div class="eco-bubble"><span class="eco-dot" style="background:#e84142"></span> TRON</div>
+            <div class="eco-bubble"><span class="eco-dot" style="background:#22C55E"></span> AirtelTigo</div>
+            <div class="eco-bubble wide-2"><span class="eco-dot" style="background:#3884FF"></span> <span
+                    class="eco-logo-text">WalletConnect</span></div>
         </div>
     </section>
 
-    <!-- HOW IT WORKS -->
+    <!-- ═══════════════ HOW IT WORKS ═══════════════ -->
     <section class="how-section" id="how">
         <div class="how-head gsap-fade-up">
-            <div class="eyebrow"><span class="eyebrow-dot"></span> Get set up in minutes</div>
-            <h2 class="section-title">Three steps to <em>accepting</em><br>crypto payments</h2>
+            <div class="eyebrow"><span class="eyebrow-dot"></span> Get started in minutes</div>
+            <h2 class="section-title">Three steps to <em>owning</em><br>your money</h2>
         </div>
         <div class="how-grid">
             <div class="how-line"></div>
             <div class="how-step gsap-fade-up">
                 <div class="how-num"><i class="ri-user-add-line" style="font-size:40px"></i></div>
-                <h4>Register your workspace</h4>
-                <p>Create a Smart Invoicing account, deploy your merchant workspace, and receive your JWT and API key —
-                    all in a single API call.</p>
+                <h4>Sign up in 60s</h4>
+                <p>Create a free account with just your phone number and email. No paperwork, no waiting.</p>
             </div>
             <div class="how-step gsap-fade-up">
                 <div class="how-num"><i class="ri-wallet-3-line" style="font-size:40px"></i></div>
-                <h4>Connect your wallet</h4>
-                <p>Add your business-owned receiving wallet address for TRC20, BEP20, Solana or BTC. DoronX never stores
-                    your private keys.</p>
+                <h4>Fund your wallet</h4>
+                <p>Top up with MoMo, bank transfer, or Web3 wallet. Your balance is ready instantly.</p>
             </div>
             <div class="how-step gsap-fade-up">
                 <div class="how-num"><i class="ri-flashlight-line" style="font-size:40px"></i></div>
-                <h4>Create invoices &amp; get paid</h4>
-                <p>Create an invoice in any fiat currency, share the payment link, and receive crypto directly in your
-                    wallet — with real-time webhook events on every confirmation.</p>
+                <h4>Start earning &amp; spending</h4>
+                <p>Trade, earn yield, send money, receive money, shop with virtual cards — all from the same balance.
+                </p>
             </div>
         </div>
     </section>
 
-    <!-- TESTIMONIALS -->
+    <!-- ═══════════════ TESTIMONIALS ═══════════════ -->
     <section class="testimonial-section" id="testimonials">
         <div class="section-head">
             <div class="gsap-fade-up">
-                <div class="eyebrow"><span class="eyebrow-dot"></span> Real merchants</div>
-                <h2 class="section-title">Loved by <em>businesses</em>,<br>trusted worldwide</h2>
+                <div class="eyebrow"><span class="eyebrow-dot"></span> Real users</div>
+                <h2 class="section-title">Loved by <em>everyone</em>,<br>used worldwide</h2>
             </div>
             <p class="section-sub gsap-fade-up">
-                Merchants across Africa and beyond use DoronX Smart Invoicing to accept crypto without custodial risk or
-                complexity.
+                Over 1,000 people have made DoronX part of their daily financial lives. Here's what they say.
             </p>
         </div>
         <div class="test-grid">
             <div class="test-card gsap-fade-up">
                 <div class="test-quote-mark">"</div>
-                <p class="test-text">I've been getting paid in USDT for freelance work for years but always had to go
-                    through an exchange. With DoronX Smart Invoicing I send a link and the money lands directly in my
-                    own TRC20 wallet. No middleman at all.</p>
+                <p class="test-text">The Vault is insane. I've been earning 8% on dollars while my bank gives me 3%.
+                    Already convinced three friends to sign up.</p>
                 <div class="test-user">
                     <div class="test-avatar">KA</div>
                     <div>
                         <div class="test-name">Kwame A.</div>
                         <div class="test-role"><i class="ri-verified-badge-fill"
-                                style="color:var(--orange);font-size:11px"></i> Verified merchant · Freelancer</div>
+                                style="color:var(--orange);font-size:11px"></i> Verified user · Engineer</div>
                     </div>
                 </div>
             </div>
             <div class="test-card gsap-fade-up">
                 <div class="test-quote-mark">"</div>
-                <p class="test-text">The rate engine is exactly what we needed. We set our markup once and every invoice
-                    automatically quotes the right USDT amount. Clients pay, we get the webhook, our accountant sees it
-                    in the dashboard. Perfect workflow.</p>
+                <p class="test-text">I get paid in USDT from an overseas client. SalaryFlow converts it and drops it
+                    straight into my MoMo — no middleman, no stress.</p>
                 <div class="test-user">
                     <div class="test-avatar">AM</div>
                     <div>
                         <div class="test-name">Ama M.</div>
                         <div class="test-role"><i class="ri-verified-badge-fill"
-                                style="color:var(--orange);font-size:11px"></i> Verified merchant · SaaS founder</div>
+                                style="color:var(--orange);font-size:11px"></i> Verified user · Freelancer</div>
                     </div>
                 </div>
             </div>
             <div class="test-card gsap-fade-up">
                 <div class="test-quote-mark">"</div>
-                <p class="test-text">The non-custodial model sold us immediately. We control our wallets. DoronX handles
-                    the invoicing and detection layer. Setup took under 10 minutes — we were live accepting BEP20
-                    payments the same afternoon.</p>
+                <p class="test-text">Bulk payout saved me 4 hours a week paying my 48 vendors. Uploaded one file,
+                    confirmed, done. This should cost way more than it does.</p>
                 <div class="test-user">
                     <div class="test-avatar">EO</div>
                     <div>
                         <div class="test-name">Efua O.</div>
                         <div class="test-role"><i class="ri-verified-badge-fill"
-                                style="color:var(--orange);font-size:11px"></i> Verified merchant · E-commerce founder
-                        </div>
+                                style="color:var(--orange);font-size:11px"></i> Verified user · Founder</div>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- CTA -->
+    <!-- ═══════════════ CTA ═══════════════ -->
     <section class="cta-section">
         <div class="cta-orb"></div>
         <div class="cta-inner gsap-scale">
-            <h2 class="cta-title">Ready to <em>accept crypto</em><br>on your terms?</h2>
+            <h2 class="cta-title">Ready to <em>step into</em><br>the future?</h2>
             <p class="cta-sub">
-                Join 500+ merchants receiving crypto payments directly into their own wallets. DoronX Smart Invoicing is
-                free to start.
+                Join 1,000+ users trading, earning, and sending money smarter. Open DoronX — it's free forever.
             </p>
             <div class="cta-ctas">
+                <!-- <button class="btn-primary">
+                    Open DoronX
+                    <span class="btn-arrow"><i class="ri-arrow-right-line"></i></span>
+                </button> -->
                 <a href="https://doronpay.com/" class="btn-outline">
-                    Create free workspace
+                    <!-- <i class="ri-apple-line" style="font-size:16px"></i> -->
+                    Open DoronX
                     <span class="btn-arrow"><i class="ri-arrow-right-line"></i></span>
                 </a>
             </div>
         </div>
     </section>
 
-    <!-- FOOTER -->
+    <!-- ═══════════════ FOOTER ═══════════════ -->
     <footer>
         <div class="footer-inner">
             <div class="footer-brand">
+                <!--
+        FOOTER LOGO: Same as nav — replace .logo-mark + .logo-text with your logo image
+      -->
                 <div class="nav-logo" style="text-decoration:none">
                     <div class="logo-mark"><img src="logo.png" alt="DoronX" class="logo-img"></div>
+
                 </div>
-                <h4>Your wallets. Your payments.</h4>
-                <p>DoronX Smart Invoicing is a non-custodial crypto invoicing SaaS — create invoices, quote live rates,
-                    and accept payments directly into your business wallets.</p>
+                <h4>Own your money.</h4>
+                <p>DoronX is a financial super-app — trade crypto, earn yield, send money, spend globally. All in one
+                    place.</p>
                 <div class="footer-badges">
-                    <div class="footer-badge"><i class="ri-shield-check-line" style="color:var(--green)"></i>
-                        Non-custodial</div>
+                    <div class="footer-badge"><i class="ri-shield-check-line" style="color:var(--green)"></i> Registered
+                        &amp; licensed</div>
                     <div class="footer-badge"><i class="ri-lock-2-line" style="color:var(--green)"></i> 256-bit
-                        encrypted</div>
+                        encryption</div>
                 </div>
             </div>
             <div class="footer-col">
-                <h5>Invoicing</h5>
+                <h5>Trade</h5>
+                <ul>
+                    <li><a href="https://doronpay.com/#/app/buy-bitcoin/buy-btc"><i class="ri-bit-coin-line"></i> Buy
+                            Bitcoin</a></li>
+                    <li><a href="https://doronpay.com/#/app/buy-usdt/buy-usdt">Buy USDT</a></li>
+                    <li><a href="https://doronpay.com/#/app/otc/list"><i class="ri-swap-2-line"></i> OTC Trading</a>
+                    </li>
+                    <li><a href="http://doronpay.com/#/app/doron-swap/doron-swap"><i class="ri-exchange-2-line"></i>
+                            DoronSwap</a></li>
+                    <!-- <li><a href="#"><i class="ri-line-chart-line"></i> Markets</a></li> -->
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h5>Earn &amp; spend</h5>
+                <ul>
+                    <li><a href="https://doronpay.com/#/app/bitcoin/vault"><i class="ri-safe-2-line"></i> The Vault</a>
+                    </li>
+                    <li><a href="https://doronpay.com/#/app/bitcoin/salary-flow"><i
+                                class="ri-money-dollar-circle-line"></i> SalaryFlow</a></li>
+                    <li><a href="https://doronpay.com/#/app/virtual-cards"><i class="ri-bank-card-2-line"></i> Virtual
+                            Cards</a></li>
+                    <li><a href="https://doronpay.com/#/app/gift-cards/cards"><i class="ri-gift-2-line"></i> Gift
+                            Cards</a></li>
+                    <!-- <li><a href="#"><i class="ri-signal-wifi-line"></i> Data Bundles</a></li> -->
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h5>Business</h5>
                 <ul>
                     <li><a href="https://doronpay.com/#/app/bitcoin/smart-invoice"><i class="ri-file-list-3-line"></i>
-                            Smart Invoices</a></li>
-                    <li><a href="https://doronpay.com/#/app/bitcoin/smart-invoice">Payment Pages</a></li>
-                    <li><a href="https://doronpay.com/#/app/bitcoin/smart-invoice"><i class="ri-qr-code-line"></i> QR
-                            Stands</a></li>
-                    <li><a href="https://doronpay.com/#/app/bitcoin/smart-invoice"><i class="ri-exchange-line"></i> Rate
-                            Engine</a></li>
-                </ul>
-            </div>
-            <div class="footer-col">
-                <h5>Networks</h5>
-                <ul>
-                    <li><a href="#"><i class="ri-wallet-3-line"></i> TRC20 · TRON</a></li>
-                    <li><a href="#">BEP20 · BSC</a></li>
-                    <li><a href="#"><i class="ri-wallet-3-line"></i> Solana</a></li>
-                    <li><a href="#"><i class="ri-bit-coin-line"></i> Bitcoin</a></li>
-                </ul>
-            </div>
-            <div class="footer-col">
-                <h5>Developers</h5>
-                <ul>
-                    <li><a href="#"><i class="ri-code-line"></i> API Reference</a></li>
-                    <li><a href="#">Webhook Docs</a></li>
-                    <li><a href="#"><i class="ri-key-line"></i> API Keys</a></li>
-                    <li><a href="#">Postman Collection</a></li>
+                            Smart Invoice</a></li>
+                    <li><a href="https://doronpay.com/#/app/bitcoin/smart-invoice">Payment Stands</a></li>
+                    <li><a href="https://doronpay.com/#/app/bitcoin/bulk-payout"><i class="ri-send-plane-line"></i> Bulk
+                            Payout</a></li>
+                    <!-- <li><a href="#">Merchant dashboard</a></li> -->
                 </ul>
             </div>
             <div class="footer-col">
                 <h5>Company</h5>
                 <ul>
+                    <!-- <li><a href="#"><i class="ri-information-line"></i> About</a></li> -->
+                    <li><a href="#"><i class="ri-gamepad-line"></i> Games Arena</a></li>
                     <li><a href="https://doronpay.com/#/app/support/support"><i class="ri-customer-service-2-line"></i>
                             Support</a></li>
                     <li><a href="https://doronpay.com/#/app/support/support">Contact</a></li>
-                    <li><a href="#"><i class="ri-file-shield-2-line"></i> Security</a></li>
                 </ul>
             </div>
         </div>
@@ -3389,40 +3632,100 @@
         </div>
     </footer>
 
+    <!-- ═══════════════════════════════════════════════════════
+     SCRIPTS
+     ═══════════════════════════════════════════════════════ -->
     <script>
-        /* MOBILE MENU */
+        /* ─────────────────────────────────────────
+           MOBILE MENU
+           ───────────────────────────────────────── */
         const mobileMenu = document.getElementById('mobileMenu');
         const navBurger = document.getElementById('navBurger');
         let menuOpen = false;
-        function toggleMobileMenu() { menuOpen = !menuOpen; mobileMenu.classList.toggle('open', menuOpen); navBurger.classList.toggle('active', menuOpen); document.body.style.overflow = menuOpen ? 'hidden' : ''; }
-        function closeMobileMenu() { menuOpen = false; mobileMenu.classList.remove('open'); navBurger.classList.remove('active'); document.body.style.overflow = ''; }
-        document.querySelectorAll('.mobile-nav-links a').forEach(a => a.addEventListener('click', closeMobileMenu));
-        mobileMenu.addEventListener('click', (e) => { if (e.target === mobileMenu || e.target === mobileMenu.querySelector('.mobile-menu-inner')) closeMobileMenu(); });
-        document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && menuOpen) closeMobileMenu(); });
 
-        /* NAV SCROLL */
+        function toggleMobileMenu() {
+            menuOpen = !menuOpen;
+            mobileMenu.classList.toggle('open', menuOpen);
+            navBurger.classList.toggle('active', menuOpen);
+            document.body.style.overflow = menuOpen ? 'hidden' : '';
+        }
+        function closeMobileMenu() {
+            menuOpen = false;
+            mobileMenu.classList.remove('open');
+            navBurger.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        // close on mobile link click
+        document.querySelectorAll('.mobile-nav-links a').forEach(a => {
+            a.addEventListener('click', closeMobileMenu);
+        });
+        // close on backdrop click
+        mobileMenu.addEventListener('click', (e) => {
+            if (e.target === mobileMenu || e.target === mobileMenu.querySelector('.mobile-menu-inner')) {
+                closeMobileMenu();
+            }
+        });
+        // close on ESC
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && menuOpen) closeMobileMenu();
+        });
+
+        /* ─────────────────────────────────────────
+           NAV SCROLL BEHAVIOUR
+           ───────────────────────────────────────── */
         const mainNav = document.getElementById('mainNav');
-        window.addEventListener('scroll', () => { mainNav.classList.toggle('scrolled', window.scrollY > 40); }, { passive: true });
-
-        /* NAV ACTIVE LINK */
-        const allNavLinks = document.querySelectorAll('.nav-links a, .mobile-nav-links a');
-        const navSections = ['home', 'features', 'ecosystem', 'how', 'testimonials'].map(id => ({ id, el: document.getElementById(id) })).filter(s => s.el);
         window.addEventListener('scroll', () => {
-            const y = window.scrollY + 100; let current = navSections[0];
-            for (const s of navSections) { if (s.el.offsetTop <= y) current = s; }
+            mainNav.classList.toggle('scrolled', window.scrollY > 40);
+        }, { passive: true });
+
+        /* ─────────────────────────────────────────
+           NAV ACTIVE LINK ON SCROLL
+           ───────────────────────────────────────── */
+        const allNavLinks = document.querySelectorAll('.nav-links a, .mobile-nav-links a');
+        const navSections = ['home', 'features', 'ecosystem', 'how', 'testimonials']
+            .map(id => ({ id, el: document.getElementById(id) }))
+            .filter(s => s.el);
+
+        window.addEventListener('scroll', () => {
+            const y = window.scrollY + 100;
+            let current = navSections[0];
+            for (const s of navSections) {
+                if (s.el.offsetTop <= y) current = s;
+            }
             allNavLinks.forEach(l => l.classList.toggle('active', l.getAttribute('href') === `#${current.id}`));
         }, { passive: true });
 
-        /* TABS */
-        document.querySelectorAll('.pc-tab').forEach(t => { t.addEventListener('click', () => { t.closest('.pc-tabs').querySelectorAll('.pc-tab').forEach(x => x.classList.remove('active')); t.classList.add('active'); }); });
-        document.querySelectorAll('.chart-timeline span').forEach(s => { s.addEventListener('click', () => { s.closest('.chart-timeline').querySelectorAll('span').forEach(x => x.classList.remove('active')); s.classList.add('active'); }); });
-
-        /* BENTO CURSOR GLOW */
-        document.querySelectorAll('.bento').forEach(el => {
-            el.addEventListener('mousemove', (e) => { const r = el.getBoundingClientRect(); el.style.setProperty('--x', ((e.clientX - r.left) / r.width * 100) + '%'); el.style.setProperty('--y', ((e.clientY - r.top) / r.height * 100) + '%'); });
+        /* ─────────────────────────────────────────
+           PREVIEW CARD INTERACTIONS
+           ───────────────────────────────────────── */
+        document.querySelectorAll('.pc-tab').forEach(t => {
+            t.addEventListener('click', () => {
+                t.closest('.pc-tabs').querySelectorAll('.pc-tab').forEach(x => x.classList.remove('active'));
+                t.classList.add('active');
+            });
+        });
+        document.querySelectorAll('.chart-timeline span').forEach(s => {
+            s.addEventListener('click', () => {
+                s.closest('.chart-timeline').querySelectorAll('span').forEach(x => x.classList.remove('active'));
+                s.classList.add('active');
+            });
         });
 
-        /* STATS COUNTER */
+        /* ─────────────────────────────────────────
+           BENTO CURSOR-FOLLOW GLOW
+           ───────────────────────────────────────── */
+        document.querySelectorAll('.bento').forEach(el => {
+            el.addEventListener('mousemove', (e) => {
+                const r = el.getBoundingClientRect();
+                el.style.setProperty('--x', ((e.clientX - r.left) / r.width * 100) + '%');
+                el.style.setProperty('--y', ((e.clientY - r.top) / r.height * 100) + '%');
+            });
+        });
+
+        /* ─────────────────────────────────────────
+           STATS COUNTER + BARS
+           ───────────────────────────────────────── */
         const statsBlock = document.getElementById('statsNumbers');
         const statsObs = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
@@ -3447,10 +3750,28 @@
         }, { threshold: 0.3 });
         if (statsBlock) statsObs.observe(statsBlock);
 
-        /* GSAP */
+        /* ─────────────────────────────────────────
+           GSAP SCROLL ANIMATIONS (Apple Vision Pro style)
+           ─────────────────────────────────────────
+           Key techniques used:
+           - scrub:true — animations tied to scroll progress (like AVP)
+           - stagger — cascading child reveals
+           - pin — elements stay fixed while content scrolls past (AVP hero)
+           - parallax depth layers
+           - horizontal split-word reveals
+           - scale from center on large text
+           ───────────────────────────────────────── */
         gsap.registerPlugin(ScrollTrigger);
-        const E = { out: 'power3.out', back: 'back.out(1.4)', expo: 'expo.out' };
 
+        /* Ease aliases */
+        const E = {
+            out: 'power3.out',
+            inOut: 'power3.inOut',
+            back: 'back.out(1.4)',
+            expo: 'expo.out',
+        };
+
+        /* ── Hero elements (fire on load, not scroll) ── */
         const heroTl = gsap.timeline({ defaults: { ease: E.out } });
         heroTl
             .to('.hero-badge', { opacity: 1, y: 0, duration: .7 }, 0.1)
@@ -3462,49 +3783,253 @@
             .to('.fp-1', { opacity: 1, duration: .6 }, 0.85)
             .to('.fp-2', { opacity: 1, duration: .6 }, 0.95)
             .to('.fp-3', { opacity: 1, duration: .6 }, 1.0)
-            .to('.fp-4', { opacity: 1, duration: .6 }, 1.1)
-            .to('.fp-5', { opacity: 1, duration: .6 }, 1.2)
-            .to('.fp-6', { opacity: 1, duration: .6 }, 1.3);
+            .to('.fp-4', { opacity: 1, duration: .6 }, 1.1);
 
+        /* ── Floating pills continuous float ── */
         gsap.to('.fp-1', { y: -10, duration: 4.2, repeat: -1, yoyo: true, ease: 'sine.inOut', delay: 0 });
         gsap.to('.fp-2', { y: -8, duration: 3.8, repeat: -1, yoyo: true, ease: 'sine.inOut', delay: .8 });
         gsap.to('.fp-3', { y: -12, duration: 4.6, repeat: -1, yoyo: true, ease: 'sine.inOut', delay: .3 });
         gsap.to('.fp-4', { y: -7, duration: 5.0, repeat: -1, yoyo: true, ease: 'sine.inOut', delay: 1.2 });
-        gsap.to('.fp-5', { y: -9, duration: 4.0, repeat: -1, yoyo: true, ease: 'sine.inOut', delay: .6 });
-        gsap.to('.fp-6', { y: -11, duration: 4.8, repeat: -1, yoyo: true, ease: 'sine.inOut', delay: .9 });
 
-        gsap.to('.hero-orb', { yPercent: 28, scale: 1.1, ease: 'none', scrollTrigger: { trigger: '.hero', start: 'top top', end: 'bottom top', scrub: 1.2 } });
-        gsap.to('.hero-grid-bg', { yPercent: 20, ease: 'none', scrollTrigger: { trigger: '.hero', start: 'top top', end: 'bottom top', scrub: 1 } });
-
-        function revealOn(el, vars = {}, triggerOpts = {}) {
-            gsap.to(el, { opacity: 1, y: 0, x: 0, scale: 1, duration: .9, ease: E.out, ...vars, scrollTrigger: { trigger: el, start: 'top 88%', toggleActions: 'play none none none', ...triggerOpts } });
-        }
-
-        document.querySelectorAll('.gsap-fade-up').forEach(el => revealOn(el, { duration: .85 }));
-        document.querySelectorAll('.gsap-fade').forEach(el => revealOn(el, { duration: .8 }));
-        document.querySelectorAll('.gsap-fade-left').forEach(el => revealOn(el, { duration: .9 }));
-        document.querySelectorAll('.gsap-fade-right').forEach(el => revealOn(el, { duration: .9 }));
-        document.querySelectorAll('.gsap-scale').forEach(el => revealOn(el, { duration: 1.0, ease: E.expo }));
-
-        document.querySelectorAll('.bento').forEach((b, i) => {
-            gsap.fromTo(b, { opacity: 0, y: 50, scale: 0.96 }, { opacity: 1, y: 0, scale: 1, duration: .85, ease: E.out, scrollTrigger: { trigger: b, start: 'top 90%', toggleActions: 'play none none none' }, delay: (i % 3) * 0.08 });
+        /* ── Orb parallax on scroll (AVP hero feel) ── */
+        gsap.to('.hero-orb', {
+            yPercent: 28,
+            scale: 1.1,
+            ease: 'none',
+            scrollTrigger: {
+                trigger: '.hero',
+                start: 'top top',
+                end: 'bottom top',
+                scrub: 1.2,
+            }
         });
 
-        gsap.fromTo('.giant-text', { opacity: 0, scale: 0.75, y: 60 }, { opacity: 1, scale: 1, y: 0, ease: 'none', scrollTrigger: { trigger: '.giant-section', start: 'top 80%', end: 'top 20%', scrub: 1.5 } });
-        gsap.fromTo('.stats-card', { opacity: 0, y: 70 }, { opacity: 1, y: 0, ease: 'none', scrollTrigger: { trigger: '.stats-card', start: 'top 85%', end: 'top 40%', scrub: 1 } });
-        gsap.fromTo('.stat-item', { opacity: 0, y: 30 }, { opacity: 1, y: 0, stagger: .12, duration: .7, ease: E.out, scrollTrigger: { trigger: '.stats-numbers', start: 'top 80%' } });
-        gsap.fromTo('.how-step', { opacity: 0, y: 40 }, { opacity: 1, y: 0, stagger: .15, duration: .8, ease: E.out, scrollTrigger: { trigger: '.how-grid', start: 'top 80%' } });
-        gsap.fromTo('.test-card', { opacity: 0, y: 50, scale: 0.97 }, { opacity: 1, y: 0, scale: 1, stagger: .14, duration: .85, ease: E.out, scrollTrigger: { trigger: '.test-grid', start: 'top 82%' } });
-        gsap.fromTo('.eco-bubble', { opacity: 0, scale: 0.8 }, { opacity: 1, scale: 1, stagger: .05, duration: .55, ease: E.back, scrollTrigger: { trigger: '.eco-grid', start: 'top 82%' } });
-        gsap.fromTo('.cta-orb', { scale: 0.6, opacity: 0 }, { scale: 1.4, opacity: 1, ease: 'none', scrollTrigger: { trigger: '.cta-section', start: 'top bottom', end: 'center center', scrub: 1.5 } });
-        gsap.fromTo('.cta-inner', { opacity: 0, y: 60 }, { opacity: 1, y: 0, duration: 1, ease: E.expo, scrollTrigger: { trigger: '.cta-section', start: 'top 75%' } });
-        gsap.fromTo('.marquee-section', { opacity: 0 }, { opacity: 1, duration: .7, ease: E.out, scrollTrigger: { trigger: '.marquee-section', start: 'top 92%' } });
-        gsap.fromTo('.fc-visual', { x: 30 }, { x: 0, ease: 'none', scrollTrigger: { trigger: '.fc-top', start: 'top 85%', end: 'bottom 30%', scrub: 1 } });
-        gsap.fromTo('.footer-brand', { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: .8, ease: E.out, scrollTrigger: { trigger: 'footer', start: 'top 90%' } });
-        gsap.fromTo('.footer-col', { opacity: 0, y: 24 }, { opacity: 1, y: 0, stagger: .1, duration: .7, ease: E.out, scrollTrigger: { trigger: 'footer', start: 'top 85%' } });
+        /* ── Hero grid parallax ── */
+        gsap.to('.hero-grid-bg', {
+            yPercent: 20,
+            ease: 'none',
+            scrollTrigger: {
+                trigger: '.hero',
+                start: 'top top',
+                end: 'bottom top',
+                scrub: 1,
+            }
+        });
 
+        /* ── Generic scroll reveal helper ── */
+        function revealOn(el, vars = {}, triggerOpts = {}) {
+            gsap.to(el, {
+                opacity: 1, y: 0, x: 0, scale: 1,
+                duration: .9,
+                ease: E.out,
+                ...vars,
+                scrollTrigger: {
+                    trigger: el,
+                    start: 'top 88%',
+                    toggleActions: 'play none none none',
+                    ...triggerOpts,
+                }
+            });
+        }
+
+        /* ── Section eyebrows + titles (scrub zoom-in like AVP) ── */
+        document.querySelectorAll('.gsap-fade-up').forEach((el, i) => {
+            revealOn(el, { duration: .85 });
+        });
+        document.querySelectorAll('.gsap-fade').forEach(el => {
+            revealOn(el, { duration: .8 });
+        });
+        document.querySelectorAll('.gsap-fade-left').forEach(el => {
+            revealOn(el, { duration: .9 });
+        });
+        document.querySelectorAll('.gsap-fade-right').forEach(el => {
+            revealOn(el, { duration: .9 });
+        });
+        document.querySelectorAll('.gsap-scale').forEach(el => {
+            revealOn(el, { duration: 1.0, ease: E.expo });
+        });
+
+        /* ── Staggered bento grid (AVP feature grid cascade) ── */
+        const bentos = document.querySelectorAll('.bento');
+        bentos.forEach((b, i) => {
+            gsap.fromTo(b,
+                { opacity: 0, y: 50, scale: 0.96 },
+                {
+                    opacity: 1, y: 0, scale: 1,
+                    duration: .85,
+                    ease: E.out,
+                    scrollTrigger: {
+                        trigger: b,
+                        start: 'top 90%',
+                        toggleActions: 'play none none none',
+                    },
+                    delay: (i % 3) * 0.08
+                }
+            );
+        });
+
+        /* ── Giant text scrub-scale (classic AVP cinematic) ── */
+        gsap.fromTo('.giant-text',
+            { opacity: 0, scale: 0.75, y: 60 },
+            {
+                opacity: 1, scale: 1, y: 0,
+                ease: 'none',
+                scrollTrigger: {
+                    trigger: '.giant-section',
+                    start: 'top 80%',
+                    end: 'top 20%',
+                    scrub: 1.5,
+                }
+            }
+        );
+
+        /* ── Stats card scrub ── */
+        gsap.fromTo('.stats-card',
+            { opacity: 0, y: 70 },
+            {
+                opacity: 1, y: 0,
+                ease: 'none',
+                scrollTrigger: {
+                    trigger: '.stats-card',
+                    start: 'top 85%',
+                    end: 'top 40%',
+                    scrub: 1,
+                }
+            }
+        );
+
+        /* ── Stat numbers stagger (appear one by one) ── */
+        gsap.fromTo('.stat-item',
+            { opacity: 0, y: 30 },
+            {
+                opacity: 1, y: 0,
+                stagger: .12,
+                duration: .7,
+                ease: E.out,
+                scrollTrigger: {
+                    trigger: '.stats-numbers',
+                    start: 'top 80%',
+                }
+            }
+        );
+
+        /* ── How-steps stagger ── */
+        gsap.fromTo('.how-step',
+            { opacity: 0, y: 40 },
+            {
+                opacity: 1, y: 0,
+                stagger: .15,
+                duration: .8,
+                ease: E.out,
+                scrollTrigger: {
+                    trigger: '.how-grid',
+                    start: 'top 80%',
+                }
+            }
+        );
+
+        /* ── Testimonial cards stagger ── */
+        gsap.fromTo('.test-card',
+            { opacity: 0, y: 50, scale: 0.97 },
+            {
+                opacity: 1, y: 0, scale: 1,
+                stagger: .14,
+                duration: .85,
+                ease: E.out,
+                scrollTrigger: {
+                    trigger: '.test-grid',
+                    start: 'top 82%',
+                }
+            }
+        );
+
+        /* ── Eco bubbles stagger pop ── */
+        gsap.fromTo('.eco-bubble',
+            { opacity: 0, scale: 0.8 },
+            {
+                opacity: 1, scale: 1,
+                stagger: .05,
+                duration: .55,
+                ease: E.back,
+                scrollTrigger: {
+                    trigger: '.eco-grid',
+                    start: 'top 82%',
+                }
+            }
+        );
+
+        /* ── CTA section scrub-parallax (AVP immersive end) ── */
+        gsap.fromTo('.cta-orb',
+            { scale: 0.6, opacity: 0 },
+            {
+                scale: 1.4, opacity: 1,
+                ease: 'none',
+                scrollTrigger: {
+                    trigger: '.cta-section',
+                    start: 'top bottom',
+                    end: 'center center',
+                    scrub: 1.5,
+                }
+            }
+        );
+        gsap.fromTo('.cta-inner',
+            { opacity: 0, y: 60 },
+            {
+                opacity: 1, y: 0,
+                duration: 1,
+                ease: E.expo,
+                scrollTrigger: {
+                    trigger: '.cta-section',
+                    start: 'top 75%',
+                }
+            }
+        );
+
+        /* ── Marquee section reveal ── */
+        gsap.fromTo('.marquee-section',
+            { opacity: 0 },
+            {
+                opacity: 1, duration: .7, ease: E.out,
+                scrollTrigger: { trigger: '.marquee-section', start: 'top 92%' }
+            }
+        );
+
+        /* ── feat-card top (wide chart card) horizontal parallax ── */
+        gsap.fromTo('.fc-visual',
+            { x: 30 },
+            {
+                x: 0,
+                ease: 'none',
+                scrollTrigger: {
+                    trigger: '.fc-top',
+                    start: 'top 85%',
+                    end: 'bottom 30%',
+                    scrub: 1,
+                }
+            }
+        );
+
+        /* ── Footer brand reveal ── */
+        gsap.fromTo('.footer-brand',
+            { opacity: 0, y: 30 },
+            {
+                opacity: 1, y: 0, duration: .8, ease: E.out,
+                scrollTrigger: { trigger: 'footer', start: 'top 90%' }
+            }
+        );
+        gsap.fromTo('.footer-col',
+            { opacity: 0, y: 24 },
+            {
+                opacity: 1, y: 0,
+                stagger: .1, duration: .7, ease: E.out,
+                scrollTrigger: { trigger: 'footer', start: 'top 85%' }
+            }
+        );
+
+        /* ── Refresh on resize ── */
         window.addEventListener('resize', () => ScrollTrigger.refresh(), { passive: true });
     </script>
+
 </body>
 
 </html>
