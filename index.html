@@ -1652,12 +1652,25 @@
 
         .stat-num {
             font-family: 'Space Mono', monospace;
-            font-size: clamp(32px, 4.5vw, 56px);
+            font-size: clamp(20px, 2.8vw, 42px);
             color: var(--white);
             line-height: 1;
             margin-bottom: 10px;
             letter-spacing: -0.02em;
             font-weight: 700;
+            white-space: nowrap;
+            overflow: hidden;
+        }
+
+        .stat-suffix {
+            font-family: 'DM Sans', sans-serif;
+            font-size: clamp(11px, 1.2vw, 14px);
+            color: var(--gray);
+            font-weight: 500;
+            display: block;
+            margin-top: 4px;
+            letter-spacing: 0;
+            white-space: nowrap;
         }
 
         .stat-num .plus {
@@ -3019,29 +3032,38 @@
                     </div>
                 </div>
                 <div class="stats-numbers" id="statsNumbers">
+                    <!-- stat item 1 — no change needed -->
                     <div class="stat-item">
-                        <div class="stat-num" data-target="500" data-suffix="+">0</div>
+                        <div class="stat-num" data-target="500" data-prefix="" data-suffix="+">0</div>
                         <div class="stat-label"><span class="stat-dot"></span> Merchant workspaces</div>
                         <div class="stat-bar">
                             <div class="stat-bar-fill"></div>
                         </div>
                     </div>
+
+                    <!-- stat item 2 -->
                     <div class="stat-item">
-                        <div class="stat-num"><span data-target="4" data-suffix=" networks">0</span></div>
+                        <div class="stat-num" data-target="4" data-suffix="">0</div>
+                        <span class="stat-suffix">networks</span>
                         <div class="stat-label"><span class="stat-dot"></span> Blockchain networks</div>
                         <div class="stat-bar">
                             <div class="stat-bar-fill"></div>
                         </div>
                     </div>
+
+                    <!-- stat item 3 -->
                     <div class="stat-item">
-                        <div class="stat-num"><span data-target="5" data-suffix=" currencies">0</span></div>
+                        <div class="stat-num" data-target="5" data-suffix="">0</div>
+                        <span class="stat-suffix">currencies</span>
                         <div class="stat-label"><span class="stat-dot"></span> Invoice currencies</div>
                         <div class="stat-bar">
                             <div class="stat-bar-fill"></div>
                         </div>
                     </div>
+
+                    <!-- stat item 4 -->
                     <div class="stat-item">
-                        <div class="stat-num"><span data-target="99" data-suffix=".9%">0</span></div>
+                        <div class="stat-num" data-target="99" data-suffix=".9%">0</div>
                         <div class="stat-label"><span class="stat-dot"></span> Uptime</div>
                         <div class="stat-bar">
                             <div class="stat-bar-fill"></div>
