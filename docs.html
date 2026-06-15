@@ -1,0 +1,3058 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DoronX — API Docs</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@400;500;600;700&family=Space+Mono:wght@400;700&family=Instrument+Serif:ital@0;1&display=swap"
+        rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.9.0/fonts/remixicon.css" rel="stylesheet" />
+    <style>
+        :root {
+            --orange: #F7931A;
+            --orange-warm: #FF7A1A;
+            --orange-soft: rgba(247, 147, 26, .12);
+            --orange-border: rgba(247, 147, 26, .25);
+            --white: #FFF;
+            --black: #070707;
+            --dark2: #111;
+            --card: #141414;
+            --card2: #1A1A1A;
+            --card3: #1F1F1F;
+            --border: rgba(255, 255, 255, .07);
+            --border-h: rgba(255, 255, 255, .14);
+            --gray: rgba(255, 255, 255, .55);
+            --gray2: rgba(255, 255, 255, .30);
+            --green: #22C55E;
+            --red: #EF4444;
+            --blue: #3884FF;
+            --purple: #A855F7;
+            --sidebar: 260px;
+            --nav: 64px;
+        }
+
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0
+        }
+
+        html {
+            scroll-behavior: smooth
+        }
+
+        body {
+            background: var(--black);
+            color: var(--white);
+            font-family: 'DM Sans', -apple-system, sans-serif;
+            -webkit-font-smoothing: antialiased;
+            overflow-x: hidden
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit
+        }
+
+        button {
+            font-family: inherit;
+            cursor: pointer;
+            border: none;
+            background: none
+        }
+
+        pre,
+        code {
+            font-family: 'Space Mono', monospace
+        }
+
+        /* ── TOP NAV ── */
+        #mainNav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 400;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 clamp(16px, 3vw, 36px);
+            height: var(--nav);
+            background: rgba(7, 7, 7, .88);
+            backdrop-filter: blur(24px) saturate(160%);
+            border-bottom: 1px solid var(--border);
+            transition: background .3s
+        }
+
+        #mainNav.scrolled {
+            background: rgba(7, 7, 7, .98)
+        }
+
+        .nav-logo {
+            display: flex;
+            align-items: center;
+            gap: 10px
+        }
+
+        .logo-img {
+            height: 32px;
+            width: auto;
+            display: block
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 2px;
+            background: rgba(255, 255, 255, .04);
+            border: 1px solid var(--border);
+            border-radius: 999px;
+            padding: 4px
+        }
+
+        .nav-links a {
+            padding: 7px 18px;
+            border-radius: 999px;
+            font-size: 13px;
+            color: var(--gray);
+            font-weight: 500;
+            transition: color .25s, background .25s
+        }
+
+        .nav-links a:hover {
+            color: var(--white)
+        }
+
+        .nav-links a.active {
+            background: rgba(255, 255, 255, .08);
+            color: var(--white)
+        }
+
+        .nav-cta {
+            display: flex;
+            align-items: center;
+            gap: 10px
+        }
+
+        .btn-ghost {
+            padding: 9px 18px;
+            background: transparent;
+            border: 1px solid var(--border);
+            border-radius: 999px;
+            color: var(--white);
+            font-size: 13px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: border-color .25s, background .25s
+        }
+
+        .btn-ghost:hover {
+            border-color: var(--orange-border);
+            background: var(--orange-soft)
+        }
+
+        .btn-solid {
+            padding: 9px 20px;
+            background: var(--orange);
+            border: none;
+            border-radius: 999px;
+            color: #0a0a0a;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            transition: background .2s, transform .15s
+        }
+
+        .btn-solid:hover {
+            background: var(--orange-warm);
+            transform: translateY(-1px)
+        }
+
+        .nav-burger {
+            display: none;
+            width: 38px;
+            height: 38px;
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            background: rgba(255, 255, 255, .03);
+            color: var(--white);
+            cursor: pointer;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            gap: 5px
+        }
+
+        .burger-bar {
+            display: block;
+            width: 18px;
+            height: 2px;
+            background: var(--white);
+            border-radius: 2px;
+            transition: transform .35s, opacity .2s, width .3s;
+            transform-origin: center
+        }
+
+        .nav-burger.open .burger-bar:nth-child(1) {
+            transform: translateY(7px) rotate(45deg)
+        }
+
+        .nav-burger.open .burger-bar:nth-child(2) {
+            opacity: 0;
+            width: 0
+        }
+
+        .nav-burger.open .burger-bar:nth-child(3) {
+            transform: translateY(-7px) rotate(-45deg)
+        }
+
+        .mob-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            z-index: 290;
+            background: rgba(7, 7, 7, .96);
+            backdrop-filter: blur(32px)
+        }
+
+        .mob-overlay.open {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 80px 24px 40px
+        }
+
+        .mob-overlay a {
+            display: block;
+            width: 100%;
+            max-width: 340px;
+            padding: 16px 24px;
+            text-align: center;
+            border-radius: 14px;
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 20px;
+            letter-spacing: .05em;
+            background: rgba(255, 255, 255, .03);
+            border: 1px solid var(--border);
+            color: var(--white);
+            transition: all .2s
+        }
+
+        .mob-overlay a:hover,
+        .mob-overlay a.active {
+            background: var(--orange-soft);
+            border-color: var(--orange-border);
+            color: var(--orange)
+        }
+
+        .mob-ctas {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            width: 100%;
+            max-width: 340px;
+            margin-top: 16px
+        }
+
+        .mob-ctas .btn-ghost,
+        .mob-ctas .btn-solid {
+            width: 100%;
+            padding: 14px;
+            font-size: 15px;
+            text-align: center;
+            border-radius: 14px;
+            justify-content: center
+        }
+
+        /* ── DOCS LAYOUT ── */
+        .docs-layout {
+            display: flex;
+            min-height: 100vh;
+            padding-top: var(--nav)
+        }
+
+        /*
+ * SIDEBAR — the definitive fix.
+ *
+ * The sidebar is position:fixed, so it is completely outside normal flow.
+ * It is NOT a flex container. It is a plain scrollable block.
+ * Children (.sidebar-search, .sidebar-env, .sidebar-nav) are normal block
+ * elements that stack top-to-bottom. The sidebar scrolls as one unit.
+ * Width is triple-locked so nothing can collapse it.
+ */
+        .doc-sidebar {
+            position: fixed;
+            top: var(--nav);
+            left: 0;
+            bottom: 0;
+            width: var(--sidebar);
+            min-width: var(--sidebar);
+            max-width: var(--sidebar);
+            background: var(--dark2);
+            border-right: 1px solid var(--border);
+            overflow-y: auto;
+            overflow-x: hidden;
+            z-index: 200;
+            isolation: isolate;
+            /* NO display:flex — plain block so children stack naturally */
+        }
+
+        .doc-sidebar::-webkit-scrollbar {
+            width: 4px
+        }
+
+        .doc-sidebar::-webkit-scrollbar-track {
+            background: transparent
+        }
+
+        .doc-sidebar::-webkit-scrollbar-thumb {
+            background: var(--card3);
+            border-radius: 2px
+        }
+
+        /* These are plain block children — they stack vertically by default */
+        .sidebar-search {
+            padding: 14px 14px 10px;
+            border-bottom: 1px solid var(--border)
+        }
+
+        .sidebar-search-inner {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: var(--card2);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 7px 10px;
+            transition: border-color .2s
+        }
+
+        .sidebar-search-inner:focus-within {
+            border-color: var(--orange-border)
+        }
+
+        .sidebar-search-inner i {
+            font-size: 14px;
+            color: var(--gray2);
+            flex-shrink: 0
+        }
+
+        .sidebar-search-inner input {
+            background: none;
+            border: none;
+            outline: none;
+            color: rgba(255, 255, 255, .85);
+            font-size: 12px;
+            width: 100%;
+            min-width: 0
+        }
+
+        .sidebar-search-inner input::placeholder {
+            color: rgba(255, 255, 255, .28)
+        }
+
+        .sidebar-env {
+            padding: 10px 14px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            border-bottom: 1px solid var(--border)
+        }
+
+        .env-label {
+            font-size: 11px;
+            color: rgba(255, 255, 255, .4);
+            font-weight: 600;
+            white-space: nowrap
+        }
+
+        .env-toggle {
+            display: flex;
+            gap: 4px
+        }
+
+        .env-btn {
+            padding: 4px 10px;
+            border-radius: 6px;
+            font-size: 11px;
+            font-weight: 700;
+            color: var(--gray2);
+            background: var(--card3);
+            border: 1px solid transparent;
+            cursor: pointer;
+            transition: all .2s;
+            font-family: inherit
+        }
+
+        .env-btn.active-test {
+            background: rgba(56, 132, 255, .15);
+            color: var(--blue);
+            border-color: rgba(56, 132, 255, .3)
+        }
+
+        .env-btn.active-live {
+            background: rgba(34, 197, 94, .15);
+            color: var(--green);
+            border-color: rgba(34, 197, 94, .3)
+        }
+
+        .sidebar-nav {
+            padding: 10px 8px 32px
+        }
+
+        .nav-group {
+            margin-bottom: 4px
+        }
+
+        .nav-group-label {
+            font-size: 10px;
+            font-weight: 700;
+            color: rgba(255, 255, 255, .38);
+            text-transform: uppercase;
+            letter-spacing: .12em;
+            padding: 10px 10px 5px;
+            display: block
+        }
+
+        .nav-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 7px 10px;
+            border-radius: 8px;
+            font-size: 13px;
+            color: rgba(255, 255, 255, .72);
+            font-weight: 500;
+            cursor: pointer;
+            transition: background .15s, color .15s;
+            border-left: 2px solid transparent;
+            margin-bottom: 1px;
+            width: 100%;
+            text-align: left;
+            background: none;
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            box-sizing: border-box;
+        }
+
+        .nav-item:hover {
+            background: rgba(255, 255, 255, .06);
+            color: var(--white)
+        }
+
+        .nav-item.active {
+            background: var(--orange-soft);
+            color: var(--orange);
+            /* border-left-color: var(--orange) */
+        }
+
+        .method-badge {
+            font-family: 'Space Mono', monospace;
+            font-size: 9px;
+            font-weight: 700;
+            padding: 2px 5px;
+            border-radius: 4px;
+            flex-shrink: 0
+        }
+
+        .mb-get {
+            background: rgba(34, 197, 94, .18);
+            color: var(--green)
+        }
+
+        .mb-post {
+            background: rgba(247, 147, 26, .18);
+            color: var(--orange)
+        }
+
+        .mb-patch {
+            background: rgba(56, 132, 255, .18);
+            color: var(--blue)
+        }
+
+        .mb-del {
+            background: rgba(239, 68, 68, .18);
+            color: var(--red)
+        }
+
+        /* ── SIDEBAR OVERLAY (mobile) ── */
+        .sidebar-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, .65);
+            z-index: 190;
+            backdrop-filter: blur(4px)
+        }
+
+        .sidebar-overlay.active {
+            display: block
+        }
+
+        /* ── MAIN CONTENT ── */
+        .doc-main {
+            margin-left: var(--sidebar);
+            flex: 1;
+            min-width: 0;
+            display: flex;
+            flex-direction: column
+        }
+
+        .mob-topbar-toggle {
+            display: none;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 16px;
+            background: var(--card2);
+            border-bottom: 1px solid var(--border);
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            color: var(--white)
+        }
+
+        .mob-topbar-toggle i {
+            color: var(--orange);
+            font-size: 16px
+        }
+
+        .doc-topbar {
+            position: sticky;
+            top: var(--nav);
+            z-index: 250;
+            background: var(--dark2);
+            border-bottom: 1px solid var(--border);
+            padding: 10px 24px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex-wrap: wrap
+        }
+
+        .base-url-chip {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 6px 12px;
+            font-family: 'Space Mono', monospace;
+            font-size: 12px;
+            color: var(--gray2)
+        }
+
+        .base-url-chip span {
+            color: var(--white)
+        }
+
+        .auth-input-wrap {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex: 1;
+            max-width: 420px
+        }
+
+        .auth-input-wrap label {
+            font-size: 11px;
+            color: var(--gray2);
+            white-space: nowrap;
+            font-weight: 600
+        }
+
+        .auth-input {
+            background: var(--card2);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 6px 10px;
+            color: var(--white);
+            font-family: 'Space Mono', monospace;
+            font-size: 11px;
+            outline: none;
+            width: 100%;
+            transition: border-color .2s
+        }
+
+        .auth-input:focus {
+            border-color: var(--orange-border)
+        }
+
+        .auth-input::placeholder {
+            color: var(--gray2)
+        }
+
+        .topbar-tip {
+            font-size: 11px;
+            color: var(--gray2);
+            margin-left: auto
+        }
+
+        .topbar-tip i {
+            color: var(--orange)
+        }
+
+        .doc-content {
+            padding: 0 24px 80px
+        }
+
+        .doc-section {
+            padding-top: 32px
+        }
+
+        .section-group-title {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 32px;
+            letter-spacing: .02em;
+            color: var(--white);
+            padding: 28px 0 8px;
+            border-bottom: 1px solid var(--border);
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 12px
+        }
+
+        .section-group-title em {
+            font-family: 'Instrument Serif', serif;
+            font-style: italic;
+            font-weight: 400;
+            color: var(--orange)
+        }
+
+        /* ── ENDPOINTS ── */
+        .endpoint {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            margin-bottom: 20px;
+            overflow: hidden;
+            transition: border-color .2s
+        }
+
+        .endpoint:hover {
+            border-color: var(--border-h)
+        }
+
+        .ep-head {
+            padding: 16px 20px;
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            user-select: none;
+            flex-wrap: wrap;
+            gap: 10px
+        }
+
+        .ep-method {
+            font-family: 'Space Mono', monospace;
+            font-size: 11px;
+            font-weight: 700;
+            padding: 4px 10px;
+            border-radius: 6px;
+            flex-shrink: 0
+        }
+
+        .ep-method.GET {
+            background: rgba(34, 197, 94, .15);
+            color: var(--green);
+            border: 1px solid rgba(34, 197, 94, .25)
+        }
+
+        .ep-method.POST {
+            background: rgba(247, 147, 26, .15);
+            color: var(--orange);
+            border: 1px solid var(--orange-border)
+        }
+
+        .ep-method.PATCH {
+            background: rgba(56, 132, 255, .15);
+            color: var(--blue);
+            border: 1px solid rgba(56, 132, 255, .25)
+        }
+
+        .ep-method.DELETE {
+            background: rgba(239, 68, 68, .15);
+            color: var(--red);
+            border: 1px solid rgba(239, 68, 68, .25)
+        }
+
+        .ep-path {
+            font-family: 'Space Mono', monospace;
+            font-size: 13px;
+            color: var(--white);
+            font-weight: 600;
+            flex: 1;
+            word-break: break-all
+        }
+
+        .ep-path .param-seg {
+            color: var(--orange)
+        }
+
+        .ep-summary {
+            font-size: 13px;
+            color: var(--gray);
+            flex-basis: 100%;
+            line-height: 1.5
+        }
+
+        .ep-auth-tag {
+            font-size: 10px;
+            font-weight: 700;
+            padding: 3px 8px;
+            border-radius: 99px;
+            white-space: nowrap
+        }
+
+        .auth-public {
+            background: rgba(255, 255, 255, .06);
+            color: var(--gray2);
+            border: 1px solid var(--border)
+        }
+
+        .auth-bearer {
+            background: rgba(168, 85, 247, .15);
+            color: var(--purple);
+            border: 1px solid rgba(168, 85, 247, .25)
+        }
+
+        .ep-toggle {
+            color: var(--gray2);
+            font-size: 16px;
+            transition: transform .25s;
+            flex-shrink: 0
+        }
+
+        .ep-toggle.open {
+            transform: rotate(180deg)
+        }
+
+        .ep-body {
+            border-top: 1px solid var(--border);
+            display: none
+        }
+
+        .ep-body.open {
+            display: block
+        }
+
+        .ep-tabs {
+            display: flex;
+            border-bottom: 1px solid var(--border);
+            background: var(--card2);
+            padding: 0 20px;
+            gap: 2px
+        }
+
+        .ep-tab {
+            padding: 10px 14px;
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--gray2);
+            cursor: pointer;
+            border-bottom: 2px solid transparent;
+            margin-bottom: -1px;
+            transition: color .2s, border-color .2s;
+            background: none
+        }
+
+        .ep-tab:hover {
+            color: var(--white)
+        }
+
+        .ep-tab.active {
+            color: var(--orange);
+            border-bottom-color: var(--orange)
+        }
+
+        .ep-panel {
+            display: none;
+            padding: 20px
+        }
+
+        .ep-panel.active {
+            display: block
+        }
+
+        /* ── PARAMS TABLE ── */
+        .params-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 13px
+        }
+
+        .params-table th {
+            padding: 9px 12px;
+            text-align: left;
+            font-size: 10px;
+            font-weight: 700;
+            color: var(--gray2);
+            text-transform: uppercase;
+            letter-spacing: .08em;
+            border-bottom: 1px solid var(--border);
+            background: var(--card3)
+        }
+
+        .params-table td {
+            padding: 11px 12px;
+            border-bottom: 1px solid var(--border);
+            vertical-align: top;
+            line-height: 1.5
+        }
+
+        .params-table tr:last-child td {
+            border-bottom: none
+        }
+
+        .params-table tbody tr:hover {
+            background: rgba(255, 255, 255, .02)
+        }
+
+        .pname {
+            font-family: 'Space Mono', monospace;
+            font-size: 12px;
+            color: var(--orange)
+        }
+
+        .ptype {
+            font-family: 'Space Mono', monospace;
+            font-size: 11px;
+            color: var(--blue)
+        }
+
+        .preq {
+            font-size: 10px;
+            font-weight: 700;
+            color: var(--red)
+        }
+
+        .popt {
+            font-size: 10px;
+            color: var(--gray2)
+        }
+
+        .pdesc {
+            color: var(--gray);
+            font-size: 13px
+        }
+
+        /* ── TRY IT ── */
+        .try-layout {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px
+        }
+
+        .try-col-label {
+            font-size: 11px;
+            font-weight: 700;
+            color: var(--gray2);
+            text-transform: uppercase;
+            letter-spacing: .08em;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between
+        }
+
+        .try-textarea {
+            width: 100%;
+            background: var(--card3);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 12px;
+            color: var(--white);
+            font-family: 'Space Mono', monospace;
+            font-size: 12px;
+            resize: vertical;
+            min-height: 180px;
+            outline: none;
+            line-height: 1.6;
+            transition: border-color .2s
+        }
+
+        .try-textarea:focus {
+            border-color: var(--orange-border)
+        }
+
+        .try-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 20px;
+            background: var(--orange);
+            border: none;
+            border-radius: 99px;
+            color: #000;
+            font-size: 13px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: background .2s, transform .15s;
+            box-shadow: 0 4px 18px rgba(247, 147, 26, .25)
+        }
+
+        .try-btn:hover {
+            background: var(--orange-warm);
+            transform: translateY(-1px)
+        }
+
+        .try-btn:disabled {
+            opacity: .5;
+            cursor: not-allowed;
+            transform: none
+        }
+
+        .try-btn .spinner {
+            width: 14px;
+            height: 14px;
+            border: 2px solid rgba(0, 0, 0, .3);
+            border-top-color: #000;
+            border-radius: 50%;
+            animation: spin .6s linear infinite
+        }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg)
+            }
+        }
+
+        .try-actions {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-top: 10px
+        }
+
+        .try-status {
+            font-size: 11px;
+            font-family: 'Space Mono', monospace;
+            padding: 3px 8px;
+            border-radius: 6px;
+            font-weight: 700
+        }
+
+        .try-status.ok {
+            background: rgba(34, 197, 94, .15);
+            color: var(--green)
+        }
+
+        .try-status.err {
+            background: rgba(239, 68, 68, .15);
+            color: var(--red)
+        }
+
+        .try-result {
+            background: #080808;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 14px;
+            min-height: 180px;
+            font-family: 'Space Mono', monospace;
+            font-size: 12px;
+            color: rgba(255, 255, 255, .75);
+            white-space: pre-wrap;
+            word-break: break-all;
+            overflow-y: auto;
+            max-height: 380px;
+            line-height: 1.65
+        }
+
+        .try-result.placeholder {
+            color: var(--gray2);
+            font-style: italic
+        }
+
+        /* ── CODE BLOCKS ── */
+        .code-block {
+            background: #080808;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            overflow: hidden;
+            margin-bottom: 12px
+        }
+
+        .code-block-head {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 8px 14px;
+            background: var(--card2);
+            border-bottom: 1px solid var(--border)
+        }
+
+        .code-lang {
+            font-size: 11px;
+            color: var(--gray2);
+            font-weight: 600;
+            letter-spacing: .06em;
+            text-transform: uppercase
+        }
+
+        .code-copy {
+            font-size: 11px;
+            color: var(--orange);
+            background: var(--orange-soft);
+            padding: 3px 10px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-family: inherit;
+            font-weight: 700;
+            transition: background .2s
+        }
+
+        .code-copy:hover {
+            background: rgba(247, 147, 26, .22)
+        }
+
+        .code-block pre {
+            padding: 14px;
+            font-size: 12px;
+            color: rgba(255, 255, 255, .78);
+            white-space: pre;
+            overflow-x: auto;
+            line-height: 1.7
+        }
+
+        .j-key {
+            color: #7dd3fc
+        }
+
+        .j-str {
+            color: #86efac
+        }
+
+        .j-num {
+            color: #fbbf24
+        }
+
+        .j-bool {
+            color: #f472b6
+        }
+
+        .j-null {
+            color: var(--gray2)
+        }
+
+        /* ── INFO BOXES ── */
+        .info-box {
+            display: flex;
+            gap: 10px;
+            padding: 12px 14px;
+            border-radius: 8px;
+            font-size: 13px;
+            line-height: 1.6;
+            margin-bottom: 14px
+        }
+
+        .info-box i {
+            font-size: 16px;
+            flex-shrink: 0;
+            margin-top: 1px
+        }
+
+        .ib-blue {
+            background: rgba(56, 132, 255, .08);
+            border: 1px solid rgba(56, 132, 255, .2);
+            color: rgba(255, 255, 255, .8)
+        }
+
+        .ib-blue i {
+            color: var(--blue)
+        }
+
+        .ib-orange {
+            background: var(--orange-soft);
+            border: 1px solid var(--orange-border);
+            color: rgba(255, 255, 255, .85)
+        }
+
+        .ib-orange i {
+            color: var(--orange)
+        }
+
+        .ib-green {
+            background: rgba(34, 197, 94, .08);
+            border: 1px solid rgba(34, 197, 94, .2);
+            color: rgba(255, 255, 255, .8)
+        }
+
+        .ib-green i {
+            color: var(--green)
+        }
+
+        .ib-red {
+            background: rgba(239, 68, 68, .08);
+            border: 1px solid rgba(239, 68, 68, .2);
+            color: rgba(255, 255, 255, .8)
+        }
+
+        .ib-red i {
+            color: var(--red)
+        }
+
+        .info-box strong {
+            color: var(--white)
+        }
+
+        .info-box code {
+            font-family: 'Space Mono', monospace;
+            font-size: 11px;
+            color: var(--orange);
+            background: var(--orange-soft);
+            padding: 1px 5px;
+            border-radius: 4px
+        }
+
+        /* ── STATUS CHIPS ── */
+        .status-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 14px
+        }
+
+        .status-chip {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            padding: 6px 12px;
+            border-radius: 8px;
+            font-size: 12px;
+            font-weight: 600;
+            font-family: 'Space Mono', monospace
+        }
+
+        .sc-paid {
+            background: rgba(34, 197, 94, .12);
+            color: var(--green);
+            border: 1px solid rgba(34, 197, 94, .25)
+        }
+
+        .sc-wait {
+            background: rgba(247, 147, 26, .12);
+            color: var(--orange);
+            border: 1px solid var(--orange-border)
+        }
+
+        .sc-detect {
+            background: rgba(56, 132, 255, .12);
+            color: var(--blue);
+            border: 1px solid rgba(56, 132, 255, .25)
+        }
+
+        .sc-bad {
+            background: rgba(239, 68, 68, .12);
+            color: var(--red);
+            border: 1px solid rgba(239, 68, 68, .25)
+        }
+
+        .sc-neutral,
+        .sc-created {
+            background: var(--card3);
+            color: var(--gray2);
+            border: 1px solid var(--border)
+        }
+
+        .status-dot {
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            flex-shrink: 0
+        }
+
+        .dot-green {
+            background: var(--green)
+        }
+
+        .dot-orange {
+            background: var(--orange)
+        }
+
+        .dot-blue {
+            background: var(--blue)
+        }
+
+        .dot-red {
+            background: var(--red)
+        }
+
+        .dot-gray {
+            background: var(--gray2)
+        }
+
+        .sc-desc {
+            font-size: 12px;
+            color: var(--gray);
+            font-family: 'DM Sans', sans-serif;
+            font-weight: 400;
+            margin-top: 2px
+        }
+
+        /* ── FINGERPRINT ── */
+        .fingerprint-example {
+            background: var(--card2);
+            border: 1px solid var(--orange-border);
+            border-radius: 10px;
+            padding: 16px 20px;
+            font-family: 'Space Mono', monospace;
+            font-size: 12px;
+            line-height: 2;
+            margin: 12px 0
+        }
+
+        .fp-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 20px;
+            flex-wrap: wrap
+        }
+
+        .fp-label {
+            color: var(--gray2);
+            font-size: 11px
+        }
+
+        .fp-val {
+            font-weight: 700
+        }
+
+        .fp-final {
+            color: var(--orange);
+            font-size: 14px
+        }
+
+        .fp-note {
+            font-size: 12px;
+            color: var(--gray);
+            margin-top: 10px;
+            padding-top: 10px;
+            border-top: 1px solid var(--border);
+            font-family: 'DM Sans', sans-serif
+        }
+
+        /* ── RESPONSIVE ── */
+        @media(max-width:960px) {
+
+            .nav-links,
+            .btn-ghost {
+                display: none
+            }
+
+            .nav-burger {
+                display: flex
+            }
+        }
+
+        @media(max-width:768px) {
+            .doc-sidebar {
+                transform: translateX(-100%);
+                transition: transform .3s ease;
+                z-index: 250
+            }
+
+            .doc-sidebar.mob-open {
+                transform: translateX(0)
+            }
+
+            .doc-main {
+                margin-left: 0
+            }
+
+            .mob-topbar-toggle {
+                display: flex
+            }
+
+            .try-layout {
+                grid-template-columns: 1fr
+            }
+
+            .doc-content {
+                padding: 0 16px 60px
+            }
+
+            .doc-topbar {
+                display: none
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <nav id="mainNav">
+        <a href="index.html" class="nav-logo"><img src="logo.png" alt="DoronX" class="logo-img"></a>
+        <div class="nav-links">
+            <a href="index.html">Home</a><a href="index.html#features">Features</a>
+            <a href="index.html#ecosystem">Integrations</a><a href="index.html#how">How it works</a>
+            <a href="docs.html" class="active">Docs</a>
+        </div>
+        <div class="nav-cta">
+            <button class="btn-ghost" onclick="location.href='https://doronpay.com/'">Sign in</button>
+            <a href="https://doronpay.com/" class="btn-solid">Open dashboard <i class="ri-arrow-right-up-line"></i></a>
+            <button class="nav-burger" id="navBurger" onclick="toggleMob()">
+                <span class="burger-bar"></span><span class="burger-bar"></span><span class="burger-bar"></span>
+            </button>
+        </div>
+    </nav>
+
+    <div class="mob-overlay" id="mobOverlay">
+        <a href="index.html" onclick="toggleMob()">Home</a>
+        <a href="index.html#features" onclick="toggleMob()">Features</a>
+        <a href="index.html#ecosystem" onclick="toggleMob()">Integrations</a>
+        <a href="docs.html" class="active" onclick="toggleMob()">Docs</a>
+        <div class="mob-ctas">
+            <button class="btn-ghost" onclick="location.href='https://doronpay.com/';toggleMob()">Sign in</button>
+            <a href="https://doronpay.com/" class="btn-solid" onclick="toggleMob()">Open dashboard</a>
+        </div>
+    </div>
+
+    <div class="docs-layout">
+
+        <!-- SIDEBAR -->
+        <aside class="doc-sidebar" id="docSidebar">
+            <div class="sidebar-search">
+                <div class="sidebar-search-inner">
+                    <i class="ri-search-line"></i>
+                    <input type="text" id="sidebarSearch" placeholder="Search endpoints..." autocomplete="off">
+                </div>
+            </div>
+            <div class="sidebar-env">
+                <span class="env-label">ENV</span>
+                <div class="env-toggle">
+                    <button class="env-btn active-test" id="envTest" onclick="setEnv('TEST')">TEST</button>
+                    <button class="env-btn" id="envLive" onclick="setEnv('LIVE')">LIVE</button>
+                </div>
+            </div>
+            <nav class="sidebar-nav" id="sidebarNav">
+                <div class="nav-group">
+                    <span class="nav-group-label">Overview</span>
+                    <button class="nav-item" onclick="goTo('sec-overview')">Introduction</button>
+                    <button class="nav-item" onclick="goTo('sec-auth')">Authentication</button>
+                    <button class="nav-item" onclick="goTo('sec-errors')">Errors &amp; responses</button>
+                </div>
+                <div class="nav-group">
+                    <span class="nav-group-label">Authentication</span>
+                    <button class="nav-item" data-ep="ep-register" onclick="openEp('ep-register')"><span
+                            class="method-badge mb-post">POST</span>Register</button>
+                    <button class="nav-item" data-ep="ep-login" onclick="openEp('ep-login')"><span
+                            class="method-badge mb-post">POST</span>Login</button>
+                    <button class="nav-item" data-ep="ep-setup" onclick="openEp('ep-setup')"><span
+                            class="method-badge mb-get">GET</span>Workspace setup</button>
+                    <button class="nav-item" data-ep="ep-config" onclick="openEp('ep-config')"><span
+                            class="method-badge mb-get">GET</span>Workspace config</button>
+                </div>
+                <div class="nav-group">
+                    <span class="nav-group-label">Wallet profiles</span>
+                    <button class="nav-item" data-ep="ep-wallet-create" onclick="openEp('ep-wallet-create')"><span
+                            class="method-badge mb-post">POST</span>Connect wallet</button>
+                    <button class="nav-item" data-ep="ep-wallet-list" onclick="openEp('ep-wallet-list')"><span
+                            class="method-badge mb-get">GET</span>List wallets</button>
+                    <button class="nav-item" data-ep="ep-wallet-update" onclick="openEp('ep-wallet-update')"><span
+                            class="method-badge mb-patch">PATCH</span>Update wallet</button>
+                </div>
+                <div class="nav-group">
+                    <span class="nav-group-label">Rate engine</span>
+                    <button class="nav-item" data-ep="ep-pair-create" onclick="openEp('ep-pair-create')"><span
+                            class="method-badge mb-post">POST</span>Create trade pair</button>
+                    <button class="nav-item" data-ep="ep-pair-list" onclick="openEp('ep-pair-list')"><span
+                            class="method-badge mb-get">GET</span>List trade pairs</button>
+                    <button class="nav-item" data-ep="ep-quote" onclick="openEp('ep-quote')"><span
+                            class="method-badge mb-post">POST</span>Get quote</button>
+                    <button class="nav-item" data-ep="ep-refresh" onclick="openEp('ep-refresh')"><span
+                            class="method-badge mb-post">POST</span>Refresh rate</button>
+                </div>
+                <div class="nav-group">
+                    <span class="nav-group-label">Invoices</span>
+                    <button class="nav-item" data-ep="ep-inv-create" onclick="openEp('ep-inv-create')"><span
+                            class="method-badge mb-post">POST</span>Create invoice</button>
+                    <button class="nav-item" data-ep="ep-inv-search" onclick="openEp('ep-inv-search')"><span
+                            class="method-badge mb-get">GET</span>Search invoices</button>
+                    <button class="nav-item" data-ep="ep-inv-get" onclick="openEp('ep-inv-get')"><span
+                            class="method-badge mb-get">GET</span>Get invoice</button>
+                    <button class="nav-item" data-ep="ep-inv-ref" onclick="openEp('ep-inv-ref')"><span
+                            class="method-badge mb-get">GET</span>Get by reference</button>
+                </div>
+                <div class="nav-group">
+                    <span class="nav-group-label">Payment stands</span>
+                    <button class="nav-item" data-ep="ep-stand-create" onclick="openEp('ep-stand-create')"><span
+                            class="method-badge mb-post">POST</span>Create stand</button>
+                    <button class="nav-item" data-ep="ep-stand-list" onclick="openEp('ep-stand-list')"><span
+                            class="method-badge mb-get">GET</span>List stands</button>
+                </div>
+                <div class="nav-group">
+                    <span class="nav-group-label">Webhooks</span>
+                    <button class="nav-item" data-ep="ep-wh-create" onclick="openEp('ep-wh-create')"><span
+                            class="method-badge mb-post">POST</span>Create endpoint</button>
+                    <button class="nav-item" data-ep="ep-wh-list" onclick="openEp('ep-wh-list')"><span
+                            class="method-badge mb-get">GET</span>List endpoints</button>
+                    <button class="nav-item" data-ep="ep-wh-del" onclick="openEp('ep-wh-del')"><span
+                            class="method-badge mb-del">DEL</span>Delete endpoint</button>
+                    <button class="nav-item" data-ep="ep-wh-deliveries" onclick="openEp('ep-wh-deliveries')"><span
+                            class="method-badge mb-get">GET</span>Delivery logs</button>
+                </div>
+                <div class="nav-group">
+                    <span class="nav-group-label">Billing</span>
+                    <button class="nav-item" data-ep="ep-plans" onclick="openEp('ep-plans')"><span
+                            class="method-badge mb-get">GET</span>Plans</button>
+                    <button class="nav-item" data-ep="ep-subscription" onclick="openEp('ep-subscription')"><span
+                            class="method-badge mb-get">GET</span>Subscription</button>
+                    <button class="nav-item" data-ep="ep-usage" onclick="openEp('ep-usage')"><span
+                            class="method-badge mb-get">GET</span>Usage</button>
+                    <button class="nav-item" data-ep="ep-bills" onclick="openEp('ep-bills')"><span
+                            class="method-badge mb-get">GET</span>Bills</button>
+                    <button class="nav-item" data-ep="ep-change-plan" onclick="openEp('ep-change-plan')"><span
+                            class="method-badge mb-post">POST</span>Change plan</button>
+                    <button class="nav-item" data-ep="ep-pay-bill" onclick="openEp('ep-pay-bill')"><span
+                            class="method-badge mb-post">POST</span>Pay bill (crypto)</button>
+                </div>
+                <div class="nav-group">
+                    <span class="nav-group-label">Reports</span>
+                    <button class="nav-item" data-ep="ep-reports" onclick="openEp('ep-reports')"><span
+                            class="method-badge mb-get">GET</span>Summary</button>
+                </div>
+                <div class="nav-group">
+                    <span class="nav-group-label">Reference</span>
+                    <button class="nav-item" onclick="goTo('sec-statuses')">Invoice statuses</button>
+                    <button class="nav-item" onclick="goTo('sec-fingerprint')">Amount fingerprinting</button>
+                </div>
+            </nav>
+        </aside>
+
+        <div class="sidebar-overlay" id="sidebarOverlay" onclick="closeSidebar()"></div>
+
+        <!-- MAIN -->
+        <div class="doc-main">
+            <div class="mob-topbar-toggle" onclick="openSidebar()"><i class="ri-menu-2-line"></i> API Reference</div>
+            <div class="doc-topbar">
+                <div class="base-url-chip"><i class="ri-server-line"
+                        style="color:var(--orange);font-size:14px"></i>&nbsp;Base
+                    URL:&nbsp;<span>https://api.doronpay.com/smart-invoicing</span></div>
+                <div class="auth-input-wrap"><label>Bearer token</label><input class="auth-input" id="globalToken"
+                        type="password" placeholder="Paste your token here — used in all Try It requests"
+                        autocomplete="off"></div>
+                <div class="topbar-tip"><i class="ri-information-line"></i> Token is stored in memory only</div>
+            </div>
+            <div class="doc-content">
+
+                <div id="sec-overview" class="doc-section">
+                    <div class="section-group-title">Smart Invoicing <em>API</em></div>
+                    <p style="font-size:14px;color:var(--gray);line-height:1.75;max-width:700px;margin-bottom:20px">REST
+                        API for creating crypto invoices, managing merchant wallets, configuring live rates, handling
+                        payment detection and webhooks, and reading billing and reports.</p>
+                    <div class="info-box ib-blue"><i class="ri-information-line"></i>
+                        <div><strong>Base URL</strong> — <code>https://api.doronpay.com/smart-invoicing</code><br>Prefix
+                            every path shown in this reference with this base URL.</div>
+                    </div>
+                </div>
+
+                <div id="sec-auth" class="doc-section">
+                    <div class="section-group-title"><em>Authentication</em></div>
+                    <div class="code-block">
+                        <div class="code-block-head"><span class="code-lang">Dashboard / web app</span><button
+                                class="code-copy" onclick="cp(this)">Copy</button></div>
+                        <pre>Authorization: Bearer &lt;token&gt;
+Content-Type: application/json</pre>
+                    </div>
+                    <div class="code-block">
+                        <div class="code-block-head"><span class="code-lang">Server-to-server / API key</span><button
+                                class="code-copy" onclick="cp(this)">Copy</button></div>
+                        <pre>x-doronpay-api-key: &lt;apiKey&gt;
+Content-Type: application/json</pre>
+                    </div>
+                </div>
+
+                <div id="sec-errors" class="doc-section">
+                    <div class="section-group-title">Response <em>format</em></div>
+                    <div class="code-block">
+                        <div class="code-block-head"><span class="code-lang">Success envelope</span><button
+                                class="code-copy" onclick="cp(this)">Copy</button></div>
+                        <pre>{ "success": true, "message": "...", "data": { ... } }</pre>
+                    </div>
+                    <div class="code-block">
+                        <div class="code-block-head"><span class="code-lang">Error envelope</span><button
+                                class="code-copy" onclick="cp(this)">Copy</button></div>
+                        <pre>{ "success": false, "message": "Human readable error", "errorCode": "MACHINE_CODE" }</pre>
+                    </div>
+                </div>
+
+                <div class="section-group-title">Authentication</div>
+
+                <div class="endpoint" id="ep-register">
+                    <div class="ep-head" onclick="toggle('ep-register')"><span class="ep-method POST">POST</span><span
+                            class="ep-path">/auth/register</span><span
+                            class="ep-auth-tag auth-public">Public</span><span class="ep-summary">Create merchant user,
+                            business, workspace, default subscription and trade pairs in one call.</span><i
+                            class="ri-arrow-down-s-line ep-toggle" id="tog-ep-register"></i></div>
+                    <div class="ep-body" id="body-ep-register">
+                        <div class="ep-tabs"><button class="ep-tab active"
+                                onclick="tab('ep-register','params')">Parameters</button><button class="ep-tab"
+                                onclick="tab('ep-register','response')">Response</button><button class="ep-tab"
+                                onclick="tab('ep-register','try')">Try it</button></div>
+                        <div class="ep-panel active" id="panel-ep-register-params">
+                            <div style="overflow-x:auto">
+                                <table class="params-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Field</th>
+                                            <th>Type</th>
+                                            <th></th>
+                                            <th>Description</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td><span class="pname">name</span></td>
+                                            <td><span class="ptype">string</span></td>
+                                            <td><span class="preq">required</span></td>
+                                            <td class="pdesc">Full name of the merchant user</td>
+                                        </tr>
+                                        <tr>
+                                            <td><span class="pname">email</span></td>
+                                            <td><span class="ptype">string</span></td>
+                                            <td><span class="preq">required</span></td>
+                                            <td class="pdesc">Email address — used for login</td>
+                                        </tr>
+                                        <tr>
+                                            <td><span class="pname">phone</span></td>
+                                            <td><span class="ptype">string</span></td>
+                                            <td><span class="preq">required</span></td>
+                                            <td class="pdesc">Phone number</td>
+                                        </tr>
+                                        <tr>
+                                            <td><span class="pname">password</span></td>
+                                            <td><span class="ptype">string</span></td>
+                                            <td><span class="preq">required</span></td>
+                                            <td class="pdesc">Minimum 8 characters</td>
+                                        </tr>
+                                        <tr>
+                                            <td><span class="pname">businessName</span></td>
+                                            <td><span class="ptype">string</span></td>
+                                            <td><span class="preq">required</span></td>
+                                            <td class="pdesc">Display name of the business</td>
+                                        </tr>
+                                        <tr>
+                                            <td><span class="pname">businessSlug</span></td>
+                                            <td><span class="ptype">string</span></td>
+                                            <td><span class="preq">required</span></td>
+                                            <td class="pdesc">URL-safe identifier e.g. <code>demo-shop</code></td>
+                                        </tr>
+                                        <tr>
+                                            <td><span class="pname">environment</span></td>
+                                            <td><span class="ptype">"TEST"|"LIVE"</span></td>
+                                            <td><span class="preq">required</span></td>
+                                            <td class="pdesc">Starting environment</td>
+                                        </tr>
+                                        <tr>
+                                            <td><span class="pname">defaultCurrency</span></td>
+                                            <td><span class="ptype">string</span></td>
+                                            <td><span class="preq">required</span></td>
+                                            <td class="pdesc">e.g. <code>GHS</code>, <code>USD</code>, <code>NGN</code>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td><span class="pname">timezone</span></td>
+                                            <td><span class="ptype">string</span></td>
+                                            <td><span class="preq">required</span></td>
+                                            <td class="pdesc">IANA timezone e.g. <code>Africa/Accra</code></td>
+                                        </tr>
+                                        <tr>
+                                            <td><span class="pname">planCode</span></td>
+                                            <td><span class="ptype">string</span></td>
+                                            <td><span class="popt">optional</span></td>
+                                            <td class="pdesc"><code>FREE</code> | <code>BUSINESS</code> |
+                                                <code>GROWTH</code> | <code>ENTERPRISE</code>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="ep-panel" id="panel-ep-register-response">
+                            <div class="code-block">
+                                <div class="code-block-head"><span class="code-lang">200 OK</span><button
+                                        class="code-copy" onclick="cp(this)">Copy</button></div>
+                                <pre>{ <span class="j-key">"success"</span>: <span class="j-bool">true</span>, <span class="j-key">"data"</span>: { <span class="j-key">"token"</span>: <span class="j-str">"eyJ..."</span>, <span class="j-key">"workspaceId"</span>: <span class="j-str">"6a..."</span>, <span class="j-key">"environment"</span>: <span class="j-str">"TEST"</span> } }</pre>
+                            </div>
+                        </div>
+                        <div class="ep-panel" id="panel-ep-register-try">
+                            <div class="try-layout">
+                                <div>
+                                    <div class="try-col-label">Request body</div><textarea class="try-textarea"
+                                        id="try-body-ep-register">{
+  "name": "Mark Tutu",
+  "email": "merchant@example.com",
+  "phone": "0240000000",
+  "password": "StrongPass123",
+  "businessName": "Demo Shop",
+  "businessSlug": "demo-shop",
+  "environment": "TEST",
+  "defaultCurrency": "GHS",
+  "timezone": "Africa/Accra",
+  "planCode": "FREE"
+}</textarea>
+                                    <div class="try-actions"><button class="try-btn"
+                                            onclick="tryIt('ep-register','POST','/auth/register',false)"><i
+                                                class="ri-send-plane-fill"></i> Send</button><span class="try-status"
+                                            id="status-ep-register" style="display:none"></span></div>
+                                </div>
+                                <div>
+                                    <div class="try-col-label">Response <span id="time-ep-register"></span></div>
+                                    <div class="try-result placeholder" id="result-ep-register">Response will appear
+                                        here...</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="endpoint" id="ep-login">
+                    <div class="ep-head" onclick="toggle('ep-login')"><span class="ep-method POST">POST</span><span
+                            class="ep-path">/auth/login</span><span class="ep-auth-tag auth-public">Public</span><span
+                            class="ep-summary">Authenticate and receive a fresh JWT token.</span><i
+                            class="ri-arrow-down-s-line ep-toggle" id="tog-ep-login"></i></div>
+                    <div class="ep-body" id="body-ep-login">
+                        <div class="ep-tabs"><button class="ep-tab active"
+                                onclick="tab('ep-login','params')">Parameters</button><button class="ep-tab"
+                                onclick="tab('ep-login','response')">Response</button><button class="ep-tab"
+                                onclick="tab('ep-login','try')">Try it</button></div>
+                        <div class="ep-panel active" id="panel-ep-login-params">
+                            <div style="overflow-x:auto">
+                                <table class="params-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Field</th>
+                                            <th>Type</th>
+                                            <th></th>
+                                            <th>Description</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td><span class="pname">email</span></td>
+                                            <td><span class="ptype">string</span></td>
+                                            <td><span class="preq">required</span></td>
+                                            <td class="pdesc">Registered email</td>
+                                        </tr>
+                                        <tr>
+                                            <td><span class="pname">password</span></td>
+                                            <td><span class="ptype">string</span></td>
+                                            <td><span class="preq">required</span></td>
+                                            <td class="pdesc">Account password</td>
+                                        </tr>
+                                        <tr>
+                                            <td><span class="pname">environment</span></td>
+                                            <td><span class="ptype">"TEST"|"LIVE"</span></td>
+                                            <td><span class="preq">required</span></td>
+                                            <td class="pdesc">Which workspace to authenticate into</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="ep-panel" id="panel-ep-login-response">
+                            <div class="code-block">
+                                <div class="code-block-head"><span class="code-lang">200 OK</span><button
+                                        class="code-copy" onclick="cp(this)">Copy</button></div>
+                                <pre>{ <span class="j-key">"data"</span>: { <span class="j-key">"token"</span>: <span class="j-str">"eyJ..."</span>, <span class="j-key">"environment"</span>: <span class="j-str">"LIVE"</span> } }</pre>
+                            </div>
+                        </div>
+                        <div class="ep-panel" id="panel-ep-login-try">
+                            <div class="try-layout">
+                                <div>
+                                    <div class="try-col-label">Request body</div><textarea class="try-textarea"
+                                        id="try-body-ep-login">{
+  "email": "merchant@example.com",
+  "password": "StrongPass123",
+  "environment": "TEST"
+}</textarea>
+                                    <div class="try-actions"><button class="try-btn"
+                                            onclick="tryIt('ep-login','POST','/auth/login',false)"><i
+                                                class="ri-send-plane-fill"></i> Send</button><span class="try-status"
+                                            id="status-ep-login" style="display:none"></span></div>
+                                </div>
+                                <div>
+                                    <div class="try-col-label">Response <span id="time-ep-login"></span></div>
+                                    <div class="try-result placeholder" id="result-ep-login">Response will appear
+                                        here...</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="endpoint" id="ep-setup">
+                    <div class="ep-head" onclick="toggle('ep-setup')"><span class="ep-method GET">GET</span><span
+                            class="ep-path">/workspace/setup</span><span
+                            class="ep-auth-tag auth-bearer">Bearer</span><span class="ep-summary">Returns onboarding
+                            checklist with progress %, readiness flags, and the next required action.</span><i
+                            class="ri-arrow-down-s-line ep-toggle" id="tog-ep-setup"></i></div>
+                    <div class="ep-body" id="body-ep-setup">
+                        <div class="ep-tabs"><button class="ep-tab active"
+                                onclick="tab('ep-setup','response')">Response</button><button class="ep-tab"
+                                onclick="tab('ep-setup','try')">Try it</button></div>
+                        <div class="ep-panel active" id="panel-ep-setup-response">
+                            <div class="code-block">
+                                <div class="code-block-head"><span class="code-lang">200 OK</span><button
+                                        class="code-copy" onclick="cp(this)">Copy</button></div>
+                                <pre>{ <span class="j-key">"data"</span>: { <span class="j-key">"status"</span>: <span class="j-str">"INCOMPLETE"</span>, <span class="j-key">"progress"</span>: <span class="j-num">56</span>, <span class="j-key">"canCreateInvoice"</span>: <span class="j-bool">false</span> } }</pre>
+                            </div>
+                        </div>
+                        <div class="ep-panel" id="panel-ep-setup-try">
+                            <div class="try-layout">
+                                <div>
+                                    <div class="try-col-label">Query string</div><input class="auth-input"
+                                        id="try-qs-ep-setup" placeholder="" style="width:100%;margin-bottom:10px">
+                                    <div class="try-actions"><button class="try-btn"
+                                            onclick="tryItQS('ep-setup','GET','/workspace/setup',true)"><i
+                                                class="ri-send-plane-fill"></i> Send</button><span class="try-status"
+                                            id="status-ep-setup" style="display:none"></span></div>
+                                </div>
+                                <div>
+                                    <div class="try-col-label">Response <span id="time-ep-setup"></span></div>
+                                    <div class="try-result placeholder" id="result-ep-setup">Response will appear
+                                        here...</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="endpoint" id="ep-config">
+                    <div class="ep-head" onclick="toggle('ep-config')"><span class="ep-method GET">GET</span><span
+                            class="ep-path">/workspace/config</span><span
+                            class="ep-auth-tag auth-bearer">Bearer</span><span class="ep-summary">Full runtime workspace
+                            config — enabled currencies, assets, wallet readiness flags.</span><i
+                            class="ri-arrow-down-s-line ep-toggle" id="tog-ep-config"></i></div>
+                    <div class="ep-body" id="body-ep-config">
+                        <div class="ep-tabs"><button class="ep-tab active"
+                                onclick="tab('ep-config','response')">Response</button><button class="ep-tab"
+                                onclick="tab('ep-config','try')">Try it</button></div>
+                        <div class="ep-panel active" id="panel-ep-config-response">
+                            <div class="code-block">
+                                <div class="code-block-head"><span class="code-lang">200 OK</span><button
+                                        class="code-copy" onclick="cp(this)">Copy</button></div>
+                                <pre>{ <span class="j-key">"data"</span>: { <span class="j-key">"workspace"</span>: { <span class="j-key">"environment"</span>: <span class="j-str">"TEST"</span> }, <span class="j-key">"readiness"</span>: { <span class="j-key">"canCreateInvoice"</span>: <span class="j-bool">true</span> } } }</pre>
+                            </div>
+                        </div>
+                        <div class="ep-panel" id="panel-ep-config-try">
+                            <div class="try-layout">
+                                <div>
+                                    <div class="try-col-label">Query string</div><input class="auth-input"
+                                        id="try-qs-ep-config" placeholder="" style="width:100%;margin-bottom:10px">
+                                    <div class="try-actions"><button class="try-btn"
+                                            onclick="tryItQS('ep-config','GET','/workspace/config',true)"><i
+                                                class="ri-send-plane-fill"></i> Send</button><span class="try-status"
+                                            id="status-ep-config" style="display:none"></span></div>
+                                </div>
+                                <div>
+                                    <div class="try-col-label">Response <span id="time-ep-config"></span></div>
+                                    <div class="try-result placeholder" id="result-ep-config">Response will appear
+                                        here...</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="section-group-title">Wallet <em>profiles</em></div>
+                <div class="info-box ib-green"><i class="ri-shield-check-line"></i>
+                    <div><strong>Non-custodial:</strong> DoronX stores only your public receiving address. At least one
+                        wallet must be set as default before invoices can be created.</div>
+                </div>
+
+                <div class="endpoint" id="ep-wallet-create">
+                    <div class="ep-head" onclick="toggle('ep-wallet-create')"><span
+                            class="ep-method POST">POST</span><span class="ep-path">/wallet-profiles</span><span
+                            class="ep-auth-tag auth-bearer">Bearer</span><span class="ep-summary">Connect a
+                            business-owned external wallet address.</span><i class="ri-arrow-down-s-line ep-toggle"
+                            id="tog-ep-wallet-create"></i></div>
+                    <div class="ep-body" id="body-ep-wallet-create">
+                        <div class="ep-tabs"><button class="ep-tab active"
+                                onclick="tab('ep-wallet-create','params')">Parameters</button><button class="ep-tab"
+                                onclick="tab('ep-wallet-create','try')">Try it</button></div>
+                        <div class="ep-panel active" id="panel-ep-wallet-create-params">
+                            <div style="overflow-x:auto">
+                                <table class="params-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Field</th>
+                                            <th>Type</th>
+                                            <th></th>
+                                            <th>Description</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td><span class="pname">asset</span></td>
+                                            <td><span class="ptype">string</span></td>
+                                            <td><span class="preq">required</span></td>
+                                            <td class="pdesc"><code>USDT</code> | <code>BTC</code> | <code>USDC</code>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td><span class="pname">network</span></td>
+                                            <td><span class="ptype">string</span></td>
+                                            <td><span class="preq">required</span></td>
+                                            <td class="pdesc"><code>TRC20</code> | <code>BEP20</code> |
+                                                <code>SOLANA</code> | <code>BTC</code>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td><span class="pname">address</span></td>
+                                            <td><span class="ptype">string</span></td>
+                                            <td><span class="preq">required</span></td>
+                                            <td class="pdesc">Your business-owned public receiving address</td>
+                                        </tr>
+                                        <tr>
+                                            <td><span class="pname">label</span></td>
+                                            <td><span class="ptype">string</span></td>
+                                            <td><span class="preq">required</span></td>
+                                            <td class="pdesc">Human-readable label e.g. <code>Main USDT TRC20</code>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td><span class="pname">isDefault</span></td>
+                                            <td><span class="ptype">boolean</span></td>
+                                            <td><span class="popt">optional</span></td>
+                                            <td class="pdesc">Set as default receiving wallet</td>
+                                        </tr>
+                                        <tr>
+                                            <td><span class="pname">ownershipProofType</span></td>
+                                            <td><span class="ptype">string</span></td>
+                                            <td><span class="popt">optional</span></td>
+                                            <td class="pdesc"><code>MANUAL</code></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="ep-panel" id="panel-ep-wallet-create-try">
+                            <div class="try-layout">
+                                <div>
+                                    <div class="try-col-label">Request body</div><textarea class="try-textarea"
+                                        id="try-body-ep-wallet-create">{
+  "asset": "USDT",
+  "network": "TRC20",
+  "address": "TNoTbnmDtVqcofmSbiXmiMKK2g1Qw8pcTJ",
+  "label": "Main USDT TRC20 Wallet",
+  "isDefault": true,
+  "ownershipProofType": "MANUAL"
+}</textarea>
+                                    <div class="try-actions"><button class="try-btn"
+                                            onclick="tryIt('ep-wallet-create','POST','/wallet-profiles',true)"><i
+                                                class="ri-send-plane-fill"></i> Send</button><span class="try-status"
+                                            id="status-ep-wallet-create" style="display:none"></span></div>
+                                </div>
+                                <div>
+                                    <div class="try-col-label">Response <span id="time-ep-wallet-create"></span></div>
+                                    <div class="try-result placeholder" id="result-ep-wallet-create">Response will
+                                        appear here...</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="endpoint" id="ep-wallet-list">
+                    <div class="ep-head" onclick="toggle('ep-wallet-list')"><span class="ep-method GET">GET</span><span
+                            class="ep-path">/wallet-profiles</span><span
+                            class="ep-auth-tag auth-bearer">Bearer</span><span class="ep-summary">List all connected
+                            wallet profiles for the current workspace.</span><i class="ri-arrow-down-s-line ep-toggle"
+                            id="tog-ep-wallet-list"></i></div>
+                    <div class="ep-body" id="body-ep-wallet-list">
+                        <div class="ep-tabs"><button class="ep-tab active" onclick="tab('ep-wallet-list','try')">Try
+                                it</button></div>
+                        <div class="ep-panel active" id="panel-ep-wallet-list-try">
+                            <div class="try-layout">
+                                <div>
+                                    <div class="try-col-label">Query string</div><input class="auth-input"
+                                        id="try-qs-ep-wallet-list" placeholder="" style="width:100%;margin-bottom:10px">
+                                    <div class="try-actions"><button class="try-btn"
+                                            onclick="tryItQS('ep-wallet-list','GET','/wallet-profiles',true)"><i
+                                                class="ri-send-plane-fill"></i> Send</button><span class="try-status"
+                                            id="status-ep-wallet-list" style="display:none"></span></div>
+                                </div>
+                                <div>
+                                    <div class="try-col-label">Response <span id="time-ep-wallet-list"></span></div>
+                                    <div class="try-result placeholder" id="result-ep-wallet-list">Response will appear
+                                        here...</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="endpoint" id="ep-wallet-update">
+                    <div class="ep-head" onclick="toggle('ep-wallet-update')"><span
+                            class="ep-method PATCH">PATCH</span><span class="ep-path">/wallet-profiles/<span
+                                class="param-seg">{walletProfileId}</span></span><span
+                            class="ep-auth-tag auth-bearer">Bearer</span><span class="ep-summary">Update a wallet
+                            profile — change label, set as default.</span><i class="ri-arrow-down-s-line ep-toggle"
+                            id="tog-ep-wallet-update"></i></div>
+                    <div class="ep-body" id="body-ep-wallet-update">
+                        <div class="ep-tabs"><button class="ep-tab active"
+                                onclick="tab('ep-wallet-update','params')">Parameters</button><button class="ep-tab"
+                                onclick="tab('ep-wallet-update','try')">Try it</button></div>
+                        <div class="ep-panel active" id="panel-ep-wallet-update-params">
+                            <div style="overflow-x:auto">
+                                <table class="params-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Field</th>
+                                            <th>Type</th>
+                                            <th></th>
+                                            <th>Description</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td><span class="pname">isDefault</span></td>
+                                            <td><span class="ptype">boolean</span></td>
+                                            <td><span class="popt">optional</span></td>
+                                            <td class="pdesc">Promote this wallet to the default</td>
+                                        </tr>
+                                        <tr>
+                                            <td><span class="pname">label</span></td>
+                                            <td><span class="ptype">string</span></td>
+                                            <td><span class="popt">optional</span></td>
+                                            <td class="pdesc">Update the display label</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="ep-panel" id="panel-ep-wallet-update-try">
+                            <div class="try-layout">
+                                <div>
+                                    <div class="try-col-label">walletProfileId + body</div><textarea
+                                        class="try-textarea" id="try-body-ep-wallet-update"
+                                        style="min-height:80px">{ "isDefault": true }</textarea><input
+                                        class="auth-input" id="try-path-ep-wallet-update" placeholder="walletProfileId"
+                                        style="margin-top:8px;width:100%">
+                                    <div class="try-actions"><button class="try-btn"
+                                            onclick="tryItPath('ep-wallet-update','PATCH','/wallet-profiles/',true)"><i
+                                                class="ri-send-plane-fill"></i> Send</button><span class="try-status"
+                                            id="status-ep-wallet-update" style="display:none"></span></div>
+                                </div>
+                                <div>
+                                    <div class="try-col-label">Response <span id="time-ep-wallet-update"></span></div>
+                                    <div class="try-result placeholder" id="result-ep-wallet-update">Response will
+                                        appear here...</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="section-group-title">Rate <em>engine</em></div>
+
+                <div class="endpoint" id="ep-pair-create">
+                    <div class="ep-head" onclick="toggle('ep-pair-create')"><span
+                            class="ep-method POST">POST</span><span class="ep-path">/rates/trade-pairs</span><span
+                            class="ep-auth-tag auth-bearer">Bearer</span><span class="ep-summary">Create or update a
+                            merchant trade pair. Rate = Kraken crypto/USD × Fixer USD/fiat × (1 + markup%).</span><i
+                            class="ri-arrow-down-s-line ep-toggle" id="tog-ep-pair-create"></i></div>
+                    <div class="ep-body" id="body-ep-pair-create">
+                        <div class="ep-tabs"><button class="ep-tab active"
+                                onclick="tab('ep-pair-create','params')">Parameters</button><button class="ep-tab"
+                                onclick="tab('ep-pair-create','try')">Try it</button></div>
+                        <div class="ep-panel active" id="panel-ep-pair-create-params">
+                            <div style="overflow-x:auto">
+                                <table class="params-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Field</th>
+                                            <th>Type</th>
+                                            <th></th>
+                                            <th>Description</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td><span class="pname">baseAsset</span></td>
+                                            <td><span class="ptype">string</span></td>
+                                            <td><span class="preq">required</span></td>
+                                            <td class="pdesc"><code>USDT</code> | <code>BTC</code> | <code>USDC</code>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td><span class="pname">quoteCurrency</span></td>
+                                            <td><span class="ptype">string</span></td>
+                                            <td><span class="preq">required</span></td>
+                                            <td class="pdesc">Fiat invoice currency e.g. <code>GHS</code></td>
+                                        </tr>
+                                        <tr>
+                                            <td><span class="pname">allowedNetworks</span></td>
+                                            <td><span class="ptype">string[]</span></td>
+                                            <td><span class="preq">required</span></td>
+                                            <td class="pdesc">Networks customer can pay on</td>
+                                        </tr>
+                                        <tr>
+                                            <td><span class="pname">markupPercent</span></td>
+                                            <td><span class="ptype">number</span></td>
+                                            <td><span class="preq">required</span></td>
+                                            <td class="pdesc">Your profit margin. <code>2</code> = 2%</td>
+                                        </tr>
+                                        <tr>
+                                            <td><span class="pname">spreadPercent</span></td>
+                                            <td><span class="ptype">number</span></td>
+                                            <td><span class="popt">optional</span></td>
+                                            <td class="pdesc">Additional spread</td>
+                                        </tr>
+                                        <tr>
+                                            <td><span class="pname">pricingMode</span></td>
+                                            <td><span class="ptype">string</span></td>
+                                            <td><span class="popt">optional</span></td>
+                                            <td class="pdesc"><code>AUTO</code> (live) | <code>MANUAL</code> (fixed)
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td><span class="pname">minInvoiceAmount</span></td>
+                                            <td><span class="ptype">number</span></td>
+                                            <td><span class="popt">optional</span></td>
+                                            <td class="pdesc">Minimum fiat invoice amount</td>
+                                        </tr>
+                                        <tr>
+                                            <td><span class="pname">maxInvoiceAmount</span></td>
+                                            <td><span class="ptype">number|null</span></td>
+                                            <td><span class="popt">optional</span></td>
+                                            <td class="pdesc"><code>null</code> = unlimited</td>
+                                        </tr>
+                                        <tr>
+                                            <td><span class="pname">rateTtlSeconds</span></td>
+                                            <td><span class="ptype">number</span></td>
+                                            <td><span class="popt">optional</span></td>
+                                            <td class="pdesc">Default <code>600</code></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="ep-panel" id="panel-ep-pair-create-try">
+                            <div class="try-layout">
+                                <div>
+                                    <div class="try-col-label">Request body</div><textarea class="try-textarea"
+                                        id="try-body-ep-pair-create">{
+  "baseAsset": "USDT",
+  "quoteCurrency": "GHS",
+  "allowedNetworks": ["TRC20", "BEP20", "SOLANA"],
+  "markupPercent": 2,
+  "spreadPercent": 0,
+  "rateSource": "KRAKEN_FIXER_CROSS",
+  "pricingMode": "AUTO",
+  "minInvoiceAmount": 1,
+  "maxInvoiceAmount": null,
+  "rateTtlSeconds": 600
+}</textarea>
+                                    <div class="try-actions"><button class="try-btn"
+                                            onclick="tryIt('ep-pair-create','POST','/rates/trade-pairs',true)"><i
+                                                class="ri-send-plane-fill"></i> Send</button><span class="try-status"
+                                            id="status-ep-pair-create" style="display:none"></span></div>
+                                </div>
+                                <div>
+                                    <div class="try-col-label">Response <span id="time-ep-pair-create"></span></div>
+                                    <div class="try-result placeholder" id="result-ep-pair-create">Response will appear
+                                        here...</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="endpoint" id="ep-pair-list">
+                    <div class="ep-head" onclick="toggle('ep-pair-list')"><span class="ep-method GET">GET</span><span
+                            class="ep-path">/rates/trade-pairs</span><span
+                            class="ep-auth-tag auth-bearer">Bearer</span><span class="ep-summary">List all
+                            merchant-scoped trade pairs.</span><i class="ri-arrow-down-s-line ep-toggle"
+                            id="tog-ep-pair-list"></i></div>
+                    <div class="ep-body" id="body-ep-pair-list">
+                        <div class="ep-tabs"><button class="ep-tab active" onclick="tab('ep-pair-list','try')">Try
+                                it</button></div>
+                        <div class="ep-panel active" id="panel-ep-pair-list-try">
+                            <div class="try-layout">
+                                <div>
+                                    <div class="try-col-label">Query string</div><input class="auth-input"
+                                        id="try-qs-ep-pair-list" placeholder="" style="width:100%;margin-bottom:10px">
+                                    <div class="try-actions"><button class="try-btn"
+                                            onclick="tryItQS('ep-pair-list','GET','/rates/trade-pairs',true)"><i
+                                                class="ri-send-plane-fill"></i> Send</button><span class="try-status"
+                                            id="status-ep-pair-list" style="display:none"></span></div>
+                                </div>
+                                <div>
+                                    <div class="try-col-label">Response <span id="time-ep-pair-list"></span></div>
+                                    <div class="try-result placeholder" id="result-ep-pair-list">Response will appear
+                                        here...</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="endpoint" id="ep-quote">
+                    <div class="ep-head" onclick="toggle('ep-quote')"><span class="ep-method POST">POST</span><span
+                            class="ep-path">/rates/quote</span><span class="ep-auth-tag auth-bearer">Bearer</span><span
+                            class="ep-summary">Get the exact crypto amount for a fiat invoice value.</span><i
+                            class="ri-arrow-down-s-line ep-toggle" id="tog-ep-quote"></i></div>
+                    <div class="ep-body" id="body-ep-quote">
+                        <div class="ep-tabs"><button class="ep-tab active"
+                                onclick="tab('ep-quote','params')">Parameters</button><button class="ep-tab"
+                                onclick="tab('ep-quote','try')">Try it</button></div>
+                        <div class="ep-panel active" id="panel-ep-quote-params">
+                            <div style="overflow-x:auto">
+                                <table class="params-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Field</th>
+                                            <th>Type</th>
+                                            <th></th>
+                                            <th>Description</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td><span class="pname">amount</span></td>
+                                            <td><span class="ptype">number</span></td>
+                                            <td><span class="preq">required</span></td>
+                                            <td class="pdesc">Fiat invoice amount</td>
+                                        </tr>
+                                        <tr>
+                                            <td><span class="pname">invoiceCurrency</span></td>
+                                            <td><span class="ptype">string</span></td>
+                                            <td><span class="preq">required</span></td>
+                                            <td class="pdesc">e.g. <code>GHS</code></td>
+                                        </tr>
+                                        <tr>
+                                            <td><span class="pname">paymentAsset</span></td>
+                                            <td><span class="ptype">string</span></td>
+                                            <td><span class="preq">required</span></td>
+                                            <td class="pdesc">e.g. <code>USDT</code></td>
+                                        </tr>
+                                        <tr>
+                                            <td><span class="pname">forceRefresh</span></td>
+                                            <td><span class="ptype">boolean</span></td>
+                                            <td><span class="popt">optional</span></td>
+                                            <td class="pdesc"><code>true</code> to bypass cache</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="ep-panel" id="panel-ep-quote-try">
+                            <div class="try-layout">
+                                <div>
+                                    <div class="try-col-label">Request body</div><textarea class="try-textarea"
+                                        id="try-body-ep-quote">{
+  "amount": 1000,
+  "invoiceCurrency": "GHS",
+  "paymentAsset": "USDT",
+  "forceRefresh": true
+}</textarea>
+                                    <div class="try-actions"><button class="try-btn"
+                                            onclick="tryIt('ep-quote','POST','/rates/quote',true)"><i
+                                                class="ri-send-plane-fill"></i> Send</button><span class="try-status"
+                                            id="status-ep-quote" style="display:none"></span></div>
+                                </div>
+                                <div>
+                                    <div class="try-col-label">Response <span id="time-ep-quote"></span></div>
+                                    <div class="try-result placeholder" id="result-ep-quote">Response will appear
+                                        here...</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="endpoint" id="ep-refresh">
+                    <div class="ep-head" onclick="toggle('ep-refresh')"><span class="ep-method POST">POST</span><span
+                            class="ep-path">/rates/refresh</span><span
+                            class="ep-auth-tag auth-bearer">Bearer</span><span class="ep-summary">Force-refresh the
+                            cached rate for a specific trade pair.</span><i class="ri-arrow-down-s-line ep-toggle"
+                            id="tog-ep-refresh"></i></div>
+                    <div class="ep-body" id="body-ep-refresh">
+                        <div class="ep-tabs"><button class="ep-tab active" onclick="tab('ep-refresh','try')">Try
+                                it</button></div>
+                        <div class="ep-panel active" id="panel-ep-refresh-try">
+                            <div class="try-layout">
+                                <div>
+                                    <div class="try-col-label">Request body</div><textarea class="try-textarea"
+                                        id="try-body-ep-refresh"
+                                        style="min-height:80px">{ "tradePairId": "6a..." }</textarea>
+                                    <div class="try-actions"><button class="try-btn"
+                                            onclick="tryIt('ep-refresh','POST','/rates/refresh',true)"><i
+                                                class="ri-send-plane-fill"></i> Send</button><span class="try-status"
+                                            id="status-ep-refresh" style="display:none"></span></div>
+                                </div>
+                                <div>
+                                    <div class="try-col-label">Response <span id="time-ep-refresh"></span></div>
+                                    <div class="try-result placeholder" id="result-ep-refresh">Response will appear
+                                        here...</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="section-group-title"><em>Invoices</em></div>
+                <div class="info-box ib-orange"><i class="ri-fingerprint-line"></i>
+                    <div><strong>Amount fingerprinting:</strong> always display
+                        <code>amountFingerprint.finalExpectedAmount</code> — not the raw quoted amount. The customer
+                        must send the exact fingerprinted amount.
+                    </div>
+                </div>
+
+                <div class="endpoint" id="ep-inv-create">
+                    <div class="ep-head" onclick="toggle('ep-inv-create')"><span class="ep-method POST">POST</span><span
+                            class="ep-path">/invoices</span><span class="ep-auth-tag auth-bearer">Bearer / API
+                            key</span><span class="ep-summary">Create a crypto invoice. Returns payment URL, exact
+                            crypto amount, and fingerprint data.</span><i class="ri-arrow-down-s-line ep-toggle"
+                            id="tog-ep-inv-create"></i></div>
+                    <div class="ep-body" id="body-ep-inv-create">
+                        <div class="ep-tabs"><button class="ep-tab active"
+                                onclick="tab('ep-inv-create','params')">Parameters</button><button class="ep-tab"
+                                onclick="tab('ep-inv-create','response')">Response</button><button class="ep-tab"
+                                onclick="tab('ep-inv-create','try')">Try it</button></div>
+                        <div class="ep-panel active" id="panel-ep-inv-create-params">
+                            <div style="overflow-x:auto">
+                                <table class="params-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Field</th>
+                                            <th>Type</th>
+                                            <th></th>
+                                            <th>Description</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td><span class="pname">payerName</span></td>
+                                            <td><span class="ptype">string</span></td>
+                                            <td><span class="preq">required</span></td>
+                                            <td class="pdesc">Customer full name</td>
+                                        </tr>
+                                        <tr>
+                                            <td><span class="pname">payerEmail</span></td>
+                                            <td><span class="ptype">string</span></td>
+                                            <td><span class="preq">required</span></td>
+                                            <td class="pdesc">Customer email</td>
+                                        </tr>
+                                        <tr>
+                                            <td><span class="pname">payerPhone</span></td>
+                                            <td><span class="ptype">string</span></td>
+                                            <td><span class="popt">optional</span></td>
+                                            <td class="pdesc">Customer phone</td>
+                                        </tr>
+                                        <tr>
+                                            <td><span class="pname">amount</span></td>
+                                            <td><span class="ptype">number</span></td>
+                                            <td><span class="preq">required</span></td>
+                                            <td class="pdesc">Fiat amount to invoice</td>
+                                        </tr>
+                                        <tr>
+                                            <td><span class="pname">currency</span></td>
+                                            <td><span class="ptype">string</span></td>
+                                            <td><span class="preq">required</span></td>
+                                            <td class="pdesc"><code>GHS</code> | <code>USD</code> | <code>NGN</code> |
+                                                <code>CAD</code> | <code>EUR</code>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td><span class="pname">asset</span></td>
+                                            <td><span class="ptype">string</span></td>
+                                            <td><span class="preq">required</span></td>
+                                            <td class="pdesc"><code>USDT</code> | <code>BTC</code> | <code>USDC</code>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td><span class="pname">network</span></td>
+                                            <td><span class="ptype">string</span></td>
+                                            <td><span class="preq">required</span></td>
+                                            <td class="pdesc"><code>TRC20</code> | <code>BEP20</code> |
+                                                <code>SOLANA</code> | <code>BTC</code>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td><span class="pname">description</span></td>
+                                            <td><span class="ptype">string</span></td>
+                                            <td><span class="popt">optional</span></td>
+                                            <td class="pdesc">Invoice note shown on payment page</td>
+                                        </tr>
+                                        <tr>
+                                            <td><span class="pname">forceRateRefresh</span></td>
+                                            <td><span class="ptype">boolean</span></td>
+                                            <td><span class="popt">optional</span></td>
+                                            <td class="pdesc"><code>true</code> to fetch live rate at creation time</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="ep-panel" id="panel-ep-inv-create-response">
+                            <div class="code-block">
+                                <div class="code-block-head"><span class="code-lang">200 OK</span><button
+                                        class="code-copy" onclick="cp(this)">Copy</button></div>
+                                <pre>{
+  <span class="j-key">"data"</span>: {
+    <span class="j-key">"invoice"</span>: { <span class="j-key">"invoiceId"</span>: <span class="j-str">"6a..."</span>, <span class="j-key">"status"</span>: <span class="j-str">"AWAITING_PAYMENT"</span> },
+    <span class="j-key">"paymentIntent"</span>: {
+      <span class="j-key">"expectedCryptoAmount"</span>: <span class="j-num">65.123401</span>,
+      <span class="j-key">"amountFingerprint"</span>: { <span class="j-key">"finalExpectedAmount"</span>: <span class="j-num">65.123401</span> },
+      <span class="j-key">"receivingAddress"</span>: <span class="j-str">"TNoTbnm..."</span>
+    },
+    <span class="j-key">"paymentUrl"</span>: <span class="j-str">"https://pay.doronpay.com/..."</span>
+  }
+}</pre>
+                            </div>
+                        </div>
+                        <div class="ep-panel" id="panel-ep-inv-create-try">
+                            <div class="try-layout">
+                                <div>
+                                    <div class="try-col-label">Request body</div><textarea class="try-textarea"
+                                        id="try-body-ep-inv-create">{
+  "payerName": "Kwame Mensah",
+  "payerEmail": "kwame@example.com",
+  "payerPhone": "0240000000",
+  "amount": 1000,
+  "currency": "GHS",
+  "asset": "USDT",
+  "network": "TRC20",
+  "description": "Restaurant payment",
+  "forceRateRefresh": true
+}</textarea>
+                                    <div class="try-actions"><button class="try-btn"
+                                            onclick="tryIt('ep-inv-create','POST','/invoices',true)"><i
+                                                class="ri-send-plane-fill"></i> Send</button><span class="try-status"
+                                            id="status-ep-inv-create" style="display:none"></span></div>
+                                </div>
+                                <div>
+                                    <div class="try-col-label">Response <span id="time-ep-inv-create"></span></div>
+                                    <div class="try-result placeholder" id="result-ep-inv-create">Response will appear
+                                        here...</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="endpoint" id="ep-inv-search">
+                    <div class="ep-head" onclick="toggle('ep-inv-search')"><span class="ep-method GET">GET</span><span
+                            class="ep-path">/invoices/search</span><span class="ep-auth-tag auth-bearer">Bearer / API
+                            key</span><span class="ep-summary">Full-text search across payer name, email, reference
+                            code. Supports status filter and pagination.</span><i class="ri-arrow-down-s-line ep-toggle"
+                            id="tog-ep-inv-search"></i></div>
+                    <div class="ep-body" id="body-ep-inv-search">
+                        <div class="ep-tabs"><button class="ep-tab active" onclick="tab('ep-inv-search','try')">Try
+                                it</button></div>
+                        <div class="ep-panel active" id="panel-ep-inv-search-try">
+                            <div class="try-layout">
+                                <div>
+                                    <div class="try-col-label">Query string</div><input class="auth-input"
+                                        id="try-qs-ep-inv-search" placeholder="?q=kwame&status=PAID&page=1&limit=20"
+                                        style="width:100%;margin-bottom:10px">
+                                    <div class="try-actions"><button class="try-btn"
+                                            onclick="tryItQS('ep-inv-search','GET','/invoices/search',true)"><i
+                                                class="ri-send-plane-fill"></i> Send</button><span class="try-status"
+                                            id="status-ep-inv-search" style="display:none"></span></div>
+                                </div>
+                                <div>
+                                    <div class="try-col-label">Response <span id="time-ep-inv-search"></span></div>
+                                    <div class="try-result placeholder" id="result-ep-inv-search">Response will appear
+                                        here...</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="endpoint" id="ep-inv-get">
+                    <div class="ep-head" onclick="toggle('ep-inv-get')"><span class="ep-method GET">GET</span><span
+                            class="ep-path">/invoices/<span class="param-seg">{invoiceId}</span></span><span
+                            class="ep-auth-tag auth-bearer">Bearer / API key</span><span class="ep-summary">Full invoice
+                            detail — payment intent, amount fingerprint, detection status.</span><i
+                            class="ri-arrow-down-s-line ep-toggle" id="tog-ep-inv-get"></i></div>
+                    <div class="ep-body" id="body-ep-inv-get">
+                        <div class="ep-tabs"><button class="ep-tab active" onclick="tab('ep-inv-get','try')">Try
+                                it</button></div>
+                        <div class="ep-panel active" id="panel-ep-inv-get-try">
+                            <div class="try-layout">
+                                <div>
+                                    <div class="try-col-label">invoiceId</div><input class="auth-input"
+                                        id="try-path-ep-inv-get" placeholder="invoiceId"
+                                        style="width:100%;margin-bottom:10px">
+                                    <div class="try-actions"><button class="try-btn"
+                                            onclick="tryItPath('ep-inv-get','GET','/invoices/',true)"><i
+                                                class="ri-send-plane-fill"></i> Send</button><span class="try-status"
+                                            id="status-ep-inv-get" style="display:none"></span></div>
+                                </div>
+                                <div>
+                                    <div class="try-col-label">Response <span id="time-ep-inv-get"></span></div>
+                                    <div class="try-result placeholder" id="result-ep-inv-get">Response will appear
+                                        here...</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="endpoint" id="ep-inv-ref">
+                    <div class="ep-head" onclick="toggle('ep-inv-ref')"><span class="ep-method GET">GET</span><span
+                            class="ep-path">/invoices/reference/<span
+                                class="param-seg">{referenceCode}</span></span><span
+                            class="ep-auth-tag auth-bearer">Bearer / API key</span><span class="ep-summary">Look up an
+                            invoice by its reference code.</span><i class="ri-arrow-down-s-line ep-toggle"
+                            id="tog-ep-inv-ref"></i></div>
+                    <div class="ep-body" id="body-ep-inv-ref">
+                        <div class="ep-tabs"><button class="ep-tab active" onclick="tab('ep-inv-ref','try')">Try
+                                it</button></div>
+                        <div class="ep-panel active" id="panel-ep-inv-ref-try">
+                            <div class="try-layout">
+                                <div>
+                                    <div class="try-col-label">referenceCode</div><input class="auth-input"
+                                        id="try-path-ep-inv-ref" placeholder="e.g. DRXREFABC123"
+                                        style="width:100%;margin-bottom:10px">
+                                    <div class="try-actions"><button class="try-btn"
+                                            onclick="tryItPath('ep-inv-ref','GET','/invoices/reference/',true)"><i
+                                                class="ri-send-plane-fill"></i> Send</button><span class="try-status"
+                                            id="status-ep-inv-ref" style="display:none"></span></div>
+                                </div>
+                                <div>
+                                    <div class="try-col-label">Response <span id="time-ep-inv-ref"></span></div>
+                                    <div class="try-result placeholder" id="result-ep-inv-ref">Response will appear
+                                        here...</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="section-group-title">Payment <em>stands</em></div>
+
+                <div class="endpoint" id="ep-stand-create">
+                    <div class="ep-head" onclick="toggle('ep-stand-create')"><span
+                            class="ep-method POST">POST</span><span class="ep-path">/payment-stands</span><span
+                            class="ep-auth-tag auth-bearer">Bearer</span><span class="ep-summary">Create a reusable QR
+                            payment stand. Returns publicUrl, printUrl, and base64 QR image.</span><i
+                            class="ri-arrow-down-s-line ep-toggle" id="tog-ep-stand-create"></i></div>
+                    <div class="ep-body" id="body-ep-stand-create">
+                        <div class="ep-tabs"><button class="ep-tab active" onclick="tab('ep-stand-create','try')">Try
+                                it</button></div>
+                        <div class="ep-panel active" id="panel-ep-stand-create-try">
+                            <div class="try-layout">
+                                <div>
+                                    <div class="try-col-label">Request body</div><textarea class="try-textarea"
+                                        id="try-body-ep-stand-create">{
+  "standName": "Table 12", "standCode": "TABLE-12",
+  "location": "Main Branch", "tableNumber": "12",
+  "instructions": "Scan to pay your bill.",
+  "mode": "OPEN_AMOUNT", "currency": "GHS",
+  "allowedAssets": ["USDT","BTC"],
+  "allowedNetworks": ["TRC20","BEP20","BTC"],
+  "defaultAsset": "USDT", "defaultNetwork": "TRC20"
+}</textarea>
+                                    <div class="try-actions"><button class="try-btn"
+                                            onclick="tryIt('ep-stand-create','POST','/payment-stands',true)"><i
+                                                class="ri-send-plane-fill"></i> Send</button><span class="try-status"
+                                            id="status-ep-stand-create" style="display:none"></span></div>
+                                </div>
+                                <div>
+                                    <div class="try-col-label">Response <span id="time-ep-stand-create"></span></div>
+                                    <div class="try-result placeholder" id="result-ep-stand-create">Response will appear
+                                        here...</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="endpoint" id="ep-stand-list">
+                    <div class="ep-head" onclick="toggle('ep-stand-list')"><span class="ep-method GET">GET</span><span
+                            class="ep-path">/payment-stands</span><span
+                            class="ep-auth-tag auth-bearer">Bearer</span><span class="ep-summary">List all payment
+                            stands for this workspace.</span><i class="ri-arrow-down-s-line ep-toggle"
+                            id="tog-ep-stand-list"></i></div>
+                    <div class="ep-body" id="body-ep-stand-list">
+                        <div class="ep-tabs"><button class="ep-tab active" onclick="tab('ep-stand-list','try')">Try
+                                it</button></div>
+                        <div class="ep-panel active" id="panel-ep-stand-list-try">
+                            <div class="try-layout">
+                                <div>
+                                    <div class="try-col-label">Query string</div><input class="auth-input"
+                                        id="try-qs-ep-stand-list" placeholder="" style="width:100%;margin-bottom:10px">
+                                    <div class="try-actions"><button class="try-btn"
+                                            onclick="tryItQS('ep-stand-list','GET','/payment-stands',true)"><i
+                                                class="ri-send-plane-fill"></i> Send</button><span class="try-status"
+                                            id="status-ep-stand-list" style="display:none"></span></div>
+                                </div>
+                                <div>
+                                    <div class="try-col-label">Response <span id="time-ep-stand-list"></span></div>
+                                    <div class="try-result placeholder" id="result-ep-stand-list">Response will appear
+                                        here...</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="section-group-title"><em>Webhooks</em></div>
+                <div class="info-box ib-blue"><i class="ri-information-line"></i>
+                    <div>Deliveries are queued, retried with exponential backoff. Always respond <code>2xx</code>
+                        immediately. Verify the <code>X-DoronPay-Signature</code> header using your webhook secret.
+                    </div>
+                </div>
+
+                <div class="endpoint" id="ep-wh-create">
+                    <div class="ep-head" onclick="toggle('ep-wh-create')"><span class="ep-method POST">POST</span><span
+                            class="ep-path">/webhooks</span><span class="ep-auth-tag auth-bearer">Bearer</span><span
+                            class="ep-summary">Create a webhook endpoint and generate a signing secret. Secret is shown
+                            only once — save immediately.</span><i class="ri-arrow-down-s-line ep-toggle"
+                            id="tog-ep-wh-create"></i></div>
+                    <div class="ep-body" id="body-ep-wh-create">
+                        <div class="ep-tabs"><button class="ep-tab active"
+                                onclick="tab('ep-wh-create','params')">Parameters</button><button class="ep-tab"
+                                onclick="tab('ep-wh-create','response')">Response</button><button class="ep-tab"
+                                onclick="tab('ep-wh-create','try')">Try it</button><button class="ep-tab"
+                                onclick="tab('ep-wh-create','code')">Code</button></div>
+                        <div class="ep-panel active" id="panel-ep-wh-create-params">
+                            <div style="overflow-x:auto">
+                                <table class="params-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Field</th>
+                                            <th>Type</th>
+                                            <th></th>
+                                            <th>Description</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td><span class="pname">name</span></td>
+                                            <td><span class="ptype">string</span></td>
+                                            <td><span class="preq">required</span></td>
+                                            <td class="pdesc">Label for this endpoint</td>
+                                        </tr>
+                                        <tr>
+                                            <td><span class="pname">url</span></td>
+                                            <td><span class="ptype">string</span></td>
+                                            <td><span class="preq">required</span></td>
+                                            <td class="pdesc">HTTPS URL DoronX will POST events to</td>
+                                        </tr>
+                                        <tr>
+                                            <td><span class="pname">eventTypes</span></td>
+                                            <td><span class="ptype">string[]</span></td>
+                                            <td><span class="preq">required</span></td>
+                                            <td class="pdesc"><code>invoice.created</code> |
+                                                <code>invoice.payment_detected</code> | <code>invoice.paid</code> |
+                                                <code>invoice.expired</code>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="ep-panel" id="panel-ep-wh-create-response">
+                            <div class="code-block">
+                                <div class="code-block-head"><span class="code-lang">200 OK</span><button
+                                        class="code-copy" onclick="cp(this)">Copy</button></div>
+                                <pre>{ <span class="j-key">"data"</span>: { <span class="j-key">"webhookEndpointId"</span>: <span class="j-str">"6a..."</span>, <span class="j-key">"secret"</span>: <span class="j-str">"whsec_..."</span> } }</pre>
+                            </div>
+                            <div class="info-box ib-orange" style="margin-top:12px"><i class="ri-alert-line"></i>
+                                <div><strong>Save the secret immediately.</strong> It is not stored and cannot be
+                                    retrieved again.</div>
+                            </div>
+                        </div>
+                        <div class="ep-panel" id="panel-ep-wh-create-try">
+                            <div class="try-layout">
+                                <div>
+                                    <div class="try-col-label">Request body</div><textarea class="try-textarea"
+                                        id="try-body-ep-wh-create">{
+  "name": "Production Webhook",
+  "url": "https://merchant.com/webhooks/doronpay",
+  "eventTypes": ["invoice.created","invoice.payment_detected","invoice.paid","invoice.expired"]
+}</textarea>
+                                    <div class="try-actions"><button class="try-btn"
+                                            onclick="tryIt('ep-wh-create','POST','/webhooks',true)"><i
+                                                class="ri-send-plane-fill"></i> Send</button><span class="try-status"
+                                            id="status-ep-wh-create" style="display:none"></span></div>
+                                </div>
+                                <div>
+                                    <div class="try-col-label">Response <span id="time-ep-wh-create"></span></div>
+                                    <div class="try-result placeholder" id="result-ep-wh-create">Response will appear
+                                        here...</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="ep-panel" id="panel-ep-wh-create-code">
+                            <div class="code-block">
+                                <div class="code-block-head"><span class="code-lang">Node.js — signature
+                                        verification</span><button class="code-copy" onclick="cp(this)">Copy</button>
+                                </div>
+                                <pre>import crypto from 'crypto';
+function verifyWebhook(rawBody, timestamp, signature, secret) {
+  const expected = crypto.createHmac('sha256', secret)
+    .update(timestamp + '.' + rawBody).digest('hex');
+  return crypto.timingSafeEqual(Buffer.from(expected), Buffer.from(signature));
+}
+app.post('/webhooks/doronpay', express.raw({type:'*/*'}), (req,res) => {
+  const ok = verifyWebhook(req.body, req.headers['x-doronpay-timestamp'],
+    req.headers['x-doronpay-signature'], process.env.WEBHOOK_SECRET);
+  if (!ok) return res.status(401).end();
+  res.sendStatus(200);
+});</pre>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="endpoint" id="ep-wh-list">
+                    <div class="ep-head" onclick="toggle('ep-wh-list')"><span class="ep-method GET">GET</span><span
+                            class="ep-path">/webhooks</span><span class="ep-auth-tag auth-bearer">Bearer</span><span
+                            class="ep-summary">List all webhook endpoints for this workspace.</span><i
+                            class="ri-arrow-down-s-line ep-toggle" id="tog-ep-wh-list"></i></div>
+                    <div class="ep-body" id="body-ep-wh-list">
+                        <div class="ep-tabs"><button class="ep-tab active" onclick="tab('ep-wh-list','try')">Try
+                                it</button></div>
+                        <div class="ep-panel active" id="panel-ep-wh-list-try">
+                            <div class="try-layout">
+                                <div>
+                                    <div class="try-col-label">Query string</div><input class="auth-input"
+                                        id="try-qs-ep-wh-list" placeholder="" style="width:100%;margin-bottom:10px">
+                                    <div class="try-actions"><button class="try-btn"
+                                            onclick="tryItQS('ep-wh-list','GET','/webhooks',true)"><i
+                                                class="ri-send-plane-fill"></i> Send</button><span class="try-status"
+                                            id="status-ep-wh-list" style="display:none"></span></div>
+                                </div>
+                                <div>
+                                    <div class="try-col-label">Response <span id="time-ep-wh-list"></span></div>
+                                    <div class="try-result placeholder" id="result-ep-wh-list">Response will appear
+                                        here...</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="endpoint" id="ep-wh-del">
+                    <div class="ep-head" onclick="toggle('ep-wh-del')"><span class="ep-method DELETE">DELETE</span><span
+                            class="ep-path">/webhooks/<span class="param-seg">{webhookEndpointId}</span></span><span
+                            class="ep-auth-tag auth-bearer">Bearer</span><span class="ep-summary">Disable and delete a
+                            webhook endpoint.</span><i class="ri-arrow-down-s-line ep-toggle" id="tog-ep-wh-del"></i>
+                    </div>
+                    <div class="ep-body" id="body-ep-wh-del">
+                        <div class="ep-tabs"><button class="ep-tab active" onclick="tab('ep-wh-del','try')">Try
+                                it</button></div>
+                        <div class="ep-panel active" id="panel-ep-wh-del-try">
+                            <div class="try-layout">
+                                <div>
+                                    <div class="try-col-label">webhookEndpointId</div><input class="auth-input"
+                                        id="try-path-ep-wh-del" placeholder="webhookEndpointId"
+                                        style="width:100%;margin-bottom:10px">
+                                    <div class="try-actions"><button class="try-btn"
+                                            onclick="tryItPath('ep-wh-del','DELETE','/webhooks/',true)"><i
+                                                class="ri-send-plane-fill"></i> Send</button><span class="try-status"
+                                            id="status-ep-wh-del" style="display:none"></span></div>
+                                </div>
+                                <div>
+                                    <div class="try-col-label">Response <span id="time-ep-wh-del"></span></div>
+                                    <div class="try-result placeholder" id="result-ep-wh-del">Response will appear
+                                        here...</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="endpoint" id="ep-wh-deliveries">
+                    <div class="ep-head" onclick="toggle('ep-wh-deliveries')"><span
+                            class="ep-method GET">GET</span><span class="ep-path">/webhooks/deliveries</span><span
+                            class="ep-auth-tag auth-bearer">Bearer</span><span class="ep-summary">Delivery logs —
+                            attempt count, HTTP response codes, retry status.</span><i
+                            class="ri-arrow-down-s-line ep-toggle" id="tog-ep-wh-deliveries"></i></div>
+                    <div class="ep-body" id="body-ep-wh-deliveries">
+                        <div class="ep-tabs"><button class="ep-tab active" onclick="tab('ep-wh-deliveries','try')">Try
+                                it</button></div>
+                        <div class="ep-panel active" id="panel-ep-wh-deliveries-try">
+                            <div class="try-layout">
+                                <div>
+                                    <div class="try-col-label">Query string</div><input class="auth-input"
+                                        id="try-qs-ep-wh-deliveries" placeholder="?status=FAILED&page=1&limit=20"
+                                        style="width:100%;margin-bottom:10px">
+                                    <div class="try-actions"><button class="try-btn"
+                                            onclick="tryItQS('ep-wh-deliveries','GET','/webhooks/deliveries',true)"><i
+                                                class="ri-send-plane-fill"></i> Send</button><span class="try-status"
+                                            id="status-ep-wh-deliveries" style="display:none"></span></div>
+                                </div>
+                                <div>
+                                    <div class="try-col-label">Response <span id="time-ep-wh-deliveries"></span></div>
+                                    <div class="try-result placeholder" id="result-ep-wh-deliveries">Response will
+                                        appear here...</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="section-group-title"><em>Billing</em></div>
+
+                <div class="endpoint" id="ep-plans">
+                    <div class="ep-head" onclick="toggle('ep-plans')"><span class="ep-method GET">GET</span><span
+                            class="ep-path">/billing/plans</span><span
+                            class="ep-auth-tag auth-public">Public</span><span class="ep-summary">List available SaaS
+                            plans with monthly fees and feature limits.</span><i class="ri-arrow-down-s-line ep-toggle"
+                            id="tog-ep-plans"></i></div>
+                    <div class="ep-body" id="body-ep-plans">
+                        <div class="ep-tabs"><button class="ep-tab active" onclick="tab('ep-plans','try')">Try
+                                it</button></div>
+                        <div class="ep-panel active" id="panel-ep-plans-try">
+                            <div class="try-layout">
+                                <div>
+                                    <div class="try-col-label">Query string</div><input class="auth-input"
+                                        id="try-qs-ep-plans" placeholder="" style="width:100%;margin-bottom:10px">
+                                    <div class="try-actions"><button class="try-btn"
+                                            onclick="tryItQS('ep-plans','GET','/billing/plans',false)"><i
+                                                class="ri-send-plane-fill"></i> Send</button><span class="try-status"
+                                            id="status-ep-plans" style="display:none"></span></div>
+                                </div>
+                                <div>
+                                    <div class="try-col-label">Response <span id="time-ep-plans"></span></div>
+                                    <div class="try-result placeholder" id="result-ep-plans">Response will appear
+                                        here...</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="endpoint" id="ep-subscription">
+                    <div class="ep-head" onclick="toggle('ep-subscription')"><span class="ep-method GET">GET</span><span
+                            class="ep-path">/billing/subscription</span><span
+                            class="ep-auth-tag auth-bearer">Bearer</span><span class="ep-summary">Get current
+                            subscription details.</span><i class="ri-arrow-down-s-line ep-toggle"
+                            id="tog-ep-subscription"></i></div>
+                    <div class="ep-body" id="body-ep-subscription">
+                        <div class="ep-tabs"><button class="ep-tab active" onclick="tab('ep-subscription','try')">Try
+                                it</button></div>
+                        <div class="ep-panel active" id="panel-ep-subscription-try">
+                            <div class="try-layout">
+                                <div>
+                                    <div class="try-col-label">Query string</div><input class="auth-input"
+                                        id="try-qs-ep-subscription" placeholder=""
+                                        style="width:100%;margin-bottom:10px">
+                                    <div class="try-actions"><button class="try-btn"
+                                            onclick="tryItQS('ep-subscription','GET','/billing/subscription',true)"><i
+                                                class="ri-send-plane-fill"></i> Send</button><span class="try-status"
+                                            id="status-ep-subscription" style="display:none"></span></div>
+                                </div>
+                                <div>
+                                    <div class="try-col-label">Response <span id="time-ep-subscription"></span></div>
+                                    <div class="try-result placeholder" id="result-ep-subscription">Response will appear
+                                        here...</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="endpoint" id="ep-usage">
+                    <div class="ep-head" onclick="toggle('ep-usage')"><span class="ep-method GET">GET</span><span
+                            class="ep-path">/billing/usage</span><span
+                            class="ep-auth-tag auth-bearer">Bearer</span><span class="ep-summary">Usage counts for the
+                            current billing period.</span><i class="ri-arrow-down-s-line ep-toggle"
+                            id="tog-ep-usage"></i></div>
+                    <div class="ep-body" id="body-ep-usage">
+                        <div class="ep-tabs"><button class="ep-tab active" onclick="tab('ep-usage','try')">Try
+                                it</button></div>
+                        <div class="ep-panel active" id="panel-ep-usage-try">
+                            <div class="try-layout">
+                                <div>
+                                    <div class="try-col-label">Query string</div><input class="auth-input"
+                                        id="try-qs-ep-usage" placeholder="" style="width:100%;margin-bottom:10px">
+                                    <div class="try-actions"><button class="try-btn"
+                                            onclick="tryItQS('ep-usage','GET','/billing/usage',true)"><i
+                                                class="ri-send-plane-fill"></i> Send</button><span class="try-status"
+                                            id="status-ep-usage" style="display:none"></span></div>
+                                </div>
+                                <div>
+                                    <div class="try-col-label">Response <span id="time-ep-usage"></span></div>
+                                    <div class="try-result placeholder" id="result-ep-usage">Response will appear
+                                        here...</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="endpoint" id="ep-bills">
+                    <div class="ep-head" onclick="toggle('ep-bills')"><span class="ep-method GET">GET</span><span
+                            class="ep-path">/billing/bills</span><span
+                            class="ep-auth-tag auth-bearer">Bearer</span><span class="ep-summary">List SaaS bills with
+                            amounts, due dates, and payment status.</span><i class="ri-arrow-down-s-line ep-toggle"
+                            id="tog-ep-bills"></i></div>
+                    <div class="ep-body" id="body-ep-bills">
+                        <div class="ep-tabs"><button class="ep-tab active" onclick="tab('ep-bills','try')">Try
+                                it</button></div>
+                        <div class="ep-panel active" id="panel-ep-bills-try">
+                            <div class="try-layout">
+                                <div>
+                                    <div class="try-col-label">Query string</div><input class="auth-input"
+                                        id="try-qs-ep-bills" placeholder="" style="width:100%;margin-bottom:10px">
+                                    <div class="try-actions"><button class="try-btn"
+                                            onclick="tryItQS('ep-bills','GET','/billing/bills',true)"><i
+                                                class="ri-send-plane-fill"></i> Send</button><span class="try-status"
+                                            id="status-ep-bills" style="display:none"></span></div>
+                                </div>
+                                <div>
+                                    <div class="try-col-label">Response <span id="time-ep-bills"></span></div>
+                                    <div class="try-result placeholder" id="result-ep-bills">Response will appear
+                                        here...</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="endpoint" id="ep-change-plan">
+                    <div class="ep-head" onclick="toggle('ep-change-plan')"><span
+                            class="ep-method POST">POST</span><span class="ep-path">/billing/change-plan</span><span
+                            class="ep-auth-tag auth-bearer">Bearer</span><span class="ep-summary">Change subscription
+                            plan.</span><i class="ri-arrow-down-s-line ep-toggle" id="tog-ep-change-plan"></i></div>
+                    <div class="ep-body" id="body-ep-change-plan">
+                        <div class="ep-tabs"><button class="ep-tab active" onclick="tab('ep-change-plan','try')">Try
+                                it</button></div>
+                        <div class="ep-panel active" id="panel-ep-change-plan-try">
+                            <div class="try-layout">
+                                <div>
+                                    <div class="try-col-label">Request body</div><textarea class="try-textarea"
+                                        id="try-body-ep-change-plan"
+                                        style="min-height:80px">{ "planCode": "BUSINESS", "changeReason": "Upgrading" }</textarea>
+                                    <div class="try-actions"><button class="try-btn"
+                                            onclick="tryIt('ep-change-plan','POST','/billing/change-plan',true)"><i
+                                                class="ri-send-plane-fill"></i> Send</button><span class="try-status"
+                                            id="status-ep-change-plan" style="display:none"></span></div>
+                                </div>
+                                <div>
+                                    <div class="try-col-label">Response <span id="time-ep-change-plan"></span></div>
+                                    <div class="try-result placeholder" id="result-ep-change-plan">Response will appear
+                                        here...</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="endpoint" id="ep-pay-bill">
+                    <div class="ep-head" onclick="toggle('ep-pay-bill')"><span class="ep-method POST">POST</span><span
+                            class="ep-path">/billing/bills/<span
+                                class="param-seg">{billId}</span>/pay-crypto</span><span
+                            class="ep-auth-tag auth-bearer">Bearer</span><span class="ep-summary">Create a crypto
+                            payment intent for a SaaS bill.</span><i class="ri-arrow-down-s-line ep-toggle"
+                            id="tog-ep-pay-bill"></i></div>
+                    <div class="ep-body" id="body-ep-pay-bill">
+                        <div class="ep-tabs"><button class="ep-tab active" onclick="tab('ep-pay-bill','try')">Try
+                                it</button></div>
+                        <div class="ep-panel active" id="panel-ep-pay-bill-try">
+                            <div class="try-layout">
+                                <div>
+                                    <div class="try-col-label">billId + body</div><input class="auth-input"
+                                        id="try-path-ep-pay-bill" placeholder="billId"
+                                        style="width:100%;margin-bottom:8px"><textarea class="try-textarea"
+                                        id="try-body-ep-pay-bill"
+                                        style="min-height:80px">{ "asset": "USDT", "network": "TRC20" }</textarea>
+                                    <div class="try-actions"><button class="try-btn"
+                                            onclick="tryItPath('ep-pay-bill','POST','/billing/bills/',true,'/pay-crypto')"><i
+                                                class="ri-send-plane-fill"></i> Send</button><span class="try-status"
+                                            id="status-ep-pay-bill" style="display:none"></span></div>
+                                </div>
+                                <div>
+                                    <div class="try-col-label">Response <span id="time-ep-pay-bill"></span></div>
+                                    <div class="try-result placeholder" id="result-ep-pay-bill">Response will appear
+                                        here...</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="section-group-title"><em>Reports</em></div>
+
+                <div class="endpoint" id="ep-reports">
+                    <div class="ep-head" onclick="toggle('ep-reports')"><span class="ep-method GET">GET</span><span
+                            class="ep-path">/reports/summary</span><span class="ep-auth-tag auth-bearer">Bearer / API
+                            key</span><span class="ep-summary">Aggregated summary — invoice totals, volume by currency,
+                            crypto received, webhook delivery stats.</span><i class="ri-arrow-down-s-line ep-toggle"
+                            id="tog-ep-reports"></i></div>
+                    <div class="ep-body" id="body-ep-reports">
+                        <div class="ep-tabs"><button class="ep-tab active" onclick="tab('ep-reports','try')">Try
+                                it</button></div>
+                        <div class="ep-panel active" id="panel-ep-reports-try">
+                            <div class="try-layout">
+                                <div>
+                                    <div class="try-col-label">Query string</div><input class="auth-input"
+                                        id="try-qs-ep-reports" placeholder="?from=2026-06-01&to=2026-06-30"
+                                        style="width:100%;margin-bottom:10px">
+                                    <div class="try-actions"><button class="try-btn"
+                                            onclick="tryItQS('ep-reports','GET','/reports/summary',true)"><i
+                                                class="ri-send-plane-fill"></i> Send</button><span class="try-status"
+                                            id="status-ep-reports" style="display:none"></span></div>
+                                </div>
+                                <div>
+                                    <div class="try-col-label">Response <span id="time-ep-reports"></span></div>
+                                    <div class="try-result placeholder" id="result-ep-reports">Response will appear
+                                        here...</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="sec-statuses" class="section-group-title">Invoice <em>statuses</em></div>
+                <div class="status-list">
+                    <div>
+                        <div class="status-chip sc-created"><span class="status-dot dot-gray"></span>CREATED</div>
+                        <div class="sc-desc">Intent created, not yet monitoring</div>
+                    </div>
+                    <div>
+                        <div class="status-chip sc-wait"><span class="status-dot dot-orange"></span>AWAITING_PAYMENT
+                        </div>
+                        <div class="sc-desc">Detection registered, waiting for customer</div>
+                    </div>
+                    <div>
+                        <div class="status-chip sc-detect"><span class="status-dot dot-blue"></span>PAYMENT_DETECTED
+                        </div>
+                        <div class="sc-desc">Transaction seen on-chain, 0 confirmations</div>
+                    </div>
+                    <div>
+                        <div class="status-chip sc-detect"><span class="status-dot dot-blue"></span>CONFIRMING</div>
+                        <div class="sc-desc">Confirmation blocks accumulating</div>
+                    </div>
+                    <div>
+                        <div class="status-chip sc-paid"><span class="status-dot dot-green"></span>PAID</div>
+                        <div class="sc-desc">Confirmed, amount within tolerance</div>
+                    </div>
+                    <div>
+                        <div class="status-chip sc-bad"><span class="status-dot dot-red"></span>UNDERPAID</div>
+                        <div class="sc-desc">Confirmed but below expected</div>
+                    </div>
+                    <div>
+                        <div class="status-chip sc-wait"><span class="status-dot dot-orange"></span>OVERPAID</div>
+                        <div class="sc-desc">Confirmed but exceeds expected</div>
+                    </div>
+                    <div>
+                        <div class="status-chip sc-neutral"><span class="status-dot dot-gray"></span>EXPIRED</div>
+                        <div class="sc-desc">Timed out before payment detected</div>
+                    </div>
+                    <div>
+                        <div class="status-chip sc-bad"><span class="status-dot dot-red"></span>FAILED</div>
+                        <div class="sc-desc">Processing or detection error</div>
+                    </div>
+                    <div>
+                        <div class="status-chip sc-neutral"><span class="status-dot dot-gray"></span>CANCELLED</div>
+                        <div class="sc-desc">Manually cancelled</div>
+                    </div>
+                </div>
+
+                <div id="sec-fingerprint" class="section-group-title">Amount <em>fingerprinting</em></div>
+                <p style="font-size:14px;color:var(--gray);line-height:1.7;margin-bottom:16px">Because V1 merchants
+                    share a single wallet address, each invoice gets a tiny deterministic decimal suffix so DoronX can
+                    match an on-chain deposit to exactly one invoice.</p>
+                <div class="fingerprint-example">
+                    <div class="fp-row"><span class="fp-label">Fiat invoice</span><span class="fp-val">GHS
+                            1,000.00</span></div>
+                    <div class="fp-row"><span class="fp-label">Quoted crypto</span><span class="fp-val">65.123000
+                            USDT</span></div>
+                    <div class="fp-row"><span class="fp-label">Fingerprint suffix</span><span class="fp-val">+
+                            0.000401</span></div>
+                    <div class="fp-row"><span class="fp-label">Customer must send EXACTLY</span><span
+                            class="fp-val fp-final">65.123401 USDT</span></div>
+                    <div class="fp-note">Always display <strong>amountFingerprint.finalExpectedAmount</strong> — never
+                        the raw quoted amount.</div>
+                </div>
+                <div class="info-box ib-red"><i class="ri-alert-line"></i>
+                    <div>If a customer sends a rounded amount (e.g. <code>65.12</code> instead of
+                        <code>65.123401</code>), the deposit may be flagged as AMBIGUOUS and require manual review.
+                    </div>
+                </div>
+
+                <footer
+                    style="border-top:1px solid var(--border);padding:24px;background:var(--dark2);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;font-size:13px;color:var(--gray);margin:40px -24px -80px">
+                    <span>© 2026 DoronX Smart Invoicing · API v5.0</span>
+                    <div style="display:flex;gap:20px"><a href="index.html" style="color:var(--orange)">← Back to
+                            site</a><a href="https://doronpay.com/" style="color:var(--orange)">Open dashboard</a></div>
+                </footer>
+
+            </div><!-- /doc-content -->
+        </div><!-- /doc-main -->
+    </div><!-- /docs-layout -->
+
+    <script>
+        const BASE = 'https://api.doronpay.com/smart-invoicing';
+        window.addEventListener('scroll', () => document.getElementById('mainNav').classList.toggle('scrolled', scrollY > 40), { passive: true });
+        let mobOpen = false;
+        function toggleMob() { mobOpen = !mobOpen; document.getElementById('mobOverlay').classList.toggle('open', mobOpen); document.getElementById('navBurger').classList.toggle('open', mobOpen); document.body.style.overflow = mobOpen ? 'hidden' : ''; }
+        function openSidebar() { document.getElementById('docSidebar').classList.add('mob-open'); document.getElementById('sidebarOverlay').classList.add('active'); }
+        function closeSidebar() { document.getElementById('docSidebar').classList.remove('mob-open'); document.getElementById('sidebarOverlay').classList.remove('active'); }
+        function setEnv(e) { document.getElementById('envTest').className = 'env-btn' + (e === 'TEST' ? ' active-test' : ''); document.getElementById('envLive').className = 'env-btn' + (e === 'LIVE' ? ' active-live' : ''); }
+        function toggle(id) { const b = document.getElementById('body-' + id); const t = document.getElementById('tog-' + id); const o = b.classList.toggle('open'); if (t) t.classList.toggle('open', o); document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active')); const nb = document.querySelector('[data-ep="' + id + '"]'); if (nb) nb.classList.add('active'); }
+        function openEp(id) { if (!document.getElementById('body-' + id).classList.contains('open')) toggle(id); setTimeout(() => document.getElementById(id)?.scrollIntoView({ behavior: 'smooth', block: 'start' }), 60); }
+        function goTo(id) { document.getElementById(id)?.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
+        function tab(epId, name) { document.querySelectorAll('[id^="panel-' + epId + '-"]').forEach(p => p.classList.remove('active')); document.querySelectorAll('#body-' + epId + ' .ep-tab').forEach(t => t.classList.remove('active')); document.getElementById('panel-' + epId + '-' + name)?.classList.add('active'); document.querySelectorAll('#body-' + epId + ' .ep-tab').forEach(t => { if (t.getAttribute('onclick')?.includes("'" + name + "'")) t.classList.add('active'); }); }
+        document.getElementById('sidebarSearch').addEventListener('input', function () { const q = this.value.toLowerCase(); document.querySelectorAll('.nav-item').forEach(i => { i.style.display = !q || i.textContent.toLowerCase().includes(q) ? '' : 'none'; }); document.querySelectorAll('.nav-group').forEach(g => { g.style.display = [...g.querySelectorAll('.nav-item')].some(i => i.style.display !== 'none') ? '' : 'none'; }); });
+        function hl(j) { if (typeof j !== 'string') j = JSON.stringify(j, null, 2); return j.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/("(?:[^"\\]|\\.)*"(?:\s*:)?|true|false|null|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?)/g, m => { if (/^"/.test(m)) { return /:$/.test(m) ? '<span class="j-key">' + m + '</span>' : '<span class="j-str">' + m + '</span>'; } if (/true|false/.test(m)) return '<span class="j-bool">' + m + '</span>'; if (/null/.test(m)) return '<span class="j-null">' + m + '</span>'; return '<span class="j-num">' + m + '</span>'; }); }
+        async function tryIt(epId, method, path, auth, suffix = '') {
+            const token = document.getElementById('globalToken').value.trim();
+            const bodyEl = document.getElementById('try-body-' + epId);
+            const resEl = document.getElementById('result-' + epId);
+            const statEl = document.getElementById('status-' + epId);
+            const timeEl = document.getElementById('time-' + epId);
+            if (auth && !token) { resEl.textContent = '// Paste your Bearer token at the top.'; resEl.className = 'try-result placeholder'; return; }
+            const headers = { 'Content-Type': 'application/json' };
+            if (auth && token) headers['Authorization'] = 'Bearer ' + token;
+            const opts = { method, headers };
+            if (bodyEl && ['POST', 'PUT', 'PATCH'].includes(method)) { try { JSON.parse(bodyEl.value); opts.body = bodyEl.value; } catch (e) { resEl.textContent = 'JSON error: ' + e.message; resEl.className = 'try-result placeholder'; return; } }
+            const btn = document.querySelector('#panel-' + epId + '-try .try-btn');
+            if (btn) { btn.disabled = true; btn.innerHTML = '<span class="spinner"></span> Sending...'; }
+            resEl.textContent = '// Sending...'; resEl.className = 'try-result placeholder'; statEl.style.display = 'none';
+            const t0 = performance.now();
+            try {
+                const res = await fetch(BASE + path + suffix, opts);
+                const ms = Math.round(performance.now() - t0);
+                const text = await res.text();
+                let parsed; try { parsed = JSON.parse(text); } catch { parsed = text; }
+                resEl.innerHTML = typeof parsed === 'string' ? parsed : hl(parsed);
+                resEl.className = 'try-result';
+                statEl.textContent = res.status + ' ' + res.statusText;
+                statEl.className = 'try-status ' + (res.ok ? 'ok' : 'err');
+                statEl.style.display = '';
+                if (timeEl) timeEl.textContent = ms + 'ms';
+            } catch (e) {
+                resEl.textContent = '// Network error: ' + e.message + '\n\nNote: CORS may block browser requests.';
+                resEl.className = 'try-result placeholder';
+                statEl.textContent = 'Error'; statEl.className = 'try-status err'; statEl.style.display = '';
+            } finally { if (btn) { btn.disabled = false; btn.innerHTML = '<i class="ri-send-plane-fill"></i> Send request'; } }
+        }
+        async function tryItPath(epId, method, base, auth, suffix = '') {
+            const pv = document.getElementById('try-path-' + epId)?.value.trim();
+            if (!pv) { document.getElementById('result-' + epId).textContent = '// Enter the path parameter above.'; return; }
+            await tryIt(epId, method, base + pv, auth, suffix);
+        }
+        async function tryItQS(epId, method, path, auth) {
+            const qs = document.getElementById('try-qs-' + epId)?.value.trim() || '';
+            await tryIt(epId, method, path + (qs.startsWith('?') ? qs : qs ? '?' + qs : ''), auth);
+        }
+        function cp(btn) { const pre = btn.closest('.code-block').querySelector('pre'); navigator.clipboard.writeText(pre.innerText).then(() => { btn.textContent = 'Copied!'; setTimeout(() => btn.textContent = 'Copy', 2000); }); }
+    </script>
+</body>
+
+</html>
