@@ -15,12 +15,10 @@
         :root {
             --orange: #F7931A;
             --orange-warm: #FF7A1A;
-            --orange-deep: #E8541A;
             --orange-soft: rgba(247, 147, 26, .12);
             --orange-border: rgba(247, 147, 26, .25);
             --white: #FFF;
             --black: #070707;
-            --dark: #0D0D0D;
             --dark2: #111;
             --card: #141414;
             --card2: #1A1A1A;
@@ -74,13 +72,13 @@
             font-family: 'Space Mono', monospace
         }
 
-        /* NAV */
-        nav {
+        /* ── TOP NAV ── */
+        #mainNav {
             position: fixed;
             top: 0;
             left: 0;
             right: 0;
-            z-index: 300;
+            z-index: 400;
             display: flex;
             align-items: center;
             justify-content: space-between;
@@ -89,11 +87,10 @@
             background: rgba(7, 7, 7, .88);
             backdrop-filter: blur(24px) saturate(160%);
             border-bottom: 1px solid var(--border);
-            transition: background .3s;
-            isolation: isolate
+            transition: background .3s
         }
 
-        nav.scrolled {
+        #mainNav.scrolled {
             background: rgba(7, 7, 7, .98)
         }
 
@@ -278,21 +275,22 @@
             justify-content: center
         }
 
-        /* LAYOUT */
+        /* ── DOCS LAYOUT ── */
         .docs-layout {
             display: flex;
             min-height: 100vh;
             padding-top: var(--nav)
         }
 
-        /* ═══ SIDEBAR FIX ═══
-           Root causes fixed:
-           1. Removed `contain: layout style` — was causing Chrome to collapse width
-           2. Added min-width + max-width to hard-lock at 260px
-           3. Added flex-shrink:0 so flex parent can't squeeze it
-           4. sidebar-search and sidebar-env get flex-shrink:0 so they don't collapse
-           5. sidebar-nav gets overflow-y:auto so it scrolls independently
-        */
+        /*
+ * SIDEBAR — the definitive fix.
+ *
+ * The sidebar is position:fixed, so it is completely outside normal flow.
+ * It is NOT a flex container. It is a plain scrollable block.
+ * Children (.sidebar-search, .sidebar-env, .sidebar-nav) are normal block
+ * elements that stack top-to-bottom. The sidebar scrolls as one unit.
+ * Width is triple-locked so nothing can collapse it.
+ */
         .doc-sidebar {
             position: fixed;
             top: var(--nav);
@@ -301,15 +299,13 @@
             width: var(--sidebar);
             min-width: var(--sidebar);
             max-width: var(--sidebar);
-            flex-shrink: 0;
             background: var(--dark2);
             border-right: 1px solid var(--border);
             overflow-y: auto;
             overflow-x: hidden;
             z-index: 200;
-            display: flex;
-            flex-direction: column;
-            box-sizing: border-box;
+            isolation: isolate;
+            /* NO display:flex — plain block so children stack naturally */
         }
 
         .doc-sidebar::-webkit-scrollbar {
@@ -325,10 +321,10 @@
             border-radius: 2px
         }
 
+        /* These are plain block children — they stack vertically by default */
         .sidebar-search {
             padding: 14px 14px 10px;
-            border-bottom: 1px solid var(--border);
-            flex-shrink: 0
+            border-bottom: 1px solid var(--border)
         }
 
         .sidebar-search-inner {
@@ -371,8 +367,7 @@
             display: flex;
             align-items: center;
             gap: 8px;
-            border-bottom: 1px solid var(--border);
-            flex-shrink: 0
+            border-bottom: 1px solid var(--border)
         }
 
         .env-label {
@@ -412,13 +407,8 @@
             border-color: rgba(34, 197, 94, .3)
         }
 
-        /* nav takes remaining height and scrolls */
         .sidebar-nav {
-            flex: 1;
-            padding: 10px 8px 24px;
-            overflow-y: auto;
-            overflow-x: hidden;
-            min-height: 0
+            padding: 10px 8px 32px
         }
 
         .nav-group {
@@ -432,9 +422,7 @@
             text-transform: uppercase;
             letter-spacing: .12em;
             padding: 10px 10px 5px;
-            display: block;
-            white-space: nowrap;
-            overflow: hidden
+            display: block
         }
 
         .nav-item {
@@ -453,7 +441,6 @@
             width: 100%;
             text-align: left;
             background: none;
-            /* prevent items overflowing sidebar width */
             overflow: hidden;
             white-space: nowrap;
             text-overflow: ellipsis;
@@ -468,7 +455,7 @@
         .nav-item.active {
             background: var(--orange-soft);
             color: var(--orange);
-            border-left-color: var(--orange)
+            /* border-left-color: var(--orange) */
         }
 
         .method-badge {
@@ -500,7 +487,21 @@
             color: var(--red)
         }
 
-        /* MAIN */
+        /* ── SIDEBAR OVERLAY (mobile) ── */
+        .sidebar-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, .65);
+            z-index: 190;
+            backdrop-filter: blur(4px)
+        }
+
+        .sidebar-overlay.active {
+            display: block
+        }
+
+        /* ── MAIN CONTENT ── */
         .doc-main {
             margin-left: var(--sidebar);
             flex: 1;
@@ -509,10 +510,28 @@
             flex-direction: column
         }
 
+        .mob-topbar-toggle {
+            display: none;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 16px;
+            background: var(--card2);
+            border-bottom: 1px solid var(--border);
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            color: var(--white)
+        }
+
+        .mob-topbar-toggle i {
+            color: var(--orange);
+            font-size: 16px
+        }
+
         .doc-topbar {
             position: sticky;
             top: var(--nav);
-            z-index: 150;
+            z-index: 250;
             background: var(--dark2);
             border-bottom: 1px solid var(--border);
             padding: 10px 24px;
@@ -613,6 +632,7 @@
             color: var(--orange)
         }
 
+        /* ── ENDPOINTS ── */
         .endpoint {
             background: var(--card);
             border: 1px solid var(--border);
@@ -709,12 +729,6 @@
             border: 1px solid rgba(168, 85, 247, .25)
         }
 
-        .auth-apikey {
-            background: rgba(56, 132, 255, .15);
-            color: var(--blue);
-            border: 1px solid rgba(56, 132, 255, .25)
-        }
-
         .ep-toggle {
             color: var(--gray2);
             font-size: 16px;
@@ -773,6 +787,7 @@
             display: block
         }
 
+        /* ── PARAMS TABLE ── */
         .params-table {
             width: 100%;
             border-collapse: collapse;
@@ -834,6 +849,7 @@
             font-size: 13px
         }
 
+        /* ── TRY IT ── */
         .try-layout {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -960,6 +976,7 @@
             font-style: italic
         }
 
+        /* ── CODE BLOCKS ── */
         .code-block {
             background: #080808;
             border: 1px solid var(--border);
@@ -1030,6 +1047,7 @@
             color: var(--gray2)
         }
 
+        /* ── INFO BOXES ── */
         .info-box {
             display: flex;
             gap: 10px;
@@ -1099,6 +1117,7 @@
             border-radius: 4px
         }
 
+        /* ── STATUS CHIPS ── */
         .status-list {
             display: flex;
             flex-wrap: wrap;
@@ -1183,6 +1202,7 @@
             margin-top: 2px
         }
 
+        /* ── FINGERPRINT ── */
         .fingerprint-example {
             background: var(--card2);
             border: 1px solid var(--orange-border);
@@ -1225,38 +1245,7 @@
             font-family: 'DM Sans', sans-serif
         }
 
-        .mob-topbar-toggle {
-            display: none;
-            align-items: center;
-            gap: 8px;
-            padding: 10px 16px;
-            background: var(--card2);
-            border-bottom: 1px solid var(--border);
-            font-size: 13px;
-            font-weight: 600;
-            cursor: pointer;
-            color: var(--white)
-        }
-
-        .mob-topbar-toggle i {
-            color: var(--orange);
-            font-size: 16px
-        }
-
-        /* Sidebar overlay — hidden by default, only shown via .active class */
-        .sidebar-overlay {
-            display: none;
-            position: fixed;
-            inset: 0;
-            background: rgba(0, 0, 0, .65);
-            z-index: 240;
-            backdrop-filter: blur(4px)
-        }
-
-        .sidebar-overlay.active {
-            display: block
-        }
-
+        /* ── RESPONSIVE ── */
         @media(max-width:960px) {
 
             .nav-links,
@@ -1273,10 +1262,7 @@
             .doc-sidebar {
                 transform: translateX(-100%);
                 transition: transform .3s ease;
-                z-index: 250;
-                width: var(--sidebar);
-                min-width: var(--sidebar);
-                max-width: var(--sidebar);
+                z-index: 250
             }
 
             .doc-sidebar.mob-open {
@@ -1308,9 +1294,7 @@
 
 <body>
     <nav id="mainNav">
-        <a href="index.html" class="nav-logo">
-            <div class="logo-mark"><img src="logo.png" alt="DoronX" class="logo-img"></div>
-        </a>
+        <a href="index.html" class="nav-logo"><img src="logo.png" alt="DoronX" class="logo-img"></a>
         <div class="nav-links">
             <a href="index.html">Home</a><a href="index.html#features">Features</a>
             <a href="index.html#ecosystem">Integrations</a><a href="index.html#how">How it works</a>
@@ -1337,6 +1321,8 @@
     </div>
 
     <div class="docs-layout">
+
+        <!-- SIDEBAR -->
         <aside class="doc-sidebar" id="docSidebar">
             <div class="sidebar-search">
                 <div class="sidebar-search-inner">
@@ -1354,9 +1340,9 @@
             <nav class="sidebar-nav" id="sidebarNav">
                 <div class="nav-group">
                     <span class="nav-group-label">Overview</span>
-                    <button class="nav-item" onclick="scrollTo('sec-overview')">Introduction</button>
-                    <button class="nav-item" onclick="scrollTo('sec-auth')">Authentication</button>
-                    <button class="nav-item" onclick="scrollTo('sec-errors')">Errors &amp; responses</button>
+                    <button class="nav-item" onclick="goTo('sec-overview')">Introduction</button>
+                    <button class="nav-item" onclick="goTo('sec-auth')">Authentication</button>
+                    <button class="nav-item" onclick="goTo('sec-errors')">Errors &amp; responses</button>
                 </div>
                 <div class="nav-group">
                     <span class="nav-group-label">Authentication</span>
@@ -1440,19 +1426,21 @@
                 </div>
                 <div class="nav-group">
                     <span class="nav-group-label">Reference</span>
-                    <button class="nav-item" onclick="scrollTo('sec-statuses')">Invoice statuses</button>
-                    <button class="nav-item" onclick="scrollTo('sec-fingerprint')">Amount fingerprinting</button>
+                    <button class="nav-item" onclick="goTo('sec-statuses')">Invoice statuses</button>
+                    <button class="nav-item" onclick="goTo('sec-fingerprint')">Amount fingerprinting</button>
                 </div>
             </nav>
         </aside>
 
         <div class="sidebar-overlay" id="sidebarOverlay" onclick="closeSidebar()"></div>
 
+        <!-- MAIN -->
         <div class="doc-main">
             <div class="mob-topbar-toggle" onclick="openSidebar()"><i class="ri-menu-2-line"></i> API Reference</div>
             <div class="doc-topbar">
-                <div class="base-url-chip"><i class="ri-server-line" style="color:var(--orange);font-size:14px"></i>
-                    Base URL: <span>https://api.doronpay.com/smart-invoicing</span></div>
+                <div class="base-url-chip"><i class="ri-server-line"
+                        style="color:var(--orange);font-size:14px"></i>&nbsp;Base
+                    URL:&nbsp;<span>https://api.doronpay.com/smart-invoicing</span></div>
                 <div class="auth-input-wrap"><label>Bearer token</label><input class="auth-input" id="globalToken"
                         type="password" placeholder="Paste your token here — used in all Try It requests"
                         autocomplete="off"></div>
@@ -1586,7 +1574,8 @@ Content-Type: application/json</pre>
                                             <td><span class="ptype">string</span></td>
                                             <td><span class="popt">optional</span></td>
                                             <td class="pdesc"><code>FREE</code> | <code>BUSINESS</code> |
-                                                <code>GROWTH</code> | <code>ENTERPRISE</code></td>
+                                                <code>GROWTH</code> | <code>ENTERPRISE</code>
+                                            </td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -1617,9 +1606,8 @@ Content-Type: application/json</pre>
 }</textarea>
                                     <div class="try-actions"><button class="try-btn"
                                             onclick="tryIt('ep-register','POST','/auth/register',false)"><i
-                                                class="ri-send-plane-fill"></i> Send request</button><span
-                                            class="try-status" id="status-ep-register" style="display:none"></span>
-                                    </div>
+                                                class="ri-send-plane-fill"></i> Send</button><span class="try-status"
+                                            id="status-ep-register" style="display:none"></span></div>
                                 </div>
                                 <div>
                                     <div class="try-col-label">Response <span id="time-ep-register"></span></div>
@@ -1693,8 +1681,8 @@ Content-Type: application/json</pre>
 }</textarea>
                                     <div class="try-actions"><button class="try-btn"
                                             onclick="tryIt('ep-login','POST','/auth/login',false)"><i
-                                                class="ri-send-plane-fill"></i> Send request</button><span
-                                            class="try-status" id="status-ep-login" style="display:none"></span></div>
+                                                class="ri-send-plane-fill"></i> Send</button><span class="try-status"
+                                            id="status-ep-login" style="display:none"></span></div>
                                 </div>
                                 <div>
                                     <div class="try-col-label">Response <span id="time-ep-login"></span></div>
@@ -1820,7 +1808,8 @@ Content-Type: application/json</pre>
                                             <td><span class="ptype">string</span></td>
                                             <td><span class="preq">required</span></td>
                                             <td class="pdesc"><code>TRC20</code> | <code>BEP20</code> |
-                                                <code>SOLANA</code> | <code>BTC</code></td>
+                                                <code>SOLANA</code> | <code>BTC</code>
+                                            </td>
                                         </tr>
                                         <tr>
                                             <td><span class="pname">address</span></td>
@@ -2028,7 +2017,8 @@ Content-Type: application/json</pre>
                                             <td><span class="pname">pricingMode</span></td>
                                             <td><span class="ptype">string</span></td>
                                             <td><span class="popt">optional</span></td>
-                                            <td class="pdesc"><code>AUTO</code> | <code>MANUAL</code></td>
+                                            <td class="pdesc"><code>AUTO</code> (live) | <code>MANUAL</code> (fixed)
+                                            </td>
                                         </tr>
                                         <tr>
                                             <td><span class="pname">minInvoiceAmount</span></td>
@@ -2220,7 +2210,8 @@ Content-Type: application/json</pre>
                 <div class="info-box ib-orange"><i class="ri-fingerprint-line"></i>
                     <div><strong>Amount fingerprinting:</strong> always display
                         <code>amountFingerprint.finalExpectedAmount</code> — not the raw quoted amount. The customer
-                        must send the exact fingerprinted amount.</div>
+                        must send the exact fingerprinted amount.
+                    </div>
                 </div>
 
                 <div class="endpoint" id="ep-inv-create">
@@ -2275,7 +2266,8 @@ Content-Type: application/json</pre>
                                             <td><span class="ptype">string</span></td>
                                             <td><span class="preq">required</span></td>
                                             <td class="pdesc"><code>GHS</code> | <code>USD</code> | <code>NGN</code> |
-                                                <code>CAD</code> | <code>EUR</code></td>
+                                                <code>CAD</code> | <code>EUR</code>
+                                            </td>
                                         </tr>
                                         <tr>
                                             <td><span class="pname">asset</span></td>
@@ -2289,7 +2281,8 @@ Content-Type: application/json</pre>
                                             <td><span class="ptype">string</span></td>
                                             <td><span class="preq">required</span></td>
                                             <td class="pdesc"><code>TRC20</code> | <code>BEP20</code> |
-                                                <code>SOLANA</code> | <code>BTC</code></td>
+                                                <code>SOLANA</code> | <code>BTC</code>
+                                            </td>
                                         </tr>
                                         <tr>
                                             <td><span class="pname">description</span></td>
@@ -2461,17 +2454,13 @@ Content-Type: application/json</pre>
                                 <div>
                                     <div class="try-col-label">Request body</div><textarea class="try-textarea"
                                         id="try-body-ep-stand-create">{
-  "standName": "Table 12",
-  "standCode": "TABLE-12",
-  "location": "Main Branch",
-  "tableNumber": "12",
+  "standName": "Table 12", "standCode": "TABLE-12",
+  "location": "Main Branch", "tableNumber": "12",
   "instructions": "Scan to pay your bill.",
-  "mode": "OPEN_AMOUNT",
-  "currency": "GHS",
+  "mode": "OPEN_AMOUNT", "currency": "GHS",
   "allowedAssets": ["USDT","BTC"],
   "allowedNetworks": ["TRC20","BEP20","BTC"],
-  "defaultAsset": "USDT",
-  "defaultNetwork": "TRC20"
+  "defaultAsset": "USDT", "defaultNetwork": "TRC20"
 }</textarea>
                                     <div class="try-actions"><button class="try-btn"
                                             onclick="tryIt('ep-stand-create','POST','/payment-stands',true)"><i
@@ -2520,8 +2509,8 @@ Content-Type: application/json</pre>
                 <div class="section-group-title"><em>Webhooks</em></div>
                 <div class="info-box ib-blue"><i class="ri-information-line"></i>
                     <div>Deliveries are queued, retried with exponential backoff. Always respond <code>2xx</code>
-                        immediately — process async. Verify the <code>X-DoronPay-Signature</code> header using your
-                        webhook secret.</div>
+                        immediately. Verify the <code>X-DoronPay-Signature</code> header using your webhook secret.
+                    </div>
                 </div>
 
                 <div class="endpoint" id="ep-wh-create">
@@ -2535,7 +2524,7 @@ Content-Type: application/json</pre>
                                 onclick="tab('ep-wh-create','params')">Parameters</button><button class="ep-tab"
                                 onclick="tab('ep-wh-create','response')">Response</button><button class="ep-tab"
                                 onclick="tab('ep-wh-create','try')">Try it</button><button class="ep-tab"
-                                onclick="tab('ep-wh-create','code')">Code samples</button></div>
+                                onclick="tab('ep-wh-create','code')">Code</button></div>
                         <div class="ep-panel active" id="panel-ep-wh-create-params">
                             <div style="overflow-x:auto">
                                 <table class="params-table">
@@ -2566,7 +2555,8 @@ Content-Type: application/json</pre>
                                             <td><span class="preq">required</span></td>
                                             <td class="pdesc"><code>invoice.created</code> |
                                                 <code>invoice.payment_detected</code> | <code>invoice.paid</code> |
-                                                <code>invoice.expired</code></td>
+                                                <code>invoice.expired</code>
+                                            </td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -2957,7 +2947,7 @@ app.post('/webhooks/doronpay', express.raw({type:'*/*'}), (req,res) => {
                     </div>
                     <div>
                         <div class="status-chip sc-wait"><span class="status-dot dot-orange"></span>OVERPAID</div>
-                        <div class="sc-desc">Confirmed but exceeds expected amount</div>
+                        <div class="sc-desc">Confirmed but exceeds expected</div>
                     </div>
                     <div>
                         <div class="status-chip sc-neutral"><span class="status-dot dot-gray"></span>EXPIRED</div>
@@ -3007,93 +2997,59 @@ app.post('/webhooks/doronpay', express.raw({type:'*/*'}), (req,res) => {
     </div><!-- /docs-layout -->
 
     <script>
-        const BASE_URL = 'https://api.doronpay.com/smart-invoicing';
-        window.addEventListener('scroll', () => { document.getElementById('mainNav').classList.toggle('scrolled', scrollY > 40) }, { passive: true });
+        const BASE = 'https://api.doronpay.com/smart-invoicing';
+        window.addEventListener('scroll', () => document.getElementById('mainNav').classList.toggle('scrolled', scrollY > 40), { passive: true });
         let mobOpen = false;
         function toggleMob() { mobOpen = !mobOpen; document.getElementById('mobOverlay').classList.toggle('open', mobOpen); document.getElementById('navBurger').classList.toggle('open', mobOpen); document.body.style.overflow = mobOpen ? 'hidden' : ''; }
         function openSidebar() { document.getElementById('docSidebar').classList.add('mob-open'); document.getElementById('sidebarOverlay').classList.add('active'); }
         function closeSidebar() { document.getElementById('docSidebar').classList.remove('mob-open'); document.getElementById('sidebarOverlay').classList.remove('active'); }
-        let currentEnv = 'TEST';
-        function setEnv(env) { currentEnv = env; document.getElementById('envTest').className = 'env-btn' + (env === 'TEST' ? ' active-test' : ''); document.getElementById('envLive').className = 'env-btn' + (env === 'LIVE' ? ' active-live' : ''); }
-        function toggle(id) { const body = document.getElementById('body-' + id); const tog = document.getElementById('tog-' + id); const open = body.classList.toggle('open'); if (tog) tog.classList.toggle('open', open); document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active')); const navBtn = document.querySelector('[data-ep="' + id + '"]'); if (navBtn) navBtn.classList.add('active'); }
-        function openEp(id) { const body = document.getElementById('body-' + id); if (!body.classList.contains('open')) toggle(id); setTimeout(() => { const el = document.getElementById(id); if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' }); }, 60); }
-        function scrollTo(id) { const el = document.getElementById(id); if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
-        function tab(epId, tabName) { const panels = document.querySelectorAll('[id^="panel-' + epId + '-"]'); panels.forEach(p => p.classList.remove('active')); const tabs = document.querySelectorAll('#body-' + epId + ' .ep-tab'); tabs.forEach(t => t.classList.remove('active')); const panel = document.getElementById('panel-' + epId + '-' + tabName); if (panel) panel.classList.add('active'); tabs.forEach(t => { if (t.getAttribute('onclick')?.includes("'" + tabName + "'")) t.classList.add('active'); }); }
-        document.getElementById('sidebarSearch').addEventListener('input', function () { const q = this.value.toLowerCase(); document.querySelectorAll('.nav-item').forEach(item => { item.style.display = !q || item.textContent.toLowerCase().includes(q) ? '' : 'none'; }); document.querySelectorAll('.nav-group').forEach(g => { const visible = [...g.querySelectorAll('.nav-item')].some(i => i.style.display !== 'none'); g.style.display = visible ? '' : 'none'; }); });
-        function highlight(json) { if (typeof json !== 'string') json = JSON.stringify(json, null, 2); return json.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/("(\u[a-zA-Z0-9]{4}|\[^u]|[^\"])*"(\s*:)?|(true|false|null)|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?)/g, m => { if (/^"/.test(m)) { if (/:$/.test(m)) return '<span class="j-key">' + m + '</span>'; return '<span class="j-str">' + m + '</span>'; } if (/true|false/.test(m)) return '<span class="j-bool">' + m + '</span>'; if (/null/.test(m)) return '<span class="j-null">' + m + '</span>'; return '<span class="j-num">' + m + '</span>'; }); }
-        async function tryIt(epId, method, path, requiresAuth, suffix) {
+        function setEnv(e) { document.getElementById('envTest').className = 'env-btn' + (e === 'TEST' ? ' active-test' : ''); document.getElementById('envLive').className = 'env-btn' + (e === 'LIVE' ? ' active-live' : ''); }
+        function toggle(id) { const b = document.getElementById('body-' + id); const t = document.getElementById('tog-' + id); const o = b.classList.toggle('open'); if (t) t.classList.toggle('open', o); document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active')); const nb = document.querySelector('[data-ep="' + id + '"]'); if (nb) nb.classList.add('active'); }
+        function openEp(id) { if (!document.getElementById('body-' + id).classList.contains('open')) toggle(id); setTimeout(() => document.getElementById(id)?.scrollIntoView({ behavior: 'smooth', block: 'start' }), 60); }
+        function goTo(id) { document.getElementById(id)?.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
+        function tab(epId, name) { document.querySelectorAll('[id^="panel-' + epId + '-"]').forEach(p => p.classList.remove('active')); document.querySelectorAll('#body-' + epId + ' .ep-tab').forEach(t => t.classList.remove('active')); document.getElementById('panel-' + epId + '-' + name)?.classList.add('active'); document.querySelectorAll('#body-' + epId + ' .ep-tab').forEach(t => { if (t.getAttribute('onclick')?.includes("'" + name + "'")) t.classList.add('active'); }); }
+        document.getElementById('sidebarSearch').addEventListener('input', function () { const q = this.value.toLowerCase(); document.querySelectorAll('.nav-item').forEach(i => { i.style.display = !q || i.textContent.toLowerCase().includes(q) ? '' : 'none'; }); document.querySelectorAll('.nav-group').forEach(g => { g.style.display = [...g.querySelectorAll('.nav-item')].some(i => i.style.display !== 'none') ? '' : 'none'; }); });
+        function hl(j) { if (typeof j !== 'string') j = JSON.stringify(j, null, 2); return j.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/("(?:[^"\\]|\\.)*"(?:\s*:)?|true|false|null|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?)/g, m => { if (/^"/.test(m)) { return /:$/.test(m) ? '<span class="j-key">' + m + '</span>' : '<span class="j-str">' + m + '</span>'; } if (/true|false/.test(m)) return '<span class="j-bool">' + m + '</span>'; if (/null/.test(m)) return '<span class="j-null">' + m + '</span>'; return '<span class="j-num">' + m + '</span>'; }); }
+        async function tryIt(epId, method, path, auth, suffix = '') {
             const token = document.getElementById('globalToken').value.trim();
             const bodyEl = document.getElementById('try-body-' + epId);
             const resEl = document.getElementById('result-' + epId);
             const statEl = document.getElementById('status-' + epId);
             const timeEl = document.getElementById('time-' + epId);
-            if (requiresAuth && !token) { resEl.innerHTML = '// Paste your Bearer token at the top.'; resEl.className = 'try-result placeholder'; return; }
+            if (auth && !token) { resEl.textContent = '// Paste your Bearer token at the top.'; resEl.className = 'try-result placeholder'; return; }
             const headers = { 'Content-Type': 'application/json' };
-            if (requiresAuth && token) headers['Authorization'] = 'Bearer ' + token;
+            if (auth && token) headers['Authorization'] = 'Bearer ' + token;
             const opts = { method, headers };
-            if (bodyEl && ['POST', 'PUT', 'PATCH'].includes(method)) { try { JSON.parse(bodyEl.value); opts.body = bodyEl.value; } catch (e) { resEl.textContent = '' + e.message; resEl.className = 'try-result placeholder'; return; } }
+            if (bodyEl && ['POST', 'PUT', 'PATCH'].includes(method)) { try { JSON.parse(bodyEl.value); opts.body = bodyEl.value; } catch (e) { resEl.textContent = 'JSON error: ' + e.message; resEl.className = 'try-result placeholder'; return; } }
             const btn = document.querySelector('#panel-' + epId + '-try .try-btn');
             if (btn) { btn.disabled = true; btn.innerHTML = '<span class="spinner"></span> Sending...'; }
             resEl.textContent = '// Sending...'; resEl.className = 'try-result placeholder'; statEl.style.display = 'none';
             const t0 = performance.now();
             try {
-                const res = await fetch(BASE_URL + path + (suffix || ''), opts);
+                const res = await fetch(BASE + path + suffix, opts);
                 const ms = Math.round(performance.now() - t0);
                 const text = await res.text();
-                let parsed; try { parsed = JSON.parse(text); } catch (e) { parsed = text; }
-                resEl.innerHTML = typeof parsed === 'string' ? parsed : highlight(parsed);
+                let parsed; try { parsed = JSON.parse(text); } catch { parsed = text; }
+                resEl.innerHTML = typeof parsed === 'string' ? parsed : hl(parsed);
                 resEl.className = 'try-result';
                 statEl.textContent = res.status + ' ' + res.statusText;
                 statEl.className = 'try-status ' + (res.ok ? 'ok' : 'err');
                 statEl.style.display = '';
                 if (timeEl) timeEl.textContent = ms + 'ms';
             } catch (e) {
-                resEl.textContent = '// Network error: ' + e.message + '\n\nNote: CORS may block browser requests. Use cURL or your backend.';
-                resEl.className = 'try-result placeholder';
-                statEl.textContent = 'Network error'; statEl.className = 'try-status err'; statEl.style.display = '';
-            } finally { if (btn) { btn.disabled = false; btn.innerHTML = '<i class="ri-send-plane-fill"></i> Send request'; } }
-        }
-        async function tryItPath(epId, method, basePath, requiresAuth, suffix) {
-            const pathInput = document.getElementById('try-path-' + epId);
-            const pathVal = pathInput ? pathInput.value.trim() : '';
-            if (!pathVal) { document.getElementById('result-' + epId).textContent = '// Enter the path parameter above.'; return; }
-            const fullPath = basePath + pathVal + (suffix || '');
-            const bodyEl = document.getElementById('try-body-' + epId);
-            const token = document.getElementById('globalToken').value.trim();
-            const resEl = document.getElementById('result-' + epId);
-            const statEl = document.getElementById('status-' + epId);
-            const timeEl = document.getElementById('time-' + epId);
-            if (requiresAuth && !token) { resEl.textContent = '// Paste your Bearer token at the top.'; resEl.className = 'try-result placeholder'; return; }
-            const headers = { 'Content-Type': 'application/json' };
-            if (requiresAuth && token) headers['Authorization'] = 'Bearer ' + token;
-            const opts = { method, headers };
-            if (bodyEl && ['POST', 'PUT', 'PATCH'].includes(method)) { try { JSON.parse(bodyEl.value); opts.body = bodyEl.value; } catch (e) { return; } }
-            const btn = document.querySelector('#panel-' + epId + '-try .try-btn');
-            if (btn) { btn.disabled = true; btn.innerHTML = '<span class="spinner"></span> Sending...'; }
-            resEl.textContent = '// Sending...'; resEl.className = 'try-result placeholder'; statEl.style.display = 'none';
-            const t0 = performance.now();
-            try {
-                const res = await fetch(BASE_URL + fullPath, opts);
-                const ms = Math.round(performance.now() - t0);
-                const text = await res.text();
-                let parsed; try { parsed = JSON.parse(text); } catch (e) { parsed = text; }
-                resEl.innerHTML = typeof parsed === 'string' ? parsed : highlight(parsed);
-                resEl.className = 'try-result';
-                statEl.textContent = res.status + ' ' + res.statusText;
-                statEl.className = 'try-status ' + (res.ok ? 'ok' : 'err');
-                statEl.style.display = '';
-                if (timeEl) timeEl.textContent = ms + 'ms';
-            } catch (e) {
-                resEl.textContent = '// Network error: ' + e.message;
+                resEl.textContent = '// Network error: ' + e.message + '\n\nNote: CORS may block browser requests.';
                 resEl.className = 'try-result placeholder';
                 statEl.textContent = 'Error'; statEl.className = 'try-status err'; statEl.style.display = '';
             } finally { if (btn) { btn.disabled = false; btn.innerHTML = '<i class="ri-send-plane-fill"></i> Send request'; } }
         }
-        async function tryItQS(epId, method, path, requiresAuth) {
-            const qsInput = document.getElementById('try-qs-' + epId);
-            const qs = qsInput ? qsInput.value.trim() : '';
-            const fullPath = path + (qs.startsWith('?') ? qs : qs ? '?' + qs : '');
-            await tryIt(epId, method, fullPath, requiresAuth);
+        async function tryItPath(epId, method, base, auth, suffix = '') {
+            const pv = document.getElementById('try-path-' + epId)?.value.trim();
+            if (!pv) { document.getElementById('result-' + epId).textContent = '// Enter the path parameter above.'; return; }
+            await tryIt(epId, method, base + pv, auth, suffix);
+        }
+        async function tryItQS(epId, method, path, auth) {
+            const qs = document.getElementById('try-qs-' + epId)?.value.trim() || '';
+            await tryIt(epId, method, path + (qs.startsWith('?') ? qs : qs ? '?' + qs : ''), auth);
         }
         function cp(btn) { const pre = btn.closest('.code-block').querySelector('pre'); navigator.clipboard.writeText(pre.innerText).then(() => { btn.textContent = 'Copied!'; setTimeout(() => btn.textContent = 'Copy', 2000); }); }
     </script>
