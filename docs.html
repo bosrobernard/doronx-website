@@ -1301,8 +1301,8 @@
             <a href="docs.html" class="active">Docs</a>
         </div>
         <div class="nav-cta">
-            <button class="btn-ghost" onclick="location.href='https://doronpay.com/'">Sign in</button>
-            <a href="https://doronpay.com/" class="btn-solid">Open dashboard <i class="ri-arrow-right-up-line"></i></a>
+            <button class="btn-ghost" onclick="location.href='https://app.doronx.com/'">Sign in</button>
+            <a href="https://app.doronx.com/" class="btn-solid">Open dashboard <i class="ri-arrow-right-up-line"></i></a>
             <button class="nav-burger" id="navBurger" onclick="toggleMob()">
                 <span class="burger-bar"></span><span class="burger-bar"></span><span class="burger-bar"></span>
             </button>
@@ -1315,8 +1315,8 @@
         <a href="index.html#ecosystem" onclick="toggleMob()">Integrations</a>
         <a href="docs.html" class="active" onclick="toggleMob()">Docs</a>
         <div class="mob-ctas">
-            <button class="btn-ghost" onclick="location.href='https://doronpay.com/';toggleMob()">Sign in</button>
-            <a href="https://doronpay.com/" class="btn-solid" onclick="toggleMob()">Open dashboard</a>
+            <button class="btn-ghost" onclick="location.href='https://app.doronx.com/';toggleMob()">Sign in</button>
+            <a href="https://app.doronx.com/" class="btn-solid" onclick="toggleMob()">Open dashboard</a>
         </div>
     </div>
 
@@ -1440,7 +1440,7 @@
             <div class="doc-topbar">
                 <div class="base-url-chip"><i class="ri-server-line"
                         style="color:var(--orange);font-size:14px"></i>&nbsp;Base
-                    URL:&nbsp;<span>https://api.doronpay.com/smart-invoicing</span></div>
+                    URL:&nbsp;<span>https://api.app.doronx.com/smart-invoicing</span></div>
                 <div class="auth-input-wrap"><label>Bearer token</label><input class="auth-input" id="globalToken"
                         type="password" placeholder="Paste your token here — used in all Try It requests"
                         autocomplete="off"></div>
@@ -1454,7 +1454,7 @@
                         API for creating crypto invoices, managing merchant wallets, configuring live rates, handling
                         payment detection and webhooks, and reading billing and reports.</p>
                     <div class="info-box ib-blue"><i class="ri-information-line"></i>
-                        <div><strong>Base URL</strong> — <code>https://api.doronpay.com/smart-invoicing</code><br>Prefix
+                        <div><strong>Base URL</strong> — <code>https://api.app.doronx.com/smart-invoicing</code><br>Prefix
                             every path shown in this reference with this base URL.</div>
                     </div>
                 </div>
@@ -2312,7 +2312,7 @@ Content-Type: application/json</pre>
       <span class="j-key">"amountFingerprint"</span>: { <span class="j-key">"finalExpectedAmount"</span>: <span class="j-num">65.123401</span> },
       <span class="j-key">"receivingAddress"</span>: <span class="j-str">"TNoTbnm..."</span>
     },
-    <span class="j-key">"paymentUrl"</span>: <span class="j-str">"https://pay.doronpay.com/..."</span>
+    <span class="j-key">"paymentUrl"</span>: <span class="j-str">"https://pay.app.doronx.com/..."</span>
   }
 }</pre>
                             </div>
@@ -2989,7 +2989,7 @@ app.post('/webhooks/doronpay', express.raw({type:'*/*'}), (req,res) => {
                     style="border-top:1px solid var(--border);padding:24px;background:var(--dark2);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;font-size:13px;color:var(--gray);margin:40px -24px -80px">
                     <span>© 2026 DoronX Smart Invoicing · API v5.0</span>
                     <div style="display:flex;gap:20px"><a href="index.html" style="color:var(--orange)">← Back to
-                            site</a><a href="https://doronpay.com/" style="color:var(--orange)">Open dashboard</a></div>
+                            site</a><a href="https://app.doronx.com/" style="color:var(--orange)">Open dashboard</a></div>
                 </footer>
 
             </div><!-- /doc-content -->
@@ -2997,7 +2997,7 @@ app.post('/webhooks/doronpay', express.raw({type:'*/*'}), (req,res) => {
     </div><!-- /docs-layout -->
 
     <script>
-        const BASE = 'https://api.doronpay.com/smart-invoicing';
+        const BASE = 'https://api.app.doronx.com/smart-invoicing';
         window.addEventListener('scroll', () => document.getElementById('mainNav').classList.toggle('scrolled', scrollY > 40), { passive: true });
         let mobOpen = false;
         function toggleMob() { mobOpen = !mobOpen; document.getElementById('mobOverlay').classList.toggle('open', mobOpen); document.getElementById('navBurger').classList.toggle('open', mobOpen); document.body.style.overflow = mobOpen ? 'hidden' : ''; }
