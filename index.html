@@ -428,6 +428,20 @@
             }
         }
 
+        .hero-bg-image {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    background-image: url('hero-bg.jpg');
+    background-size: cover;
+    background-position: center 35%;
+    opacity: 0.10;
+    pointer-events: none;
+    filter: saturate(0.6) contrast(1.05);
+    mask-image: radial-gradient(ellipse at center, black 35%, transparent 78%);
+    -webkit-mask-image: radial-gradient(ellipse at center, black 35%, transparent 78%);
+}
+
         .hero-grid-bg {
             position: absolute;
             inset: 0;
@@ -685,6 +699,48 @@
             grid-template-columns: 1fr 1.5fr 1fr;
             gap: 14px;
             will-change: transform, opacity;
+        }
+
+        .preview-photo-tag {
+            position: absolute;
+            top: -82px;
+            right: 2%;
+            width: 240px;
+            border-radius: 18px;
+            overflow: hidden;
+            border: 1px solid var(--orange-border);
+            box-shadow: 0 24px 60px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(247, 147, 26, 0.08);
+            background: var(--card);
+            transform: rotate(-6deg);
+            z-index: 5;
+            transition: transform .3s;
+        }
+
+        .preview-photo-tag:hover {
+            transform: rotate(-1deg) translateY(-6px);
+        }
+
+        .preview-photo-tag img {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+            display: block;
+        }
+
+        .ppt-caption {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            padding: 8px 10px;
+            font-size: 10px;
+            font-weight: 600;
+            color: var(--white);
+            background: rgba(10, 10, 10, 0.92);
+        }
+
+        .ppt-caption i {
+            color: var(--orange);
+            font-size: 13px;
         }
 
         .preview-card {
@@ -2415,6 +2471,12 @@
                 max-width: 520px;
             }
 
+            .preview-photo-tag {
+                width: 170px;
+                top: -50px;
+                right: 3%;
+            }
+
             .fc-top {
                 grid-template-columns: 1fr;
                 min-height: auto;
@@ -2531,6 +2593,14 @@
                 font-size: 11px;
             }
 
+            .float-pill {
+                display: none;
+            }
+
+            .preview-photo-tag {
+                display: none;
+            }
+
             .footer-inner {
                 grid-template-columns: 1fr 1fr;
                 gap: 28px;
@@ -2622,9 +2692,10 @@
 
     <!-- HERO -->
     <section class="hero" id="home">
-        <div class="hero-grid-bg"></div>
-        <div class="hero-orb"></div>
-        <div class="hero-bg-fade"></div>
+    <div class="hero-bg-image"></div>
+    <div class="hero-grid-bg"></div>
+    <div class="hero-orb"></div>
+    <div class="hero-bg-fade"></div>
 
         <div class="hero-floats">
             <div class="float-pill fp-1 gsap-fade">
@@ -2702,6 +2773,10 @@
 
             <!-- Dashboard preview -->
             <div class="preview-wrap gsap-fade-up">
+                <div class="preview-photo-tag gsap-scale">
+                    <img src="qr-stand.jpg" alt="QR payment stand in a business setting">
+                    <span class="ppt-caption"><i class="ri-qr-scan-2-line"></i> Scan & pay — in person</span>
+                </div>
                 <!-- Invoices card -->
                 <div class="preview-card">
                     <div class="pc-head">
@@ -3147,7 +3222,8 @@
                 <span class="bento-tag">Auto</span>
                 <div class="bento-icon"><i class="ri-radar-line"></i></div>
                 <h3 class="bento-title">Payment Detection</h3>
-                <p class="bento-desc">Callback-based on-chain detection across TRC20, BEP20, Solana, Polygon and BTC. The gateway pushes every confirmation event the moment it's detected.</p>
+                <p class="bento-desc">Callback-based on-chain detection across TRC20, BEP20, Solana, Polygon and BTC.
+                    The gateway pushes every confirmation event the moment it's detected.</p>
                 <div class="game-visual">
                     <div class="game-tile solved">S</div>
                     <div class="game-tile solved">E</div>
@@ -3500,6 +3576,7 @@
 
         gsap.to('.hero-orb', { yPercent: 28, scale: 1.1, ease: 'none', scrollTrigger: { trigger: '.hero', start: 'top top', end: 'bottom top', scrub: 1.2 } });
         gsap.to('.hero-grid-bg', { yPercent: 20, ease: 'none', scrollTrigger: { trigger: '.hero', start: 'top top', end: 'bottom top', scrub: 1 } });
+        gsap.to('.hero-bg-image', { yPercent: 14, ease: 'none', scrollTrigger: { trigger: '.hero', start: 'top top', end: 'bottom top', scrub: 1.4 } });
 
         function revealOn(el, vars = {}, triggerOpts = {}) {
             gsap.to(el, { opacity: 1, y: 0, x: 0, scale: 1, duration: .9, ease: E.out, ...vars, scrollTrigger: { trigger: el, start: 'top 88%', toggleActions: 'play none none none', ...triggerOpts } });
